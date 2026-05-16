@@ -9,7 +9,10 @@
     "sites": "潛點介紹",
     "calendar": "行程日曆",
     "merch": "限量周邊",
-    "faq": "常見問題"
+    "faq": "常見問題",
+    "signIn": "會員登入",
+    "account": "我的帳號",
+    "adminConsole": "管理後台"
   },
   "Footer": {
     "description": "台灣潛水探索品牌，帶你發現水下的美好世界。",
@@ -139,7 +142,16 @@
     "today": "今天",
     "month": "7 月",
     "monthEn": "JULY 2026",
-    "legend": {"padi": "PADI 水肺", "aida": "AIDA 自由潛水", "experience": "體驗潛水", "todayHint": "點擊日期查看詳情", "fullHint": "灰色為已售完"},
+    "legend": {"padi": "PADI 水肺", "aida": "AIDA 自由潛水", "experience": "體驗潛水", "todayHint": "點擊日期可直接前往該行程頁面", "fullHint": "灰色為已售完"},
+    "matchCount": "符合條件：{count} 場",
+    "events": {
+      "ludaoTrip": "綠島 4D3N",
+      "lanyuTrip": "蘭嶼 5D4N",
+      "liuqiuTrip": "小琉球 2D1N",
+      "aida2": "AIDA 2 課程",
+      "aida3": "AIDA 3 課程",
+      "tryDive": "體驗潛水"
+    },
     "upcoming": {
       "title": "7 月行程總覽",
       "titleEn": "JULY 2026 TRIPS",
@@ -429,5 +441,53 @@
     "privacy": {"kicker": "PRIVACY POLICY", "title": "隱私權政策", "body": "我們重視你的個資。完整隱私權政策內容正在撰寫，預計近期上線。", "cta": "回首頁"},
     "terms": {"kicker": "TERMS OF SERVICE", "title": "服務條款", "body": "服務條款內容彙整中，預計近期上線。報名與付款條款請參考各行程頁的取消政策。", "cta": "回首頁"},
     "contact": {"kicker": "CONTACT", "title": "聯絡我們", "body": "Email：hello@heyheydive.com\n電話：+886 989 123 456\nIG：@heyheydive\n地址：台東縣綠島鄉南寮村", "cta": "回首頁"}
+  },
+  "Admin": {
+    "login": {
+      "title": "管理員登入",
+      "subtitle": "請使用管理員帳號登入後台",
+      "emailLabel": "Email",
+      "passwordLabel": "密碼",
+      "submit": "登入",
+      "submitting": "登入中…",
+      "errors": {
+        "missing-fields": "請輸入 Email 和密碼。",
+        "invalid-credentials": "Email 或密碼錯誤。",
+        "not-admin": "此帳號不具備管理員權限。"
+      }
+    },
+    "shell": {
+      "brand": "HeyHeyDive",
+      "signedInAs": "已登入身分",
+      "signOut": "登出",
+      "nav": {
+        "dashboard": "儀表板",
+        "trips": "行程管理",
+        "courses": "課程管理",
+        "users": "會員管理",
+        "settings": "設定"
+      }
+    },
+    "dashboard": {
+      "title": "管理後台",
+      "subtitle": "近期活動與系統概況",
+      "stat": {
+        "users": "註冊會員",
+        "upcomingTrips": "近期行程",
+        "activeSites": "啟用潛點",
+        "coursesRunning": "開課中課程",
+        "placeholder": "（資料示例，串接後台後自動更新）"
+      },
+      "panels": {
+        "recentBookings": {
+          "title": "近期報名",
+          "body": "目前還沒有報名紀錄。完成 trips / bookings 資料表後，這個區塊會顯示最近 10 筆訂單。"
+        },
+        "notes": {
+          "title": "下一步建議",
+          "body": "建立 trips / bookings / profiles table，並把首頁與行程頁的靜態資料改成從 Supabase 讀取。"
+        }
+      }
+    }
   }
 }

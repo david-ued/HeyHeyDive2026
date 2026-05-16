@@ -9,7 +9,10 @@
     "sites": "DIVE SITES",
     "calendar": "CALENDAR",
     "merch": "MERCH",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "signIn": "Sign in",
+    "account": "Account",
+    "adminConsole": "Admin"
   },
   "Footer": {
     "description": "Taiwan's dive-travel brand — guiding you into the world beneath the surface.",
@@ -112,7 +115,16 @@
     "today": "Today",
     "month": "July",
     "monthEn": "JULY 2026",
-    "legend": {"padi": "PADI · Scuba", "aida": "AIDA · Freediving", "experience": "Try-dive", "todayHint": "Click a date for details", "fullHint": "Grey = sold out"},
+    "legend": {"padi": "PADI · Scuba", "aida": "AIDA · Freediving", "experience": "Try-dive", "todayHint": "Click a date to open its trip page", "fullHint": "Grey = sold out"},
+    "matchCount": "Matching: {count}",
+    "events": {
+      "ludaoTrip": "Ludao 4D3N",
+      "lanyuTrip": "Lanyu 5D4N",
+      "liuqiuTrip": "Liuqiu 2D1N",
+      "aida2": "AIDA 2",
+      "aida3": "AIDA 3",
+      "tryDive": "Try-dive"
+    },
     "upcoming": {
       "title": "July 2026 trips at a glance",
       "titleEn": "JULY 2026 TRIPS",
@@ -390,5 +402,53 @@
     "privacy": {"kicker": "PRIVACY POLICY", "title": "Privacy policy", "body": "We take your data seriously. Full privacy policy coming soon.", "cta": "Back to home"},
     "terms": {"kicker": "TERMS OF SERVICE", "title": "Terms of service", "body": "Terms of service being compiled. Booking & payment terms: see each trip page's cancellation policy.", "cta": "Back to home"},
     "contact": {"kicker": "CONTACT", "title": "Contact us", "body": "Email: hello@heyheydive.com\nPhone: +886 989 123 456\nIG: @heyheydive\nAddress: Nanliao, Ludao, Taitung, Taiwan", "cta": "Back to home"}
+  },
+  "Admin": {
+    "login": {
+      "title": "Admin sign in",
+      "subtitle": "Sign in with your admin credentials to access the console.",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "errors": {
+        "missing-fields": "Email and password are both required.",
+        "invalid-credentials": "Email or password is incorrect.",
+        "not-admin": "This account does not have admin privileges."
+      }
+    },
+    "shell": {
+      "brand": "HeyHeyDive",
+      "signedInAs": "Signed in as",
+      "signOut": "Sign out",
+      "nav": {
+        "dashboard": "Dashboard",
+        "trips": "Trips",
+        "courses": "Courses",
+        "users": "Users",
+        "settings": "Settings"
+      }
+    },
+    "dashboard": {
+      "title": "Admin console",
+      "subtitle": "A snapshot of recent activity and system state.",
+      "stat": {
+        "users": "Registered users",
+        "upcomingTrips": "Upcoming trips",
+        "activeSites": "Active sites",
+        "coursesRunning": "Courses running",
+        "placeholder": "(Placeholder — wires to Supabase next.)"
+      },
+      "panels": {
+        "recentBookings": {
+          "title": "Recent bookings",
+          "body": "No bookings yet. Once the trips / bookings tables are in place, the last 10 orders will surface here."
+        },
+        "notes": {
+          "title": "Next steps",
+          "body": "Create trips / bookings / profiles tables and migrate the static homepage data over to Supabase."
+        }
+      }
+    }
   }
 }

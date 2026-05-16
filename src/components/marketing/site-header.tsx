@@ -1,7 +1,7 @@
 'use client';
 
 import {useState} from 'react';
-import {Menu, X} from 'lucide-react';
+import {LogIn, Menu, ShieldCheck, X} from 'lucide-react';
 import {InstagramIcon, FacebookIcon, LineIcon} from './brand-icons';
 import {useTranslations, useLocale} from 'next-intl';
 import {Link, usePathname} from '@/i18n/navigation';
@@ -17,7 +17,9 @@ const NAV_ITEMS = [
   {key: 'faq', href: '/faq'}
 ] as const;
 
-export function SiteHeader() {
+type Session = {email: string; isAdmin: boolean} | null;
+
+export function SiteHeader({session}: {session: Session}) {
   const t = useTranslations('Nav');
   const pathname = usePathname();
   const locale = useLocale();
@@ -53,8 +55,10 @@ export function SiteHeader() {
             locale={otherLocale}
             className="font-en text-[11px] font-medium tracking-wide text-white/90 transition hover:text-gold"
           >
-            {locale === 'zh-TW' ? '🇹🇼 ZH' : '🇬🇧 EN'} / {otherLocale === 'en' ? 'EN' : 'ZH'}
+            {locale === 'zh-TW' ? '🇹🇼 ZH' : '🇬🇧 EN'} /{' '}
+            {otherLocale === 'en' ? 'EN' : 'ZH'}
           </Link>
+          <SessionPill session={session} />
         </div>
       </div>
 
@@ -65,22 +69,25 @@ export function SiteHeader() {
             HH
           </span>
         </Link>
-        <button
-          type="button"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="text-white"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="flex items-center gap-3">
+          <SessionPill session={session} compact />
+          <button
+            type="button"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="text-white"
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
       <div
         className={cn(
           'md:hidden overflow-hidden bg-navy-900 transition-[max-height] duration-300',
-          open ? 'max-h-[600px]' : 'max-h-0'
+          open ? 'max-h-[700px]' : 'max-h-0'
         )}
       >
         <nav className="flex flex-col px-6 py-2">
@@ -111,6 +118,50 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
+  );
+}
+
+function SessionPill({
+  session,
+  compact = false
+}: {
+  session: Session;
+  compact?: boolean;
+}) {
+  const t = useTranslations('Nav');
+
+  if (!session) {
+    return (
+      <Link
+        href="/admin/login"
+        className={cn(
+          'inline-flex items-center gap-1.5 rounded-full bg-coral font-en font-semibold text-white transition hover:brightness-110',
+          compact ? 'px-3 py-1.5 text-[11px]' : 'px-3.5 py-1.5 text-xs'
+        )}
+      >
+        <LogIn className="h-3.5 w-3.5" />
+        {t('signIn')}
+      </Link>
+    );
+  }
+
+  // Signed in. Admin gets a quick link into the console.
+  return (
+    <Link
+      href={session.isAdmin ? '/admin' : '/'}
+      className={cn(
+        'inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/5 font-en text-white transition hover:bg-white/15',
+        compact ? 'px-3 py-1.5 text-[11px]' : 'px-3.5 py-1.5 text-xs'
+      )}
+      title={session.email}
+    >
+      {session.isAdmin ? (
+        <ShieldCheck className="h-3.5 w-3.5 text-gold" />
+      ) : (
+        <LogIn className="h-3.5 w-3.5" />
+      )}
+      {compact ? t('account') : session.isAdmin ? t('adminConsole') : t('account')}
+    </Link>
   );
 }
 
