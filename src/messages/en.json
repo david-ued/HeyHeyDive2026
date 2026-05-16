@@ -3,10 +3,392 @@
     "title": "HeyHeyDive",
     "description": "Diving trips and dual-system certification courses (AIDA / PADI) at Taiwan's four signature dive sites: Liuqiu, Ludao, Lanyu, Kenting."
   },
-  "Placeholder": {
-    "brand": "HeyHeyDive",
-    "subtitle": "Where the breath begins",
-    "tagline": "呼吸，是潛水的開始",
-    "status": "Under Construction"
+  "Nav": {
+    "about": "ABOUT US",
+    "courses": "COURSES",
+    "sites": "DIVE SITES",
+    "calendar": "CALENDAR",
+    "merch": "MERCH",
+    "faq": "FAQ"
+  },
+  "Footer": {
+    "description": "Taiwan's dive-travel brand — guiding you into the world beneath the surface.",
+    "quickLinks": "Quick Links",
+    "social": "Social",
+    "contact": "Contact",
+    "address": "Nanliao, Ludao, Taitung, Taiwan",
+    "copyright": "© 2026 HeyHeyDive. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "Home": {
+    "hero": {
+      "seasonLabel": "S2 / SUMMER 2026",
+      "headline": "Ludao Underwater Hot-spring Night Dive",
+      "subtitle": "Where geothermal currents meet the night sea.",
+      "cta": "DISCOVER"
+    },
+    "tagline": {
+      "main": "The breath is where diving begins.",
+      "sub": "呼吸，是潛水的開始",
+      "cta": "Explore dive sites"
+    },
+    "sites": {
+      "title": "Three islands. Three blues.",
+      "subtitle": "三個島，三種藍",
+      "ludao": {"tag": "LUDAO", "name": "Ludao", "en": "Volcanic island, east coast", "desc": "Underwater hot springs, twin-peak rocks, and steady visibility — Taiwan's geology, submerged."},
+      "lanyu": {"tag": "LANYU", "name": "Lanyu", "en": "Tao culture, deep blue", "desc": "Kuroshio upwelling, blue caves, and pelagic encounters — the wild edge of Taiwan."},
+      "liuqiu": {"tag": "LIUQIU", "name": "Liuqiu", "en": "Coral reef island", "desc": "Year-round diving and turtle sightings every dive — Taiwan's entry point to the underwater world."}
+    },
+    "trips": {
+      "title": "Summer 2026 dive trips",
+      "subtitle": "S2 / July – September",
+      "viewAll": "VIEW ALL",
+      "book": "Book",
+      "trip1": {"badge": "LUDAO", "title": "Ludao 4D3N — Hot-spring dive", "dates": "Jul 04 – 07", "location": "Nanliao, Ludao", "price": "NT$ 18,800"},
+      "trip2": {"badge": "LANYU", "title": "Lanyu 5D4N — Pelagic week", "dates": "Jul 18 – 22", "location": "Kaiyuan, Lanyu", "price": "NT$ 24,500"},
+      "trip3": {"badge": "LIUQIU", "title": "Liuqiu 2D1N — Turtle escape", "dates": "Aug 01 – 02", "location": "Baisha, Liuqiu", "price": "NT$ 6,800"},
+      "trip4": {"badge": "KENTING", "title": "Kenting 3D2N — Houbihu", "dates": "Aug 15 – 17", "location": "Houbihu", "price": "NT$ 9,800"}
+    },
+    "courses": {
+      "title": "Whichever way you breathe — we'll teach you.",
+      "subtitle": "Choose your breathing style.",
+      "cta": "Learn more",
+      "aida": {"kicker": "FREEDIVING", "label": "AIDA", "name": "Freediving courses", "desc": "From your first held breath to 40 m depth — internationally recognised AIDA certification, taught progressively."},
+      "padi": {"kicker": "SCUBA", "label": "PADI", "name": "Scuba diving courses", "desc": "From Open Water to Rescue Diver — globally portable PADI certification, from beginner to pro."}
+    },
+    "newsletter": {
+      "title": "Subscribe to The Dive Brief",
+      "subtitle": "Latest trips, dive guides, and member-only offers",
+      "description": "Drop in your email — we'll send the rest.",
+      "placeholder": "your@email.com",
+      "button": "Subscribe"
+    }
+  },
+  "DiveSite": {
+    "shared": {"book": "Book", "coursesKicker": "READY TO DIVE?", "coursesTitle": "Choose how you breathe.", "coursesDesc": "Begin your diving journey on this island — freediving or scuba, both certifications run year-round."},
+    "ludao": {
+      "kicker": "LUDAO", "name": "Ludao", "en": "Ludao Island · Taitung",
+      "intro": "A volcanic island on Taiwan's east coast and one of only three undersea hot-spring sites on Earth. Steady currents, high visibility, varied topography.",
+      "region": "Ludao · Taitung", "temp": "26–28°C", "viz": "20–30 m", "seaTitle": "Marine life at Ludao",
+      "narr1": {"kicker": "01 / GEOTHERMAL", "title": "An undersea hot spring — one of three on Earth", "body": "Sulphurous geothermal water meets cool sea water near Zhaori, producing thermal striations and clouds of orange shrimp on night dives."},
+      "narr2": {"kicker": "02 / TOPOGRAPHY", "title": "Twin Peaks, Gate Rock, Da-baisha", "body": "Volcanic walls, swim-throughs, and tunnels — progression-ready dives once your buoyancy is dialled in."},
+      "narr3": {"kicker": "03 / WILDLIFE", "title": "Damselfish, turtles, and the occasional hammerhead", "body": "Pelagics ride the Kuroshio's edge. Mantas and hammerhead schools are seasonal but real."},
+      "sea": {"s1": {"name": "Green sea turtle", "en": "綠蠵龜"}, "s2": {"name": "Manta ray", "en": "鬼蝠魟"}, "s3": {"name": "Hammerhead", "en": "鎚頭鯊"}, "s4": {"name": "Lionfish", "en": "獅子魚"}},
+      "tripsTitle": "Ludao itineraries", "tripsSub": "Summer 2026",
+      "trips": {"t1": {"title": "Ludao 4D3N · Hot-spring dive", "dates": "Jul 04 – 07", "price": "NT$ 18,800"}, "t2": {"title": "Ludao 3D2N · Diver's edit", "dates": "Aug 10 – 12", "price": "NT$ 14,200"}, "t3": {"title": "Ludao 2D1N · Twin Peaks", "dates": "Sep 05 – 06", "price": "NT$ 9,500"}}
+    },
+    "lanyu": {
+      "kicker": "LANYU", "name": "Lanyu", "en": "Lanyu Island · Taitung",
+      "intro": "Home of the Tao people. Kuroshio upwelling fuels a wild marine ecosystem — blue caves, vertical walls, and pelagic giants.",
+      "region": "Lanyu · Taitung", "temp": "25–28°C", "viz": "20–35 m", "seaTitle": "Marine life at Lanyu",
+      "narr1": {"kicker": "01 / KUROSHIO", "title": "The Kuroshio's richest reach", "body": "The main current sweeps the island, carrying tuna, mahi-mahi, and mantas in its push. Drift dives are the norm here."},
+      "narr2": {"kicker": "02 / BLUE CAVES", "title": "Blue caves and swim-throughs", "body": "Maiden Rock, Twin Lions, and the Blue Cave — light columns through cobalt water. A photographer's pilgrimage."},
+      "narr3": {"kicker": "03 / CULTURE", "title": "Diving in the Tao homeland", "body": "Before you arrive, learn the flying-fish season, the meaning of the canoes, and the island's taboos. Respect is the first dive."},
+      "sea": {"s1": {"name": "Manta ray", "en": "鬼蝠魟"}, "s2": {"name": "Whitetip reef shark", "en": "白鰭礁鯊"}, "s3": {"name": "Flying fish", "en": "飛魚"}, "s4": {"name": "Moray eel", "en": "海鰻"}},
+      "tripsTitle": "Lanyu itineraries", "tripsSub": "Summer 2026",
+      "trips": {"t1": {"title": "Lanyu 5D4N · Pelagic week", "dates": "Jul 18 – 22", "price": "NT$ 24,500"}, "t2": {"title": "Lanyu 4D3N · Blue Cave", "dates": "Aug 22 – 25", "price": "NT$ 19,800"}, "t3": {"title": "Lanyu 3D2N · Maiden Rock", "dates": "Sep 12 – 14", "price": "NT$ 14,500"}}
+    },
+    "liuqiu": {
+      "kicker": "LIUQIU", "name": "Liuqiu", "en": "Liuqiu Island · Pingtung",
+      "intro": "Taiwan's only coral-reef island. Steady warm water, gentle topography, and near-guaranteed turtle sightings year-round.",
+      "region": "Liuqiu · Pingtung", "temp": "24–28°C", "viz": "15–25 m", "seaTitle": "Marine life at Liuqiu",
+      "narr1": {"kicker": "01 / TURTLES", "title": "Turtle sightings: 99%", "body": "Coral and seagrass beds wrap the island — habitat for green sea turtles. Three minutes underwater and they're already with you."},
+      "narr2": {"kicker": "02 / BEGINNER", "title": "The year-round entry island", "body": "Stable conditions, shallow average depth, low current — the first choice for try-dives and Open Water certification."},
+      "narr3": {"kicker": "03 / NIGHT", "title": "Fluorescent night at Shanfu", "body": "Strawberry conch, nudibranchs, fluorescing coral — Liuqiu, but only after dark."},
+      "sea": {"s1": {"name": "Green sea turtle", "en": "綠蠵龜"}, "s2": {"name": "Hawksbill turtle", "en": "玳瑁"}, "s3": {"name": "Nudibranch", "en": "海蛞蝓"}, "s4": {"name": "Blue-ringed octopus", "en": "藍紋章魚"}},
+      "tripsTitle": "Liuqiu itineraries", "tripsSub": "Summer 2026",
+      "trips": {"t1": {"title": "Liuqiu 2D1N · Turtle escape", "dates": "Aug 01 – 02", "price": "NT$ 6,800"}, "t2": {"title": "Liuqiu 3D2N · OWD course", "dates": "Aug 20 – 22", "price": "NT$ 12,500"}, "t3": {"title": "Liuqiu 2D1N · Night dive", "dates": "Sep 10 – 11", "price": "NT$ 7,500"}}
+    }
+  },
+  "Calendar": {
+    "breadcrumb": {"home": "Home", "calendar": "Trip Calendar"},
+    "title": "Trip Calendar",
+    "description": "Pick a destination and a date. Book your next underwater chapter.",
+    "dest": {"all": "All", "liuqiu": "Liuqiu", "ludao": "Ludao", "lanyu": "Lanyu"},
+    "typeAll": "All types",
+    "seasonAll": "All seasons",
+    "course": {"all": "All courses", "aida": "Freediving · AIDA", "padi": "Scuba · PADI", "experience": "Try-dive"},
+    "today": "Today",
+    "month": "July",
+    "monthEn": "JULY 2026",
+    "legend": {"padi": "PADI · Scuba", "aida": "AIDA · Freediving", "experience": "Try-dive", "todayHint": "Click a date for details", "fullHint": "Grey = sold out"},
+    "upcoming": {
+      "title": "July 2026 trips at a glance",
+      "titleEn": "JULY 2026 TRIPS",
+      "viewAll": "View all",
+      "book": "Book",
+      "items": {
+        "ludao": {"kicker": "LUDAO", "title": "Ludao 4D3N — Hot-spring night dive", "dates": "Sat Jul 4 – Tue Jul 7", "location": "Nanliao, Ludao", "price": "NT$ 18,800"},
+        "liuqiu": {"kicker": "LIUQIU", "title": "Liuqiu 2D1N — Turtle escape", "dates": "Sat Aug 1 – Sun Aug 2", "location": "Baisha, Liuqiu", "price": "NT$ 6,800"},
+        "lanyu": {"kicker": "LANYU", "title": "Lanyu 5D4N — Pelagic week", "dates": "Sat Jul 18 – Wed Jul 22", "location": "Kaiyuan, Lanyu", "price": "NT$ 24,500"}
+      }
+    },
+    "stats": {"month": "This month", "destinations": "Destinations", "available": "Open", "soldOut": "Sold out"},
+    "cta": {
+      "title": "Can't find a date that works?",
+      "description": "We refresh the calendar monthly and run custom trips on request.",
+      "consult": "Plan a custom trip",
+      "line": "Reach us on LINE"
+    }
+  },
+  "Trip": {
+    "shared": {
+      "book": "Book", "bookNow": "Book now",
+      "overview": "Trip overview", "statDays": "Days", "statSites": "Dive sites", "statTanks": "Tanks", "statCert": "Min. cert",
+      "chooseBatch": "Choose a batch", "itinerary": "Day-by-day itinerary",
+      "includes": "What's included", "included": "Included", "notIncluded": "Not included",
+      "addons": "Optional add-ons", "addonsDesc": "Tailor the trip to how you like to dive.",
+      "addonGear": "Equipment rental", "addonPremium": "Premium services", "addonOther": "Other add-ons",
+      "addonNote": "Tick add-ons at booking, or contact us up to 7 days before departure. On-site prices may differ.",
+      "whoFor": "Who it's for",
+      "instructor": "Trip leader",
+      "cancel": "Cancellation policy", "cancelCol1": "When you cancel", "cancelCol2": "Refund",
+      "cancelRows": {
+        "r1": {"when": "30+ days before departure", "fee": "100% refund"},
+        "r2": {"when": "14–29 days before", "fee": "70% refund"},
+        "r3": {"when": "7–13 days before", "fee": "50% refund"},
+        "r4": {"when": "1–6 days before", "fee": "30% refund"},
+        "r5": {"when": "Day of departure", "fee": "No refund"}
+      }
+    },
+    "ludao-4d3n": {
+      "kicker": "LUDAO · 4D3N",
+      "title": "Ludao 4D3N — Hot-spring dive trip",
+      "subtitle": "Four days, three nights, eight tanks, six sites — and the only undersea hot spring in Asia.",
+      "stats": {"days": "4D3N", "sites": "6 sites", "tanks": "8 tanks", "cert": "OW"},
+      "batches": {
+        "b1": {"dates": "Sat Jun 14 – Tue Jun 17", "badge": "5 spots left"},
+        "b2": {"dates": "Sat Jul 12 – Tue Jul 15", "badge": "Hot"},
+        "b3": {"dates": "Sat Aug 9 – Tue Aug 12", "badge": "Sold out"}
+      },
+      "itinerary": {
+        "day1": {"title": "Day 1 — Arrival & check-in dives", "body": "Meet in Taitung → ferry to Ludao → check into the guesthouse\nTank 1 — Da-baisha (orientation + reef walk)\nTank 2 — Shilang (coral reef)\nDinner at a local seafood spot"},
+        "day2": {"title": "Day 2 — Going deeper, then the hot spring", "body": "Tank 3 — Da Xianggu\nTank 4 — Twin Peaks\nAfternoon free / Zhaori onsen\nNight dive — Shilang"},
+        "day3": {"title": "Day 3 — Undersea hot spring, island loop", "body": "Tank 5 — Zhaori undersea hot-spring night dive\nTank 6 — Gate Rock\nAfternoon island loop / sightseeing"},
+        "day4": {"title": "Day 4 — Farewell dives, return to Taitung", "body": "Tank 7 — Youziwu\nTank 8 — Shilang (farewell)\nLunch then ferry back to Taitung"}
+      },
+      "included": {"lodging": "3 nights guesthouse", "tanks": "8 tanks", "meals": "Breakfast + dinner", "guide": "Instructor + guide", "insurance": "Basic insurance NT$ 2M", "scooter": "Scooter rental"},
+      "notIncluded": {"gear": "Personal gear rental", "tips": "Instructor tips", "travel": "Trip-inconvenience insurance", "photo": "Private photographer"},
+      "addons": {
+        "gear": {
+          "gear1": {"name": "Full kit (BCD, reg, mask)", "price": "NT$ 1,200"},
+          "gear2": {"name": "BCD", "price": "NT$ 400"},
+          "gear3": {"name": "Regulator", "price": "NT$ 400"},
+          "gear4": {"name": "Dive computer", "price": "NT$ 300"}
+        },
+        "svc": {
+          "svc1": {"name": "Underwater photo log", "price": "NT$ 1,500"},
+          "svc2": {"name": "1-on-1 instructor", "price": "NT$ 3,000"},
+          "svc3": {"name": "Single-room upgrade", "price": "NT$ 2,000"}
+        },
+        "ext": {
+          "ext1": {"name": "Boat-dive upgrade (1 tank)", "price": "NT$ 800"},
+          "ext2": {"name": "Extra night dive", "price": "NT$ 600"}
+        }
+      },
+      "audience": {
+        "p1": "This Ludao trip is built for Open Water (OW) certified divers and above. Whether you just got your card and want experience, or you're a seasoned diver looking for Taiwan's most distinctive sites, the itinerary has the range.",
+        "p2": "Full gear and an instructor are with you on every dive. From geothermal water columns to the giant mushroom coral, every tank earns its own memory.",
+        "req": {"cert": "Cert: Open Water or above", "age": "Age: 12+", "health": "Health: no diving contraindications", "swim": "Swim: 200m+"}
+      },
+      "instructor": {"name": "Karina", "creds": "PADI Instructor · 10+ years · 500+ logged dives", "bio": "Underwater photographer and reef-ecology nerd. Her tank-side trivia is half the trip."},
+      "cta": {"title": "Ready to dive Ludao?", "subline": "From NT$ 18,800 / person · 4D3N · 8 tanks"}
+    },
+    "liuqiu-2d1n": {
+      "kicker": "LIUQIU · 2D1N",
+      "title": "Liuqiu 2D1N — Weekend turtle escape",
+      "subtitle": "A weekend you can actually make. Turtles on every tank, near-guaranteed.",
+      "stats": {"days": "2D1N", "sites": "3 sites", "tanks": "3 tanks", "cert": "OW or try-dive"},
+      "batches": {
+        "b1": {"dates": "Sat Aug 1 – Sun Aug 2", "badge": "Open"},
+        "b2": {"dates": "Sat Aug 15 – Sun Aug 16", "badge": "Hot"},
+        "b3": {"dates": "Sat Aug 29 – Sun Aug 30", "badge": "Sold out"}
+      },
+      "itinerary": {
+        "day1": {"title": "Day 1 — Arrival", "body": "Meet in Donggang → ferry to Liuqiu\nTank 1 — Shanfu (turtle hunt)\nTank 2 — Vase Rock\nDinner + island walk"},
+        "day2": {"title": "Day 2 — Last tank + island loop", "body": "Tank 3 — Meiren Cave\nFree time / island loop\nAfternoon ferry back to Donggang"},
+        "day3": {"title": "—", "body": "(2-day trip)"},
+        "day4": {"title": "—", "body": "(2-day trip)"}
+      },
+      "included": {"lodging": "1 night guesthouse", "tanks": "3 tanks", "meals": "1 breakfast + 1 dinner", "guide": "Instructor", "insurance": "Basic insurance NT$ 2M", "scooter": "Scooter rental"},
+      "notIncluded": {"gear": "Personal gear rental", "tips": "Instructor tips", "travel": "Trip-inconvenience insurance", "photo": "Private photographer"},
+      "addons": {
+        "gear": {
+          "gear1": {"name": "Full kit", "price": "NT$ 800"},
+          "gear2": {"name": "BCD", "price": "NT$ 300"},
+          "gear3": {"name": "Regulator", "price": "NT$ 300"},
+          "gear4": {"name": "Dive computer", "price": "NT$ 200"}
+        },
+        "svc": {
+          "svc1": {"name": "Underwater photo log", "price": "NT$ 1,000"},
+          "svc2": {"name": "1-on-1 instructor", "price": "NT$ 2,000"},
+          "svc3": {"name": "Single-room upgrade", "price": "NT$ 1,200"}
+        },
+        "ext": {
+          "ext1": {"name": "Extra night dive", "price": "NT$ 500"},
+          "ext2": {"name": "Turtle photo package", "price": "NT$ 1,500"}
+        }
+      },
+      "audience": {
+        "p1": "Liuqiu's gentle terrain and stable conditions make it the best entry-level dive in Taiwan. Turtle sightings are essentially routine — most divers swim with a green turtle within minutes.",
+        "p2": "Full gear and an instructor support you the whole weekend, from first fin-on to your first turtle photo.",
+        "req": {"cert": "Cert: OW or try-dive", "age": "Age: 10+", "health": "Health: no contraindications", "swim": "Swim: 50m+"}
+      },
+      "instructor": {"name": "Daniel", "creds": "PADI MSDT · 8 years on Liuqiu · 300+ turtle encounters", "bio": "Born and raised on Liuqiu. Knows every reef on the island and is unreasonably good with first-timers and kids."},
+      "cta": {"title": "Weekend with the turtles?", "subline": "From NT$ 6,800 / person · 2D1N · 3 tanks"}
+    },
+    "lanyu-5d4n": {
+      "kicker": "LANYU · 5D4N",
+      "title": "Lanyu 5D4N — Pelagic week",
+      "subtitle": "Five days at the Kuroshio's richest edge. Mantas, dorado, whitetips — Lanyu in peak form.",
+      "stats": {"days": "5D4N", "sites": "8 sites", "tanks": "12 tanks", "cert": "AOW"},
+      "batches": {
+        "b1": {"dates": "Sat Jul 18 – Wed Jul 22", "badge": "3 spots left"},
+        "b2": {"dates": "Sat Aug 22 – Wed Aug 26", "badge": "Hot"},
+        "b3": {"dates": "Sat Sep 12 – Wed Sep 16", "badge": "Sold out"}
+      },
+      "itinerary": {
+        "day1": {"title": "Day 1 — Arrival", "body": "Ferry from Taitung → arrive Kaiyuan Port → check in\nTank 1 — Bayue Bay (orientation)\nTank 2 — Maiden Rock"},
+        "day2": {"title": "Day 2 — Twin Lions & drift dives", "body": "Tank 3 — Twin Lions\nTank 4 — Mother Hen Rock (drift)\nNight dive — Bayue Bay"},
+        "day3": {"title": "Day 3 — Blue Cave", "body": "Tank 5 — Blue Cave\nTank 6 — Maiden Rock deep\nAfternoon culture tour"},
+        "day4": {"title": "Day 4 — Pelagic chase", "body": "Tank 7 — Yangjiao Bay outer reef\nTank 8 — Bayue Bay outer reef (mantas)\nTank 9 — Banquet Reef"}
+      },
+      "included": {"lodging": "4 nights guesthouse", "tanks": "12 tanks", "meals": "Breakfast + dinner", "guide": "Instructor + guide", "insurance": "Basic insurance NT$ 2M", "scooter": "Scooter rental"},
+      "notIncluded": {"gear": "Personal gear rental", "tips": "Instructor tips", "travel": "Trip-inconvenience insurance", "photo": "Private photographer"},
+      "addons": {
+        "gear": {
+          "gear1": {"name": "Full kit", "price": "NT$ 1,500"},
+          "gear2": {"name": "BCD", "price": "NT$ 500"},
+          "gear3": {"name": "Regulator", "price": "NT$ 500"},
+          "gear4": {"name": "Dive computer", "price": "NT$ 400"}
+        },
+        "svc": {
+          "svc1": {"name": "Underwater photo log", "price": "NT$ 2,000"},
+          "svc2": {"name": "1-on-1 instructor", "price": "NT$ 4,000"},
+          "svc3": {"name": "Single-room upgrade", "price": "NT$ 3,000"}
+        },
+        "ext": {
+          "ext1": {"name": "Boat-dive upgrade", "price": "NT$ 1,200"},
+          "ext2": {"name": "Tao culture tour", "price": "NT$ 800"}
+        }
+      },
+      "audience": {
+        "p1": "Lanyu is for AOW-certified divers with drift experience. The Kuroshio rewards you, but it also asks for solid buoyancy and a cool head.",
+        "p2": "Your instructor adapts the order daily to the current and conditions. We want you to enjoy Lanyu — and we want safety to be the first dive every time.",
+        "req": {"cert": "Cert: AOW or above", "age": "Age: 18+", "health": "Health: no contraindications", "swim": "Swim: 400m+"}
+      },
+      "instructor": {"name": "Iris", "creds": "PADI IDC Staff Instructor · 12 years on Lanyu · pelagic photographer", "bio": "Lanyu's go-to pelagic guide. Knows the Kuroshio's rhythm and will walk you through Tao etiquette before you arrive."},
+      "cta": {"title": "Ready for Lanyu's heavy current?", "subline": "From NT$ 24,500 / person · 5D4N · 12 tanks"}
+    }
+  },
+  "Course": {
+    "shared": {
+      "viewSchedule": "View schedule", "viewCurriculum": "See curriculum",
+      "duration": "Duration", "groupSize": "Group size", "prereq": "Prerequisite", "dives": "Dives",
+      "priceLabel": "Course fee", "enroll": "Enroll",
+      "equipTitle": "Equipment", "flowTitle": "Booking flow",
+      "scheduleTitle": "Upcoming sessions", "faqTitle": "FAQ"
+    },
+    "aida": {
+      "kicker": "FREEDIVING · AIDA",
+      "title": "AIDA 2 Freediver",
+      "subtitle": "One breath. One ocean.",
+      "intro": "AIDA is the world's largest freediving certification system. Start with physiology and breathwork, then progress into apnea and depth — the most complete on-ramp to breath-hold diving.",
+      "info": {"duration": "3 days", "groupSize": "1 instr : 4 students", "prereq": "12+, swimmer", "dives": "10+ descents"},
+      "curriculum": {
+        "title": "Curriculum",
+        "subtitle": "Theory · Pool · Open water · Cert",
+        "steps": {
+          "theory": {"title": "Day 1 — Theory", "body": "Breath-hold physiology, breathing patterns, safety rules, manual study and quiz."},
+          "pool": {"title": "Day 2 — Pool sessions", "body": "Static (STA), dynamic (DYN), rescue procedures, equalisation drills."},
+          "open": {"title": "Day 3 — Open water", "body": "CWT / FIM descents, target depth 16m+, safety in pairs."},
+          "cert": {"title": "Certification", "body": "AIDA international card issued within 30 days of completion."}
+        }
+      },
+      "price": {
+        "amount": "NT$ 12,800",
+        "note": "Includes: instructor, gear, materials, certification, insurance, pool fees",
+        "includes": {"l1": "AIDA international card", "l2": "Full training kit", "l3": "Bilingual manual", "l4": "30 days of free practice sessions"}
+      },
+      "equipment": {
+        "e1": {"name": "Long fins", "note": "Provided · upgrade available"},
+        "e2": {"name": "Low-volume mask", "note": "Bring your own if you can"},
+        "e3": {"name": "3mm wetsuit", "note": "Provided · seasonal"},
+        "e4": {"name": "Weight belt", "note": "Provided"}
+      },
+      "flow": {
+        "f1": {"title": "Sign up", "body": "Form + NT$ 5,000 deposit"},
+        "f2": {"title": "Pre-read", "body": "Digital materials 1 week before"},
+        "f3": {"title": "Three days", "body": "Theory / pool / open water"},
+        "f4": {"title": "Get certified", "body": "Card issued within 30 days"}
+      },
+      "schedule": {
+        "s1": {"dates": "Jul 4 – 6", "location": "Liuqiu"},
+        "s2": {"dates": "Jul 18 – 20", "location": "Ludao"},
+        "s3": {"dates": "Aug 1 – 3", "location": "Liuqiu"}
+      },
+      "faq": {
+        "q1": {"q": "Do I need to swim well?", "a": "200m continuous in any stroke is enough."},
+        "q2": {"q": "I wear glasses — is that ok?", "a": "Yes. Tell us your prescription at booking and we'll bring a corrective mask."},
+        "q3": {"q": "Can I jump straight to AIDA 2 with no experience?", "a": "Yes — AIDA 2 is the entry course."},
+        "q4": {"q": "How deep will I be at the end?", "a": "The standard is 16m. Most students hit 15–20m by graduation."}
+      },
+      "cta": {"title": "Meet the ocean on one breath.", "subline": "Next session Jul 4 · Liuqiu"}
+    },
+    "padi": {
+      "kicker": "SCUBA · PADI",
+      "title": "PADI Open Water Diver",
+      "subtitle": "Your first scuba certification, globally recognised.",
+      "intro": "PADI is the world's largest scuba training organisation. The Open Water Diver course is your entry ticket — once certified, you can dive up to 18m anywhere in the world.",
+      "info": {"duration": "3–4 days", "groupSize": "1 instr : 4 students", "prereq": "10+, swimmer", "dives": "4 open-water dives"},
+      "curriculum": {
+        "title": "Curriculum",
+        "subtitle": "Theory · Confined water · 4 open-water dives",
+        "steps": {
+          "theory": {"title": "Section 1 — Theory", "body": "Dive physics, physiology, gear knowledge, buddy system, decompression concepts."},
+          "pool": {"title": "Section 2 — Confined water", "body": "5 confined-water dives covering buoyancy, mask clearing, regulator skills, alternate-air sharing."},
+          "open": {"title": "Section 3 — Open water 1–4", "body": "Four open-water dives applying skills in real conditions."},
+          "cert": {"title": "Certification", "body": "PADI e-card issued within 24 hours of completion."}
+        }
+      },
+      "price": {
+        "amount": "NT$ 14,800",
+        "note": "Includes: instructor, gear, materials, certification, insurance",
+        "includes": {"l1": "PADI e-card", "l2": "Full scuba kit", "l3": "PADI manual", "l4": "90 days of free practice sessions"}
+      },
+      "equipment": {
+        "e1": {"name": "BCD", "note": "Provided"},
+        "e2": {"name": "Regulator set", "note": "Provided"},
+        "e3": {"name": "Mask / fins", "note": "Bring if you have them"},
+        "e4": {"name": "3mm wetsuit", "note": "Provided"}
+      },
+      "flow": {
+        "f1": {"title": "Sign up", "body": "Form + NT$ 5,000 deposit"},
+        "f2": {"title": "Online theory", "body": "Complete PADI eLearning beforehand"},
+        "f3": {"title": "In-person", "body": "1 day pool + 2 days open water"},
+        "f4": {"title": "Get certified", "body": "PADI e-card in 24 hours"}
+      },
+      "schedule": {
+        "s1": {"dates": "Jul 4 – 6", "location": "Liuqiu"},
+        "s2": {"dates": "Jul 11 – 14", "location": "Ludao"},
+        "s3": {"dates": "Aug 8 – 10", "location": "Liuqiu"}
+      },
+      "faq": {
+        "q1": {"q": "Do I need to swim well?", "a": "200m continuous in any stroke is enough — no time limit."},
+        "q2": {"q": "Glasses?", "a": "Yes — prescription masks available. Custom prescription recommended if you'll keep diving."},
+        "q3": {"q": "I'm nervous about water — can I try first?", "a": "Definitely. Book a try-dive first, decide later."},
+        "q4": {"q": "Does the cert expire?", "a": "PADI cards never expire. We do recommend at least one dive a year to stay sharp."}
+      },
+      "cta": {"title": "Earn your first scuba card.", "subline": "Next session Jul 4 · Liuqiu"}
+    }
+  },
+  "Stub": {
+    "about": {"kicker": "ABOUT US", "title": "About HeyHeyDive", "body": "We're a small crew of divers who live and work at Taiwan's four major dive sites. We believe the breath is where diving begins. Full brand story page in the works.", "cta": "Back to home"},
+    "faq": {"kicker": "FAQ", "title": "Frequently asked", "body": "Course, trip, gear, and payment questions — currently being compiled. For anything urgent, reach us on LINE.", "cta": "Back to home"},
+    "merch": {"kicker": "MERCH", "title": "Limited merch", "body": "Beyond the water — bring a piece of the sea home. HeyHeyDive limited merch (dry bags, towels, tees) in production.", "cta": "Back to home"},
+    "privacy": {"kicker": "PRIVACY POLICY", "title": "Privacy policy", "body": "We take your data seriously. Full privacy policy coming soon.", "cta": "Back to home"},
+    "terms": {"kicker": "TERMS OF SERVICE", "title": "Terms of service", "body": "Terms of service being compiled. Booking & payment terms: see each trip page's cancellation policy.", "cta": "Back to home"},
+    "contact": {"kicker": "CONTACT", "title": "Contact us", "body": "Email: hello@heyheydive.com\nPhone: +886 989 123 456\nIG: @heyheydive\nAddress: Nanliao, Ludao, Taitung, Taiwan", "cta": "Back to home"}
   }
 }

@@ -3,10 +3,431 @@
     "title": "HeyHeyDive 海海潛旅",
     "description": "台灣四大潛點 — 小琉球、綠島、蘭嶼、墾丁 — 的潛旅與雙系統證照課程（AIDA / PADI）"
   },
-  "Placeholder": {
-    "brand": "HeyHeyDive",
-    "subtitle": "呼吸，是潛水的開始",
-    "tagline": "Where the breath begins",
-    "status": "建構中"
+  "Nav": {
+    "about": "ABOUT US",
+    "courses": "課程介紹",
+    "sites": "潛點介紹",
+    "calendar": "行程日曆",
+    "merch": "限量周邊",
+    "faq": "常見問題"
+  },
+  "Footer": {
+    "description": "台灣潛水探索品牌，帶你發現水下的美好世界。",
+    "quickLinks": "快速連結",
+    "social": "社群媒體",
+    "contact": "聯絡我們",
+    "address": "台東縣綠島鄉南寮村",
+    "copyright": "© 2026 HeyHeyDive. All rights reserved.",
+    "privacy": "隱私權政策",
+    "terms": "服務條款"
+  },
+  "Home": {
+    "hero": {
+      "seasonLabel": "S2 夏潛 / SUMMER 2026",
+      "headline": "綠島 海底溫泉夜潛",
+      "subtitle": "Ludao Underwater Hot-spring Night Dive",
+      "cta": "DISCOVER"
+    },
+    "tagline": {
+      "main": "呼吸，是潛水的開始",
+      "sub": "Where the breath begins",
+      "cta": "探索潛點"
+    },
+    "sites": {
+      "title": "三個島，三種藍",
+      "subtitle": "Three Islands, Three Blues",
+      "ludao": {
+        "tag": "LUDAO",
+        "name": "綠島",
+        "en": "Ludao Island",
+        "desc": "海底溫泉、雙峰岩、樓門岩——東部火山島，地形與群魚並存。"
+      },
+      "lanyu": {
+        "tag": "LANYU",
+        "name": "蘭嶼",
+        "en": "Lanyu Island",
+        "desc": "達悟族文化與黑潮湧升流，藍洞地形與大物迴游的潛點。"
+      },
+      "liuqiu": {
+        "tag": "LIUQIU",
+        "name": "小琉球",
+        "en": "Liuqiu Island",
+        "desc": "全年可潛、四季都見海龜的珊瑚礁島，入門潛水首選。"
+      }
+    },
+    "trips": {
+      "title": "S2 夏潛行程",
+      "subtitle": "Summer 2026 Dive Trips",
+      "viewAll": "VIEW ALL",
+      "book": "報名",
+      "trip1": {"badge": "LUDAO", "title": "綠島 4D3N 海底溫泉", "dates": "07.04 – 07.07", "location": "綠島南寮", "price": "NT$ 18,800"},
+      "trip2": {"badge": "LANYU", "title": "蘭嶼 5D4N 大物迴游", "dates": "07.18 – 07.22", "location": "蘭嶼開元港", "price": "NT$ 24,500"},
+      "trip3": {"badge": "LIUQIU", "title": "小琉球 2D1N 海龜行", "dates": "08.01 – 08.02", "location": "小琉球白沙港", "price": "NT$ 6,800"},
+      "trip4": {"badge": "KENTING", "title": "墾丁 3D2N 後壁湖", "dates": "08.15 – 08.17", "location": "後壁湖", "price": "NT$ 9,800"}
+    },
+    "courses": {
+      "title": "不論你怎麼呼吸，我們都教",
+      "subtitle": "Choose Your Breathing Style",
+      "cta": "了解更多",
+      "aida": {"kicker": "FREEDIVING", "label": "AIDA", "name": "自由潛水課程", "desc": "從一口氣的入門到 40 米深潛，AIDA 國際認證系統，循序漸進的呼吸與下潛訓練。"},
+      "padi": {"kicker": "SCUBA", "label": "PADI", "name": "水肺潛水課程", "desc": "OWD 開放水域到 Rescue 救援潛水員，PADI 全球通用證照，從零基礎到專業潛員。"}
+    },
+    "newsletter": {
+      "title": "訂閱我們的潛報",
+      "subtitle": "Get the Dive Brief",
+      "description": "最新行程、潛點攻略、限定優惠，直送你的信箱。",
+      "placeholder": "your@email.com",
+      "button": "訂閱"
+    }
+  },
+  "DiveSite": {
+    "shared": {"book": "報名", "coursesKicker": "READY TO DIVE?", "coursesTitle": "選擇你的呼吸方式", "coursesDesc": "在這座島上開始你的潛水旅程——閉氣下潛或氣瓶呼吸，雙系統證照課程同步開放。"},
+    "ludao": {
+      "kicker": "LUDAO / 綠島", "name": "綠島", "en": "Ludao Island · Taitung",
+      "intro": "東部火山島嶼，世界三大海底溫泉之一。海流穩定、能見度高、地形多元，是台灣潛水人不能錯過的據點。",
+      "region": "台東·綠島", "temp": "26–28°C", "viz": "20–30m", "seaTitle": "綠島常見海洋生物",
+      "narr1": {"kicker": "01 / GEOTHERMAL", "title": "全世界僅三處的海底溫泉", "body": "朝日溫泉海域湧出的硫磺溫泉，與冷海水形成獨特的層流；夜潛時可見溫度條紋與群聚的橘色小蝦。"},
+      "narr2": {"kicker": "02 / TOPOGRAPHY", "title": "雙峰岩、樓門岩、大白沙", "body": "海底火山地形造就垂直壁、洞穴與通道；中性浮力訓練後的進階潛點，每一次下水都是新場景。"},
+      "narr3": {"kicker": "03 / WILDLIFE", "title": "成群的雀鯛、海龜與槍魚", "body": "黑潮邊緣帶來豐富迴游魚種，運氣好可遇到鬼蝠魟與鎚頭鯊群。"},
+      "sea": {"s1": {"name": "綠蠵龜", "en": "Green Sea Turtle"}, "s2": {"name": "鬼蝠魟", "en": "Manta Ray"}, "s3": {"name": "鎚頭鯊", "en": "Hammerhead"}, "s4": {"name": "獅子魚", "en": "Lionfish"}},
+      "tripsTitle": "綠島行程", "tripsSub": "Ludao Itineraries",
+      "trips": {
+        "t1": {"title": "綠島 4D3N 海底溫泉", "dates": "07.04 – 07.07", "price": "NT$ 18,800"},
+        "t2": {"title": "綠島 3D2N 玩家行程", "dates": "08.10 – 08.12", "price": "NT$ 14,200"},
+        "t3": {"title": "綠島 2D1N 雙峰岩", "dates": "09.05 – 09.06", "price": "NT$ 9,500"}
+      }
+    },
+    "lanyu": {
+      "kicker": "LANYU / 蘭嶼", "name": "蘭嶼", "en": "Lanyu Island · Taitung",
+      "intro": "達悟族的故鄉，黑潮湧升流帶來豐富生態。藍洞、垂直壁、迴游大物——挑戰你對潛水的想像。",
+      "region": "台東·蘭嶼", "temp": "25–28°C", "viz": "20–35m", "seaTitle": "蘭嶼常見海洋生物",
+      "narr1": {"kicker": "01 / KURUSHIO", "title": "黑潮的豐饒之海", "body": "黑潮主流貼島而過，帶來鮪魚、鬼頭刀、鬼蝠魟等大型迴游魚種；漂流潛在這裡是日常。"},
+      "narr2": {"kicker": "02 / BLUE CAVE", "title": "藍洞與穿越地形", "body": "玉女岩、雙獅岩與藍洞，光線穿透海水形成的場景是攝影潛水員的必訪。"},
+      "narr3": {"kicker": "03 / CULTURE", "title": "與達悟族共存的海洋", "body": "出發前認識飛魚季節、傳統拼板舟與島嶼禁忌——尊重，是進入這座海的第一步。"},
+      "sea": {"s1": {"name": "鬼蝠魟", "en": "Manta Ray"}, "s2": {"name": "白鰭礁鯊", "en": "Whitetip Shark"}, "s3": {"name": "飛魚", "en": "Flying Fish"}, "s4": {"name": "海鰻", "en": "Moray Eel"}},
+      "tripsTitle": "蘭嶼行程", "tripsSub": "Lanyu Itineraries",
+      "trips": {
+        "t1": {"title": "蘭嶼 5D4N 大物迴游", "dates": "07.18 – 07.22", "price": "NT$ 24,500"},
+        "t2": {"title": "蘭嶼 4D3N 藍洞探索", "dates": "08.22 – 08.25", "price": "NT$ 19,800"},
+        "t3": {"title": "蘭嶼 3D2N 玉女岩", "dates": "09.12 – 09.14", "price": "NT$ 14,500"}
+      }
+    },
+    "liuqiu": {
+      "kicker": "LIUQIU / 小琉球", "name": "小琉球", "en": "Liuqiu Island · Pingtung",
+      "intro": "台灣唯一的珊瑚礁島，全年水溫穩定、地形平緩。一年四季都遇得到海龜，潛水入門的最佳起點。",
+      "region": "屏東·琉球", "temp": "24–28°C", "viz": "15–25m", "seaTitle": "小琉球常見海洋生物",
+      "narr1": {"kicker": "01 / TURTLES", "title": "海龜出沒率 99%", "body": "全島環繞珊瑚礁與海草床，是綠蠵龜的棲息地；潛入水中三分鐘內見到海龜是日常。"},
+      "narr2": {"kicker": "02 / BEGINNER", "title": "全年可潛的入門島嶼", "body": "海況穩定、平均深度淺、無強海流——體驗潛水、OWD 開放水域證照課程的首選潛點。"},
+      "narr3": {"kicker": "03 / NIGHT", "title": "杉福夜潛的螢光世界", "body": "夜潛時所見的紅嘴鳥螺、海蛞蝓與螢光珊瑚，是白天看不到的另一個小琉球。"},
+      "sea": {"s1": {"name": "綠蠵龜", "en": "Green Sea Turtle"}, "s2": {"name": "玳瑁", "en": "Hawksbill Turtle"}, "s3": {"name": "海蛞蝓", "en": "Nudibranch"}, "s4": {"name": "藍紋章魚", "en": "Blue-ringed Octopus"}},
+      "tripsTitle": "小琉球行程", "tripsSub": "Liuqiu Itineraries",
+      "trips": {
+        "t1": {"title": "小琉球 2D1N 海龜行", "dates": "08.01 – 08.02", "price": "NT$ 6,800"},
+        "t2": {"title": "小琉球 3D2N 入門課程", "dates": "08.20 – 08.22", "price": "NT$ 12,500"},
+        "t3": {"title": "小琉球 2D1N 夜潛", "dates": "09.10 – 09.11", "price": "NT$ 7,500"}
+      }
+    }
+  },
+  "Calendar": {
+    "breadcrumb": {"home": "首頁", "calendar": "行程日曆"},
+    "title": "行程日曆",
+    "description": "選擇目的地與日期，立即預約你的下一趟海底冒險",
+    "dest": {"all": "全部", "liuqiu": "小琉球", "ludao": "綠島", "lanyu": "蘭嶼"},
+    "typeAll": "全部類型",
+    "seasonAll": "全部季節",
+    "course": {"all": "全部課程", "aida": "自由潛水 AIDA", "padi": "水肺潛水 PADI", "experience": "體驗潛水"},
+    "today": "今天",
+    "month": "7 月",
+    "monthEn": "JULY 2026",
+    "legend": {"padi": "PADI 水肺", "aida": "AIDA 自由潛水", "experience": "體驗潛水", "todayHint": "點擊日期查看詳情", "fullHint": "灰色為已售完"},
+    "upcoming": {
+      "title": "7 月行程總覽",
+      "titleEn": "JULY 2026 TRIPS",
+      "viewAll": "查看全部行程",
+      "book": "報名",
+      "items": {
+        "ludao": {"kicker": "LUDAO · 綠島", "title": "綠島 4D3N 海底溫泉夜潛", "dates": "7/4 (六) – 7/7 (二)", "location": "綠島南寮", "price": "NT$ 18,800"},
+        "liuqiu": {"kicker": "LIUQIU · 小琉球", "title": "小琉球 2D1N 海龜行", "dates": "8/1 (六) – 8/2 (日)", "location": "白沙港", "price": "NT$ 6,800"},
+        "lanyu": {"kicker": "LANYU · 蘭嶼", "title": "蘭嶼 5D4N 大物迴游週", "dates": "7/18 (六) – 7/22 (三)", "location": "開元港", "price": "NT$ 24,500"}
+      }
+    },
+    "stats": {"month": "本月行程", "destinations": "目的地", "available": "可報名", "soldOut": "已售完"},
+    "cta": {
+      "title": "找不到合適的日期？",
+      "description": "我們每月更新行程，也可以為你量身定制專屬潛旅",
+      "consult": "定制潛旅諮詢",
+      "line": "LINE 聯繫我們"
+    }
+  },
+  "Trip": {
+    "shared": {
+      "book": "立即報名", "bookNow": "立即報名",
+      "overview": "行程概覽", "statDays": "天數", "statSites": "潛點數", "statTanks": "氣瓶數", "statCert": "最低證照",
+      "chooseBatch": "選擇梯次", "itinerary": "逐日行程",
+      "includes": "費用包含 / 不包含", "included": "費用包含", "notIncluded": "費用不包含",
+      "addons": "額外加購項目 / ADD-ONS", "addonsDesc": "為您的旅程增添更多精彩體驗",
+      "addonGear": "裝備租借 EQUIPMENT RENTAL", "addonPremium": "加值服務 PREMIUM SERVICES", "addonOther": "其他加購 OTHER ADD-ONS",
+      "addonNote": "加購項目請於報名時一併勾選，或於出發前 7 天聯繫客服加購。現場租借價格可能有所不同。",
+      "whoFor": "適合對象",
+      "instructor": "帶團教練",
+      "cancel": "取消政策", "cancelCol1": "取消時間", "cancelCol2": "退費比例",
+      "cancelRows": {
+        "r1": {"when": "出發前 30 天以上", "fee": "全額退費"},
+        "r2": {"when": "出發前 14 – 29 天", "fee": "退費 70%"},
+        "r3": {"when": "出發前 7 – 13 天", "fee": "退費 50%"},
+        "r4": {"when": "出發前 1 – 6 天", "fee": "退費 30%"},
+        "r5": {"when": "出發當天", "fee": "恕不退費"}
+      }
+    },
+    "ludao-4d3n": {
+      "kicker": "LUDAO · 綠島 · 4D3N",
+      "title": "綠島 4天3夜 海底溫泉潛旅",
+      "subtitle": "從台東出發，4 天 3 夜玩遍綠島經典潛點。8 支氣瓶、6 個潛點、世界唯三的海底溫泉。",
+      "stats": {"days": "4天3夜", "sites": "6 個", "tanks": "8 支", "cert": "OW"},
+      "batches": {
+        "b1": {"dates": "6/14 (六) – 6/17 (二)", "badge": "剩 5 位"},
+        "b2": {"dates": "7/12 (六) – 7/15 (二)", "badge": "熱銷中"},
+        "b3": {"dates": "8/9 (六) – 8/12 (二)", "badge": "已售完"}
+      },
+      "itinerary": {
+        "day1": {"title": "Day 1 — 抵達綠島・初探水下", "body": "台東集合 → 搭船前往綠島 → 抵達民宿放行李\n第 1 支氣瓶：大白沙（入水適應＋淺水導覽）\n第 2 支氣瓶：石朗（珊瑚礁探索）\n晚餐：在地海鮮餐廳"},
+        "day2": {"title": "Day 2 — 深潛探索・溫泉療癒", "body": "第 3 支：大香菇\n第 4 支：雙峰岩\n下午自由活動 / 朝日溫泉\n夜潛：石朗"},
+        "day3": {"title": "Day 3 — 海底溫泉・環島冒險", "body": "第 5 支：海底溫泉夜潛（朝日海域）\n第 6 支：樓門岩\n下午環島・觀光"},
+        "day4": {"title": "Day 4 — 最後巡禮・返回台東", "body": "第 7 支：柚子湖\n第 8 支：石朗（巡禮）\n午餐後搭船返回台東"}
+      },
+      "included": {"lodging": "3 晚民宿住宿", "tanks": "8 支氣瓶", "meals": "早晚餐", "guide": "教練＋嚮導", "insurance": "基本險 200 萬", "scooter": "機車租借"},
+      "notIncluded": {"gear": "個人裝備租借", "tips": "教練小費", "travel": "旅遊不便險", "photo": "私人攝影師"},
+      "addons": {
+        "gear": {
+          "gear1": {"name": "全套裝備（含 BCD、調節器、面鏡）", "price": "NT$ 1,200"},
+          "gear2": {"name": "BCD", "price": "NT$ 400"},
+          "gear3": {"name": "調節器", "price": "NT$ 400"},
+          "gear4": {"name": "潛水電腦表", "price": "NT$ 300"}
+        },
+        "svc": {
+          "svc1": {"name": "水下攝影記錄", "price": "NT$ 1,500"},
+          "svc2": {"name": "1 對 1 教練", "price": "NT$ 3,000"},
+          "svc3": {"name": "升級單人房", "price": "NT$ 2,000"}
+        },
+        "ext": {
+          "ext1": {"name": "船潛升級（一支氣瓶）", "price": "NT$ 800"},
+          "ext2": {"name": "夜潛加購", "price": "NT$ 600"}
+        }
+      },
+      "audience": {
+        "p1": "這趟綠島潛旅適合持有 Open Water (OW) 以上證照的潛水員，無論你是剛取得證照想累積經驗，還是資深潛水員想探索台灣最美的水下溫泉，都能在這趟旅程中找到屬於你的樂趣。",
+        "p2": "我們提供完善的裝備與專業教練全程陪同，讓你安心享受每一次下潛。不管是海底溫泉的奇幻景觀，還是大香菇的壯麗珊瑚，每一支氣瓶都是一次難忘的體驗。",
+        "req": {"cert": "證照：Open Water 以上", "age": "年齡：12 歲以上", "health": "健康：無潛水禁忌症", "swim": "游泳：200m 以上"}
+      },
+      "instructor": {
+        "name": "Karina · 卡琳娜",
+        "creds": "PADI Instructor  ·  10+ 年潛水經驗  ·  500+ 次潛水紀錄",
+        "bio": "擅長水下攝影與海洋生態導覽，帶你認識綠島豐富的珊瑚礁生態系。"
+      },
+      "cta": {"title": "準備好探索綠島的水下世界了嗎？", "subline": "NT$ 18,800 起/人  ·  4天3夜  ·  8支氣瓶"}
+    },
+    "liuqiu-2d1n": {
+      "kicker": "LIUQIU · 小琉球 · 2D1N",
+      "title": "小琉球 2天1夜 海龜輕旅",
+      "subtitle": "週末就能成行的入門潛旅，海龜出沒率近 100%，新手與體驗潛水的最佳選擇。",
+      "stats": {"days": "2天1夜", "sites": "3 個", "tanks": "3 支", "cert": "OW 或 體驗"},
+      "batches": {
+        "b1": {"dates": "8/1 (六) – 8/2 (日)", "badge": "可報名"},
+        "b2": {"dates": "8/15 (六) – 8/16 (日)", "badge": "熱銷中"},
+        "b3": {"dates": "8/29 (六) – 8/30 (日)", "badge": "已售完"}
+      },
+      "itinerary": {
+        "day1": {"title": "Day 1 — 抵達小琉球", "body": "東港集合 → 搭船前往小琉球\n第 1 支氣瓶：杉福（找海龜）\n第 2 支氣瓶：花瓶岩\n晚餐 + 夜遊"},
+        "day2": {"title": "Day 2 — 杉福夜潛 / 環島", "body": "第 3 支氣瓶：美人洞\n自由活動 / 環島觀光\n下午搭船返回東港"},
+        "day3": {"title": "—", "body": "（2 天 1 夜行程）"},
+        "day4": {"title": "—", "body": "（2 天 1 夜行程）"}
+      },
+      "included": {"lodging": "1 晚民宿", "tanks": "3 支氣瓶", "meals": "1 早 1 晚", "guide": "教練", "insurance": "基本險 200 萬", "scooter": "機車租借"},
+      "notIncluded": {"gear": "個人裝備租借", "tips": "教練小費", "travel": "旅遊不便險", "photo": "私人攝影師"},
+      "addons": {
+        "gear": {
+          "gear1": {"name": "全套裝備", "price": "NT$ 800"},
+          "gear2": {"name": "BCD", "price": "NT$ 300"},
+          "gear3": {"name": "調節器", "price": "NT$ 300"},
+          "gear4": {"name": "潛水電腦表", "price": "NT$ 200"}
+        },
+        "svc": {
+          "svc1": {"name": "水下攝影記錄", "price": "NT$ 1,000"},
+          "svc2": {"name": "1 對 1 教練", "price": "NT$ 2,000"},
+          "svc3": {"name": "升級單人房", "price": "NT$ 1,200"}
+        },
+        "ext": {
+          "ext1": {"name": "夜潛加購", "price": "NT$ 500"},
+          "ext2": {"name": "海龜攝影包套", "price": "NT$ 1,500"}
+        }
+      },
+      "audience": {
+        "p1": "小琉球地形平緩、海況穩定，是新手潛水員與體驗潛水的最佳選擇。海龜出沒率近 100%，每一次下潛幾乎都能與綠蠵龜共游。",
+        "p2": "我們提供完善的裝備與專業教練，從第一次戴蛙鞋到拍下與海龜的合照，全程陪你完成。",
+        "req": {"cert": "證照：OW 或體驗潛水", "age": "年齡：10 歲以上", "health": "健康：無潛水禁忌症", "swim": "游泳：50m 以上"}
+      },
+      "instructor": {
+        "name": "Daniel · 丹尼爾",
+        "creds": "PADI MSDT  ·  小琉球深耕 8 年  ·  300+ 次海龜目擊",
+        "bio": "土生土長的小琉球教練，對島上每一個潛點瞭如指掌，特別擅長帶新手與兒童體驗。"
+      },
+      "cta": {"title": "週末來小琉球見海龜？", "subline": "NT$ 6,800 起/人  ·  2天1夜  ·  3支氣瓶"}
+    },
+    "lanyu-5d4n": {
+      "kicker": "LANYU · 蘭嶼 · 5D4N",
+      "title": "蘭嶼 5天4夜 大物迴游週",
+      "subtitle": "黑潮主流貼島而過的潛季高峰，鬼蝠魟、鬼頭刀、白鰭礁鯊——蘭嶼的水下實力派。",
+      "stats": {"days": "5天4夜", "sites": "8 個", "tanks": "12 支", "cert": "AOW"},
+      "batches": {
+        "b1": {"dates": "7/18 (六) – 7/22 (三)", "badge": "剩 3 位"},
+        "b2": {"dates": "8/22 (六) – 8/26 (三)", "badge": "熱銷中"},
+        "b3": {"dates": "9/12 (六) – 9/16 (三)", "badge": "已售完"}
+      },
+      "itinerary": {
+        "day1": {"title": "Day 1 — 抵達蘭嶼", "body": "台東搭船 → 抵達開元港 → 民宿放行李\n第 1 支：八代灣（適應）\n第 2 支：玉女岩"},
+        "day2": {"title": "Day 2 — 雙獅岩 / 漂流潛", "body": "第 3 支：雙獅岩\n第 4 支：母雞岩漂流潛\n夜潛：八代灣"},
+        "day3": {"title": "Day 3 — 藍洞探索", "body": "第 5 支：藍洞\n第 6 支：玉女岩深潛\n下午文化導覽"},
+        "day4": {"title": "Day 4 — 大物迴游", "body": "第 7 支：羊角灣外礁\n第 8 支：八代灣外礁（找鬼蝠魟）\n第 9 支：饗宴礁"}
+      },
+      "included": {"lodging": "4 晚民宿", "tanks": "12 支氣瓶", "meals": "早晚餐", "guide": "教練＋嚮導", "insurance": "基本險 200 萬", "scooter": "機車租借"},
+      "notIncluded": {"gear": "個人裝備租借", "tips": "教練小費", "travel": "旅遊不便險", "photo": "私人攝影師"},
+      "addons": {
+        "gear": {
+          "gear1": {"name": "全套裝備", "price": "NT$ 1,500"},
+          "gear2": {"name": "BCD", "price": "NT$ 500"},
+          "gear3": {"name": "調節器", "price": "NT$ 500"},
+          "gear4": {"name": "潛水電腦表", "price": "NT$ 400"}
+        },
+        "svc": {
+          "svc1": {"name": "水下攝影記錄", "price": "NT$ 2,000"},
+          "svc2": {"name": "1 對 1 教練", "price": "NT$ 4,000"},
+          "svc3": {"name": "升級單人房", "price": "NT$ 3,000"}
+        },
+        "ext": {
+          "ext1": {"name": "船潛升級", "price": "NT$ 1,200"},
+          "ext2": {"name": "達悟文化導覽", "price": "NT$ 800"}
+        }
+      },
+      "audience": {
+        "p1": "這趟蘭嶼潛旅適合持有 AOW 以上證照、有漂流潛經驗的潛水員。黑潮帶來大物，但也需要更穩定的浮力與冷靜的判斷力。",
+        "p2": "教練全程陪同，並會根據海況彈性調整潛點順序。我們希望你享受蘭嶼的同時，安全永遠是第一順位。",
+        "req": {"cert": "證照：AOW 以上", "age": "年齡：18 歲以上", "health": "健康：無潛水禁忌症", "swim": "游泳：400m 以上"}
+      },
+      "instructor": {
+        "name": "Iris · 艾瑞絲",
+        "creds": "PADI IDC Staff Instructor  ·  蘭嶼深耕 12 年  ·  鬼蝠魟攝影達人",
+        "bio": "蘭嶼大物導潛專家，熟稔黑潮節奏與島嶼禁忌，會在出發前帶你認識達悟文化。"
+      },
+      "cta": {"title": "準備好挑戰蘭嶼的水下實力派了嗎？", "subline": "NT$ 24,500 起/人  ·  5天4夜  ·  12支氣瓶"}
+    }
+  },
+  "Course": {
+    "shared": {
+      "viewSchedule": "查看開課日期", "viewCurriculum": "了解課程內容",
+      "duration": "課程時長", "groupSize": "班級人數", "prereq": "先修條件", "dives": "下水次數",
+      "priceLabel": "課程費用", "enroll": "立即報名",
+      "equipTitle": "裝備清單", "flowTitle": "報名流程",
+      "scheduleTitle": "近期開課梯次", "faqTitle": "常見問題"
+    },
+    "aida": {
+      "kicker": "FREEDIVING · AIDA",
+      "title": "AIDA 2 自由潛水",
+      "subtitle": "One Breath. One Ocean.",
+      "intro": "AIDA 是全球最具規模的自由潛水認證系統。從學習生理學與呼吸法開始，循序漸進進入水中閉氣與下潛訓練，是進入閉氣潛水世界最完整的入門。",
+      "info": {"duration": "3 天", "groupSize": "1 教練 : 4 學員", "prereq": "12 歲以上 · 會游泳", "dives": "10+ 次潛降"},
+      "curriculum": {
+        "title": "課程內容",
+        "subtitle": "理論 · 平靜水域 · 開放水域 · 認證",
+        "steps": {
+          "theory": {"title": "Day 1 — 理論課程", "body": "閉氣生理學、呼吸方法、安全規則、教科書研讀與測驗。"},
+          "pool": {"title": "Day 2 — 平靜水域", "body": "靜態閉氣 STA、動態閉氣 DYN、自救動作、壓力平衡訓練。"},
+          "open": {"title": "Day 3 — 開放水域", "body": "海中下潛 CWT / FIM、目標深度 16m 以上、團隊安全訓練。"},
+          "cert": {"title": "認證發證", "body": "通過評核後 30 日內取得 AIDA 國際認證卡。"}
+        }
+      },
+      "price": {
+        "amount": "NT$ 12,800",
+        "note": "費用包含：教練、裝備、教材、認證費、保險、淺水池",
+        "includes": {"l1": "AIDA 國際認證卡", "l2": "全套訓練裝備", "l3": "中英對照教材", "l4": "結訓後 30 天免費約練"}
+      },
+      "equipment": {
+        "e1": {"name": "長蛙鞋", "note": "課程提供，可加購自有"},
+        "e2": {"name": "面鏡（低容積）", "note": "建議自備，舒適度差很多"},
+        "e3": {"name": "防寒衣 3mm", "note": "課程提供，依季節調整"},
+        "e4": {"name": "配重帶", "note": "課程提供"}
+      },
+      "flow": {
+        "f1": {"title": "線上報名", "body": "填寫表單 + 繳訂金 5,000"},
+        "f2": {"title": "理論先修", "body": "上課前 1 週收到電子教材"},
+        "f3": {"title": "三天上課", "body": "理論 / 池訓 / 海訓"},
+        "f4": {"title": "認證發放", "body": "結業後 30 天內收到認證卡"}
+      },
+      "schedule": {
+        "s1": {"dates": "7/4 – 7/6", "location": "小琉球"},
+        "s2": {"dates": "7/18 – 7/20", "location": "綠島"},
+        "s3": {"dates": "8/1 – 8/3", "location": "小琉球"}
+      },
+      "faq": {
+        "q1": {"q": "需要游泳基礎嗎？", "a": "可以連續游泳 200m 即可，自由式或蛙式皆可。"},
+        "q2": {"q": "近視可以嗎？", "a": "可以，我們有度數面鏡可借用，請於報名時備註度數。"},
+        "q3": {"q": "完全沒有基礎，可以直接上 AIDA 2 嗎？", "a": "可以，AIDA 2 就是入門課程。"},
+        "q4": {"q": "課程後我能潛多深？", "a": "認證標準是 16m，多數學員實際結訓時能達到 15-20m。"}
+      },
+      "cta": {"title": "用一口氣，認識海洋", "subline": "下一個梯次 7/4 · 小琉球開課"}
+    },
+    "padi": {
+      "kicker": "SCUBA · PADI",
+      "title": "PADI OWD 開放水域潛水員",
+      "subtitle": "Your first scuba certification, globally recognised.",
+      "intro": "PADI 是全球最大的潛水教學系統。OWD 是水肺潛水的入門證照，讓你可以在 18 米內的開放水域進行潛水，是探索水下世界的第一張門票。",
+      "info": {"duration": "3-4 天", "groupSize": "1 教練 : 4 學員", "prereq": "10 歲以上 · 會游泳", "dives": "4 次開放水域潛水"},
+      "curriculum": {
+        "title": "課程內容",
+        "subtitle": "理論 · 平靜水域 · 4 次開放水域潛水",
+        "steps": {
+          "theory": {"title": "Section 1 — 理論", "body": "潛水物理、生理、裝備認識、潛伴系統、減壓概念。"},
+          "pool": {"title": "Section 2 — 平靜水域", "body": "5 個 confined-water dive，掌握基本技巧：浮力、清面鏡、面鏡脫除、共生器具等。"},
+          "open": {"title": "Section 3 — 開放水域 1-4", "body": "4 次 open-water dive，逐步在實際海況中演練所學技巧。"},
+          "cert": {"title": "認證發證", "body": "結訓後 24 小時內登錄至 PADI，可於 PADI app 顯示 e-card。"}
+        }
+      },
+      "price": {
+        "amount": "NT$ 14,800",
+        "note": "費用包含：教練、裝備、教材、認證費、保險",
+        "includes": {"l1": "PADI 國際認證卡 (e-card)", "l2": "全套水肺裝備", "l3": "PADI 中英教材", "l4": "結訓後 90 天免費約練"}
+      },
+      "equipment": {
+        "e1": {"name": "BCD 浮力背心", "note": "課程提供"},
+        "e2": {"name": "調節器組", "note": "課程提供"},
+        "e3": {"name": "面鏡 / 蛙鞋", "note": "建議自備"},
+        "e4": {"name": "防寒衣 3mm", "note": "課程提供"}
+      },
+      "flow": {
+        "f1": {"title": "線上報名", "body": "填寫表單 + 繳訂金 5,000"},
+        "f2": {"title": "理論線上課", "body": "PADI eLearning 提前完成"},
+        "f3": {"title": "現場實作", "body": "池訓 1 天 + 海訓 2 天"},
+        "f4": {"title": "認證發放", "body": "24 小時內登錄至 PADI"}
+      },
+      "schedule": {
+        "s1": {"dates": "7/4 – 7/6", "location": "小琉球"},
+        "s2": {"dates": "7/11 – 7/14", "location": "綠島"},
+        "s3": {"dates": "8/8 – 8/10", "location": "小琉球"}
+      },
+      "faq": {
+        "q1": {"q": "需要游泳基礎嗎？", "a": "可以游 200m 即可，蛙式或自由式皆可，速度不限。"},
+        "q2": {"q": "近視可以嗎？", "a": "可以，提供度數面鏡。如要長期使用建議訂製度數面鏡。"},
+        "q3": {"q": "怕水可以嗎？", "a": "可以先約一次體驗潛水試試，再決定要不要報考證照。"},
+        "q4": {"q": "證照有效期限嗎？", "a": "PADI 證照終身有效，但建議每年至少潛水 1 次保持手感。"}
+      },
+      "cta": {"title": "拿到你的第一張水肺證照", "subline": "下一個梯次 7/4 · 小琉球開課"}
+    }
+  },
+  "Stub": {
+    "about": {"kicker": "ABOUT US", "title": "關於 HeyHeyDive", "body": "我們是一群在台灣四大潛點生活與工作的潛水人，相信「呼吸是潛水的開始」。完整的品牌故事頁面正在建構中。", "cta": "回首頁"},
+    "faq": {"kicker": "FAQ", "title": "常見問題", "body": "課程、行程、裝備、付款的常見疑問彙整中，預計近期上線。如有急問請透過 LINE 聯繫我們。", "cta": "回首頁"},
+    "merch": {"kicker": "MERCH", "title": "限量周邊", "body": "下水之外，也想把海帶回家。HeyHeyDive 限量周邊（防水袋、毛巾、T 恤）製作中，敬請期待。", "cta": "回首頁"},
+    "privacy": {"kicker": "PRIVACY POLICY", "title": "隱私權政策", "body": "我們重視你的個資。完整隱私權政策內容正在撰寫，預計近期上線。", "cta": "回首頁"},
+    "terms": {"kicker": "TERMS OF SERVICE", "title": "服務條款", "body": "服務條款內容彙整中，預計近期上線。報名與付款條款請參考各行程頁的取消政策。", "cta": "回首頁"},
+    "contact": {"kicker": "CONTACT", "title": "聯絡我們", "body": "Email：hello@heyheydive.com\n電話：+886 989 123 456\nIG：@heyheydive\n地址：台東縣綠島鄉南寮村", "cta": "回首頁"}
   }
 }

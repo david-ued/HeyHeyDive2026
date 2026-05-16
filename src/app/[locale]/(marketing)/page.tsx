@@ -1,20 +1,19 @@
-import {useTranslations} from 'next-intl';
+import {HomeHero} from '@/components/marketing/sections/hero';
+import {BrandTagline} from '@/components/marketing/sections/brand-tagline';
+import {DiveSiteCards} from '@/components/marketing/sections/dive-site-cards';
+import {SeasonalTrips} from '@/components/marketing/sections/seasonal-trips';
+import {DualCourses} from '@/components/marketing/sections/dual-courses';
+import {Newsletter} from '@/components/marketing/sections/newsletter';
 
 export default function HomePage() {
-  const t = useTranslations('Placeholder');
-
   return (
-    <main className="flex flex-1 items-center justify-center px-6 py-24">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold tracking-tight text-deep-ocean sm:text-7xl">
-          {t('brand')}
-        </h1>
-        <p className="mt-6 text-lg text-sea-mist sm:text-xl">{t('subtitle')}</p>
-        <p className="mt-2 text-sm italic text-sea-mist">{t('tagline')}</p>
-        <p className="mt-16 text-xs uppercase tracking-[0.3em] text-coral">
-          ⊛ {t('status')} ⊛
-        </p>
-      </div>
-    </main>
+    <>
+      <HomeHero />
+      <BrandTagline />
+      <DiveSiteCards />
+      <SeasonalTrips />
+      <DualCourses />
+      <Newsletter />
+    </>
   );
 }
