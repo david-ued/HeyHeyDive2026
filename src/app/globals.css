@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─────────────────────────────────────────────────────────────
+   HeyHeyDive brand tokens — PRD §4.1
+   raw palette → semantic tokens (light + dark)
+   ───────────────────────────────────────────────────────────── */
+:root {
+  /* raw palette */
+  --deep-ocean: #0a2540;
+  --coral:      #ff6b47;
+  --midnight:   #051628;
+  --foam:       #f4f8fb;
+  --sea-mist:   #5a6b7b;
+  --sandgold:   #f5a623;
+  --reef-red:   #e63946;
+  --aqua:       #2ec4b6;
+  --divider:    #d9e2ec;
+
+  /* shadcn/ui semantic tokens — light theme */
+  --background: var(--foam);
+  --foreground: var(--deep-ocean);
+  --card: #ffffff;
+  --card-foreground: var(--deep-ocean);
+  --popover: #ffffff;
+  --popover-foreground: var(--deep-ocean);
+  --primary: var(--deep-ocean);
+  --primary-foreground: var(--foam);
+  --secondary: var(--divider);
+  --secondary-foreground: var(--deep-ocean);
+  --muted: var(--divider);
+  --muted-foreground: var(--sea-mist);
+  --accent: var(--coral);
+  --accent-foreground: #ffffff;
+  --destructive: var(--reef-red);
+  --destructive-foreground: #ffffff;
+  --border: var(--divider);
+  --input: var(--divider);
+  --ring: var(--coral);
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: var(--midnight);
+  --foreground: var(--foam);
+  --card: var(--deep-ocean);
+  --card-foreground: var(--foam);
+  --popover: var(--deep-ocean);
+  --popover-foreground: var(--foam);
+  --primary: var(--coral);
+  --primary-foreground: var(--midnight);
+  --secondary: var(--deep-ocean);
+  --secondary-foreground: var(--foam);
+  --muted: var(--deep-ocean);
+  --muted-foreground: var(--sea-mist);
+  --accent: var(--coral);
+  --accent-foreground: var(--midnight);
+  --destructive: var(--reef-red);
+  --destructive-foreground: var(--foam);
+  --border: var(--deep-ocean);
+  --input: var(--deep-ocean);
+  --ring: var(--coral);
+}
+
+@theme inline {
+  /* shadcn semantic */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* brand raw colors — available as bg-deep-ocean, text-coral, etc. */
+  --color-deep-ocean: var(--deep-ocean);
+  --color-coral:      var(--coral);
+  --color-midnight:   var(--midnight);
+  --color-foam:       var(--foam);
+  --color-sea-mist:   var(--sea-mist);
+  --color-sandgold:   var(--sandgold);
+  --color-reef-red:   var(--reef-red);
+  --color-aqua:       var(--aqua);
+
+  --font-sans: var(--font-noto-sans-tc), var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
