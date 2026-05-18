@@ -1,24 +1,30 @@
 import {useTranslations} from 'next-intl';
 import {ArrowRight, MapPin, Thermometer, Waves} from 'lucide-react';
 import {Link} from '@/i18n/navigation';
+import {buildContentT, type DeepContent} from '@/lib/cms/content';
 
-type Slug = 'ludao' | 'lanyu' | 'liuqiu';
-
-const HERO_GRADIENT: Record<Slug, string> = {
+const HERO_GRADIENT: Record<string, string> = {
   ludao: 'from-aqua/40 via-navy-700 to-navy-900',
   lanyu: 'from-coral/40 via-navy-700 to-navy-900',
   liuqiu: 'from-gold/40 via-navy-700 to-navy-900'
 };
 
-export function DiveSitePage({slug}: {slug: Slug}) {
-  const t = useTranslations(`DiveSite.${slug}`);
+export function DiveSitePage({
+  slug,
+  content
+}: {
+  slug: string;
+  content?: DeepContent;
+}) {
+  const tFallback = useTranslations(`DiveSite.${slug}`);
+  const t = buildContentT(content, tFallback);
   const tShared = useTranslations('DiveSite.shared');
 
   return (
     <>
       {/* Hero */}
       <section
-        className={`relative overflow-hidden bg-gradient-to-br ${HERO_GRADIENT[slug]}`}
+        className={`relative overflow-hidden bg-gradient-to-br ${HERO_GRADIENT[slug] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}
       >
         <div
           aria-hidden

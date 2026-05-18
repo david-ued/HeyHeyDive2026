@@ -5,7 +5,16 @@ import {useFormStatus} from 'react-dom';
 import Link from 'next/link';
 import {upsertCourseAction, deleteCourseAction, type CourseFormState} from '../actions';
 import type {Course} from '@/lib/cms/types';
-import {FieldLabel, FormError, Select, Textarea, TextInput} from '@/components/admin/form-fields';
+import {
+  CoverPreview,
+  FieldLabel,
+  FileInput,
+  FormError,
+  JsonField,
+  Select,
+  Textarea,
+  TextInput
+} from '@/components/admin/form-fields';
 
 const initial: CourseFormState = {error: null};
 
@@ -13,7 +22,7 @@ export function CourseForm({course, locale}: {course?: Course | null; locale: st
   const [state, formAction] = useActionState(upsertCourseAction, initial);
   const isEdit = !!course;
   return (
-    <form action={formAction} className="flex flex-col gap-6">
+    <form action={formAction} className="flex flex-col gap-6" encType="multipart/form-data">
       <input type="hidden" name="locale" value={locale} />
       {isEdit ? <input type="hidden" name="id" value={course!.id} /> : null}
 
@@ -76,9 +85,31 @@ export function CourseForm({course, locale}: {course?: Course | null; locale: st
       <FieldLabel label="Description (English)">
         <Textarea name="description_en" rows={4} defaultValue={course?.description_en ?? ''} />
       </FieldLabel>
-      <FieldLabel label="封面圖片 URL">
-        <TextInput name="cover_image" type="url" defaultValue={course?.cover_image ?? ''} />
-      </FieldLabel>
+      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <p className="text-sm font-medium text-navy-900">封面圖片</p>
+        <FieldLabel label="上傳檔案" hint="JPG / PNG，最大 5MB">
+          <FileInput name="cover_image_file" accept="image/*" />
+        </FieldLabel>
+        <FieldLabel label="或貼上圖片 URL">
+          <TextInput name="cover_image" type="url" defaultValue={course?.cover_image ?? ''} />
+        </FieldLabel>
+        <CoverPreview src={course?.cover_image} />
+      </section>
+
+      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <div>
+          <p className="text-sm font-medium text-navy-900">深層內容（JSON）</p>
+          <p className="mt-1 text-xs text-gray-500">
+            選填。可放 curriculum、includes、equipment、faq 等。詳情頁有讀到對應 key 時，會以這裡為準。
+          </p>
+        </div>
+        <FieldLabel label="content_zh">
+          <JsonField name="content_zh" defaultValue={course?.content_zh} rows={10} placeholder='{"curriculum": {"steps": {"theory": {"title": "Day 1 — 理論", "body": "..."}}}}' />
+        </FieldLabel>
+        <FieldLabel label="content_en">
+          <JsonField name="content_en" defaultValue={course?.content_en} rows={8} />
+        </FieldLabel>
+      </section>
 
       <FormError error={state.error} />
 

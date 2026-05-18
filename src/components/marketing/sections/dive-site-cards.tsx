@@ -1,15 +1,23 @@
-import {useTranslations} from 'next-intl';
+import {getTranslations, getLocale} from 'next-intl/server';
 import {ArrowUpRight} from 'lucide-react';
 import {Link} from '@/i18n/navigation';
+import {listPublicDiveSites} from '@/lib/cms/queries';
+import {pickText} from '@/lib/cms/i18n';
+import {deriveSimpleStatus, statusBadgeClassLight, statusLabel} from '@/lib/cms/status';
 
-const SITES = [
-  {slug: 'ludao', gradient: 'from-aqua/40 via-navy-700 to-navy-900'},
-  {slug: 'lanyu', gradient: 'from-coral/30 via-navy-700 to-navy-900'},
-  {slug: 'liuqiu', gradient: 'from-gold/30 via-navy-700 to-navy-900'}
-] as const;
+const GRADIENTS: Record<string, string> = {
+  ludao: 'from-aqua/40 via-navy-700 to-navy-900',
+  lanyu: 'from-coral/30 via-navy-700 to-navy-900',
+  liuqiu: 'from-gold/30 via-navy-700 to-navy-900'
+};
 
-export function DiveSiteCards() {
-  const t = useTranslations('Home.sites');
+export async function DiveSiteCards() {
+  const t = await getTranslations('Home.sites');
+  const locale = await getLocale();
+  const sites = await listPublicDiveSites();
+
+  if (sites.length === 0) return null;
+
   return (
     <section className="bg-off-white pb-24 text-ink">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-6 md:px-20">
@@ -23,42 +31,54 @@ export function DiveSiteCards() {
         </header>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {SITES.map(({slug, gradient}) => (
+          {sites.map((site) => {
+            const derived = deriveSimpleStatus(site);
+            return (
             <Link
-              key={slug}
-              href={`/dive-sites/${slug}`}
-              className="group flex flex-col overflow-hidden rounded-lg bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+              key={site.id}
+              href={`/dive-sites/${site.slug}`}
+              className={`group flex flex-col overflow-hidden rounded-lg bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${derived === 'closed' ? 'opacity-70' : ''}`}
             >
               <div
-                className={`relative aspect-[16/11] w-full bg-gradient-to-br ${gradient}`}
+                className={`relative aspect-[16/11] w-full bg-gradient-to-br ${GRADIENTS[site.slug] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}
               >
                 <div
                   aria-hidden
                   className="absolute inset-0 opacity-25 [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:18px_18px]"
                 />
                 <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 font-en text-[11px] font-semibold tracking-wide text-ink">
-                  {t(`${slug}.tag`)}
+                  {site.slug.toUpperCase()}
                 </span>
+                {derived !== 'open' ? (
+                  <span
+                    className={`absolute right-5 top-5 rounded-full border px-2.5 py-1 text-[11px] font-medium ${statusBadgeClassLight(derived)}`}
+                  >
+                    {statusLabel(derived, locale)}
+                  </span>
+                ) : null}
               </div>
 
               <div className="flex flex-col gap-3 p-6">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <h3 className="font-heading text-xl font-bold">
-                      {t(`${slug}.name`)}
+                      {pickText(site.name, site.name_en, locale)}
                     </h3>
                     <p className="font-en text-xs tracking-wider text-gray-500">
-                      {t(`${slug}.en`)}
+                      {locale === 'en'
+                        ? site.name_en ?? site.name
+                        : site.region ?? ''}
                     </p>
                   </div>
                   <ArrowUpRight className="h-5 w-5 text-gray-500 transition group-hover:text-coral" />
                 </div>
                 <p className="text-sm leading-relaxed text-gray-700">
-                  {t(`${slug}.desc`)}
+                  {pickText(site.intro, site.intro_en, locale)}
                 </p>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

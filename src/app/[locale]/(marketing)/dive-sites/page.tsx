@@ -1,8 +1,8 @@
 import {DiveSiteCards} from '@/components/marketing/sections/dive-site-cards';
-import {useTranslations} from 'next-intl';
+import {getTranslations} from 'next-intl/server';
 
-export default function DiveSitesIndex() {
-  const t = useTranslations('Home.sites');
+export default async function DiveSitesIndex() {
+  const t = await getTranslations('Home.sites');
   return (
     <>
       <section className="bg-navy-900 pt-24 pb-12 text-center md:pt-32">

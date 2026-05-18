@@ -1,12 +1,10 @@
 import {notFound} from 'next/navigation';
+import {getLocale} from 'next-intl/server';
 import {DiveSitePage} from '@/components/marketing/dive-site-page';
+import {getDiveSiteBySlug} from '@/lib/cms/queries';
+import {pickContent} from '@/lib/cms/content';
 
-const VALID_SLUGS = ['ludao', 'lanyu', 'liuqiu'] as const;
-type Slug = (typeof VALID_SLUGS)[number];
-
-export function generateStaticParams() {
-  return VALID_SLUGS.map((slug) => ({slug}));
-}
+export const dynamic = 'force-dynamic';
 
 export default async function DiveSiteDetail({
   params
@@ -14,6 +12,8 @@ export default async function DiveSiteDetail({
   params: Promise<{slug: string}>;
 }) {
   const {slug} = await params;
-  if (!VALID_SLUGS.includes(slug as Slug)) notFound();
-  return <DiveSitePage slug={slug as Slug} />;
+  const site = await getDiveSiteBySlug(slug);
+  if (!site || site.status === 'draft') notFound();
+  const locale = await getLocale();
+  return <DiveSitePage slug={slug} content={pickContent(site, locale)} />;
 }

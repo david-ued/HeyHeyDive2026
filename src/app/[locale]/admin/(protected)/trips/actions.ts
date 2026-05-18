@@ -4,6 +4,7 @@ import {redirect} from 'next/navigation';
 import {revalidatePath} from 'next/cache';
 import {createClient} from '@/lib/supabase/server';
 import {requireAdminAction} from '@/lib/supabase/auth-actions';
+import {uploadCover} from '@/lib/cms/storage';
 
 const DESTINATIONS = ['ludao', 'lanyu', 'liuqiu', 'kenting', 'other'] as const;
 const KINDS = ['padi', 'aida', 'experience', 'other'] as const;
@@ -19,9 +20,24 @@ export async function upsertTripAction(
 
   const id = String(formData.get('id') ?? '').trim();
   const locale = String(formData.get('locale') ?? 'zh-TW');
+  const slug = String(formData.get('slug') ?? '').trim();
+
+  // optional file upload — overrides cover_image URL if provided
+  const file = formData.get('cover_image_file');
+  let coverImageUrl = nullable(formData.get('cover_image'));
+  if (file instanceof File && file.size > 0) {
+    const {url, error} = await uploadCover(file, `trips/${slug || 'trip'}`);
+    if (error) return {error: `封面上傳失敗：${error}`};
+    if (url) coverImageUrl = url;
+  }
+
+  const contentZh = parseJson(formData.get('content_zh'));
+  if (contentZh === SENTINEL_INVALID) return {error: '中文深層內容不是合法 JSON'};
+  const contentEn = parseJson(formData.get('content_en'));
+  if (contentEn === SENTINEL_INVALID) return {error: 'English deep content is not valid JSON'};
 
   const payload = {
-    slug: String(formData.get('slug') ?? '').trim(),
+    slug,
     title: String(formData.get('title') ?? '').trim(),
     title_en: nullable(formData.get('title_en')),
     destination: requireEnum(formData.get('destination'), DESTINATIONS, 'destination'),
@@ -34,7 +50,9 @@ export async function upsertTripAction(
     short_description: nullable(formData.get('short_description')),
     description: nullable(formData.get('description')),
     description_en: nullable(formData.get('description_en')),
-    cover_image: nullable(formData.get('cover_image')),
+    cover_image: coverImageUrl,
+    content_zh: contentZh,
+    content_en: contentEn,
     status: requireEnum(formData.get('status'), STATUSES, 'status')
   };
 
@@ -63,6 +81,7 @@ export async function upsertTripAction(
 
   revalidatePath(`/${locale}/admin/trips`);
   revalidatePath(`/${locale}/calendar`);
+  revalidatePath(`/${locale}/trips/${payload.slug}`);
   redirect(`/${locale}/admin/trips`);
 }
 
@@ -98,4 +117,15 @@ function requireEnum<T extends readonly string[]>(
     throw new Error(`Invalid ${field}: ${s}`);
   }
   return s as T[number];
+}
+
+const SENTINEL_INVALID = Symbol('invalid-json');
+function parseJson(v: FormDataEntryValue | null): unknown {
+  const s = typeof v === 'string' ? v.trim() : '';
+  if (!s) return null;
+  try {
+    return JSON.parse(s);
+  } catch {
+    return SENTINEL_INVALID;
+  }
 }

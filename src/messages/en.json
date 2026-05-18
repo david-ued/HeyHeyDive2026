@@ -395,6 +395,27 @@
       "cta": {"title": "Earn your first scuba card.", "subline": "Next session Jul 4 · Liuqiu"}
     }
   },
+  "Booking": {
+    "kicker": "BOOK NOW",
+    "title": "Reserve your spot",
+    "subtitle": "You're booking <item></item>. We'll reach out within 1–2 business days to confirm.",
+    "openButton": "Open booking form",
+    "submit": "Send booking",
+    "submitting": "Sending…",
+    "cancel": "Cancel",
+    "successTitle": "Booking received!",
+    "successBody": "We'll contact you within 1–2 business days via email or LINE to confirm your spot and payment.",
+    "disclaimer": "By submitting, you agree we may contact you about this booking using the details above.",
+    "field": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "line": "LINE ID",
+      "partySize": "Party size",
+      "notes": "Notes",
+      "notesPlaceholder": "Anything we should know — dive experience, special requirements, etc."
+    }
+  },
   "Stub": {
     "about": {"kicker": "ABOUT US", "title": "About HeyHeyDive", "body": "We're a small crew of divers who live and work at Taiwan's four major dive sites. We believe the breath is where diving begins. Full brand story page in the works.", "cta": "Back to home"},
     "faq": {"kicker": "FAQ", "title": "Frequently asked", "body": "Course, trip, gear, and payment questions — currently being compiled. For anything urgent, reach us on LINE.", "cta": "Back to home"},
@@ -423,7 +444,9 @@
       "signOut": "Sign out",
       "nav": {
         "dashboard": "Dashboard",
+        "bookings": "Bookings",
         "trips": "Trips",
+        "diveSites": "Dive sites",
         "courses": "Courses",
         "users": "Users",
         "settings": "Settings"

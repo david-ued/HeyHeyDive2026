@@ -1,14 +1,29 @@
-import {useTranslations} from 'next-intl';
+import {getTranslations, getLocale} from 'next-intl/server';
 import {ArrowRight} from 'lucide-react';
 import {Link} from '@/i18n/navigation';
+import {listPublicCourses} from '@/lib/cms/queries';
+import {pickText} from '@/lib/cms/i18n';
+import {deriveSimpleStatus, statusBadgeClass, statusLabel} from '@/lib/cms/status';
 
-const COURSES = [
-  {key: 'aida', accent: 'from-aqua/30 to-navy-700'},
-  {key: 'padi', accent: 'from-coral/30 to-navy-700'}
-] as const;
+const ACCENT: Record<string, string> = {
+  aida: 'from-aqua/30 to-navy-700',
+  padi: 'from-coral/30 to-navy-700',
+  other: 'from-navy-500 to-navy-700'
+};
 
-export function DualCourses() {
-  const t = useTranslations('Home.courses');
+const SYSTEM_KICKER: Record<string, string> = {
+  aida: 'FREEDIVING',
+  padi: 'SCUBA',
+  other: 'COURSE'
+};
+
+export async function DualCourses() {
+  const t = await getTranslations('Home.courses');
+  const locale = await getLocale();
+  const courses = await listPublicCourses();
+
+  if (courses.length === 0) return null;
+
   return (
     <section className="bg-off-white text-ink">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-10 px-6 py-20 md:px-20">
@@ -22,37 +37,45 @@ export function DualCourses() {
         </header>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {COURSES.map(({key, accent}) => (
+          {courses.map((course) => {
+            const derived = deriveSimpleStatus(course);
+            return (
             <article
-              key={key}
-              className="flex flex-col overflow-hidden rounded-lg bg-navy-800 text-white"
+              key={course.id}
+              className={`flex flex-col overflow-hidden rounded-lg bg-navy-800 text-white ${derived === 'closed' ? 'opacity-70' : ''}`}
             >
               <div
-                className={`relative h-60 w-full bg-gradient-to-br ${accent}`}
+                className={`relative h-60 w-full bg-gradient-to-br ${ACCENT[course.system] ?? ACCENT.other}`}
               >
                 <span className="absolute left-6 top-6 font-en text-[11px] font-semibold tracking-[0.2em] text-gold">
-                  {t(`${key}.kicker`)}
+                  {SYSTEM_KICKER[course.system] ?? SYSTEM_KICKER.other}
+                </span>
+                <span
+                  className={`absolute right-6 top-6 rounded-full border px-2.5 py-1 font-en text-[11px] font-semibold tracking-wider ${statusBadgeClass(derived)}`}
+                >
+                  {statusLabel(derived, locale)}
                 </span>
                 <p className="absolute bottom-6 left-6 font-heading text-3xl font-bold">
-                  {t(`${key}.label`)}
+                  {course.system.toUpperCase()}
                 </p>
               </div>
               <div className="flex flex-col gap-4 p-7">
                 <h3 className="font-heading text-xl font-bold">
-                  {t(`${key}.name`)}
+                  {pickText(course.title, course.title_en, locale)}
                 </h3>
                 <p className="text-sm leading-relaxed text-gray-300">
-                  {t(`${key}.desc`)}
+                  {pickText(course.description, course.description_en, locale)}
                 </p>
                 <Link
-                  href={`/courses/${key}`}
+                  href={`/courses/${course.slug}`}
                   className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-coral px-5 py-2.5 font-en text-sm font-semibold text-white transition hover:brightness-110"
                 >
                   {t('cta')} <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

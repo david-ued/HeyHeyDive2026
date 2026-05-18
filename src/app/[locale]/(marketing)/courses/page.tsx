@@ -1,8 +1,8 @@
 import {DualCourses} from '@/components/marketing/sections/dual-courses';
-import {useTranslations} from 'next-intl';
+import {getTranslations} from 'next-intl/server';
 
-export default function CoursesIndex() {
-  const t = useTranslations('Home.courses');
+export default async function CoursesIndex() {
+  const t = await getTranslations('Home.courses');
   return (
     <>
       <section className="bg-navy-900 pt-24 pb-12 text-center md:pt-32">

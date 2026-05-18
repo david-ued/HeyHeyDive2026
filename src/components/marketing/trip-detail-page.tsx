@@ -18,10 +18,9 @@ import {
 } from 'lucide-react';
 import {Link} from '@/i18n/navigation';
 import {cn} from '@/lib/utils';
+import {buildContentT, type DeepContent} from '@/lib/cms/content';
 
-type Slug = 'ludao-4d3n' | 'liuqiu-2d1n' | 'lanyu-5d4n';
-
-const COVER_GRADIENT: Record<Slug, string> = {
+const COVER_GRADIENT: Record<string, string> = {
   'ludao-4d3n': 'from-aqua/30 via-navy-700 to-navy-900',
   'liuqiu-2d1n': 'from-gold/30 via-navy-700 to-navy-900',
   'lanyu-5d4n': 'from-coral/30 via-navy-700 to-navy-900'
@@ -36,8 +35,17 @@ const DATE_BATCHES = [
   {id: 'b3', status: 'soldout'}
 ] as const;
 
-export function TripDetailPage({slug}: {slug: Slug}) {
-  const t = useTranslations(`Trip.${slug}`);
+export function TripDetailPage({
+  slug,
+  content,
+  bookingForm
+}: {
+  slug: string;
+  content?: DeepContent;
+  bookingForm?: React.ReactNode;
+}) {
+  const tFallback = useTranslations(`Trip.${slug}`);
+  const t = buildContentT(content, tFallback);
   const tShared = useTranslations('Trip.shared');
   const [selected, setSelected] = useState<string>('b1');
   const [openDay, setOpenDay] = useState<string>('day1');
@@ -60,7 +68,7 @@ export function TripDetailPage({slug}: {slug: Slug}) {
       </div>
 
       {/* Cover */}
-      <section className={`relative bg-gradient-to-br ${COVER_GRADIENT[slug]}`}>
+      <section className={`relative bg-gradient-to-br ${COVER_GRADIENT[slug] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}>
         <div
           aria-hidden
           className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]"
@@ -286,6 +294,8 @@ export function TripDetailPage({slug}: {slug: Slug}) {
         </div>
       </section>
 
+      {bookingForm}
+
       {/* Final CTA */}
       <section id="cta" className="bg-navy-800 text-white">
         <div className="mx-auto flex max-w-[900px] flex-col items-center gap-5 px-6 py-16 text-center md:py-20">
@@ -347,7 +357,7 @@ function AddonGroup({
   icon: React.ReactNode;
   title: string;
   rows: string[];
-  slug: Slug;
+  slug: string;
   ns: string;
 }) {
   const t = useTranslations(`Trip.${slug}`);

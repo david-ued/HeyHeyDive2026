@@ -9,24 +9,32 @@ import {
   Users
 } from 'lucide-react';
 import {Link} from '@/i18n/navigation';
+import {buildContentT, type DeepContent} from '@/lib/cms/content';
 
-type System = 'aida' | 'padi';
-
-const HERO_GRADIENT: Record<System, string> = {
+const HERO_GRADIENT: Record<string, string> = {
   aida: 'from-aqua/30 via-navy-700 to-navy-900',
   padi: 'from-coral/30 via-navy-700 to-navy-900'
 };
 
 const STEPS = ['theory', 'pool', 'open', 'cert'] as const;
 
-export function CourseDetailPage({system}: {system: System}) {
-  const t = useTranslations(`Course.${system}`);
+export function CourseDetailPage({
+  system,
+  content,
+  bookingForm
+}: {
+  system: string;
+  content?: DeepContent;
+  bookingForm?: React.ReactNode;
+}) {
+  const tFallback = useTranslations(`Course.${system}`);
+  const t = buildContentT(content, tFallback);
   const tShared = useTranslations('Course.shared');
 
   return (
     <>
       {/* Hero & Course Info */}
-      <section className={`relative bg-gradient-to-br ${HERO_GRADIENT[system]}`}>
+      <section className={`relative bg-gradient-to-br ${HERO_GRADIENT[system] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}>
         <div
           aria-hidden
           className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]"
@@ -216,6 +224,8 @@ export function CourseDetailPage({system}: {system: System}) {
           </div>
         </div>
       </section>
+
+      {bookingForm}
 
       <section className="bg-navy-800 text-white">
         <div className="mx-auto flex max-w-[900px] flex-col items-center gap-5 px-6 py-16 text-center">

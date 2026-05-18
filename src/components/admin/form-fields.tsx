@@ -56,6 +56,58 @@ export function Select({
   );
 }
 
+export function FileInput(props: InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      {...props}
+      type="file"
+      className={`block w-full text-sm text-gray-700 file:mr-3 file:rounded-md file:border-0 file:bg-navy-900 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white hover:file:bg-navy-800 ${props.className ?? ''}`}
+    />
+  );
+}
+
+export function CoverPreview({src}: {src?: string | null}) {
+  if (!src) return null;
+  // eslint-disable-next-line @next/next/no-img-element
+  return (
+    <img
+      src={src}
+      alt="cover preview"
+      className="mt-2 h-32 w-full max-w-xs rounded-md border border-gray-200 object-cover"
+    />
+  );
+}
+
+export function JsonField({
+  name,
+  defaultValue,
+  rows = 8,
+  placeholder
+}: {
+  name: string;
+  defaultValue?: unknown;
+  rows?: number;
+  placeholder?: string;
+}) {
+  const initial =
+    defaultValue == null || defaultValue === ''
+      ? ''
+      : typeof defaultValue === 'string'
+        ? defaultValue
+        : JSON.stringify(defaultValue, null, 2);
+  return (
+    <textarea
+      name={name}
+      defaultValue={initial}
+      rows={rows}
+      placeholder={placeholder}
+      spellCheck={false}
+      className={`${INPUT_CLS} font-en text-xs leading-relaxed`}
+      style={{fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace'}}
+    />
+  );
+}
+
 export function FormError({error}: {error?: string | null}) {
   if (!error) return null;
   return (

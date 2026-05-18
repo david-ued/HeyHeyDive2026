@@ -52,3 +52,20 @@ export function LineIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function ThreadsIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      {...props}
+    >
+      <path d="M18.5 8.3c-.9-2.6-3.2-4.3-6.5-4.3-5 0-8 3-8 8s3 8 8 8c4.4 0 7-2.4 7-5.4 0-2.5-1.9-4.6-5-4.6-2.4 0-4 1.4-4 3 0 1.4 1.2 2.5 3 2.5 2.4 0 4.3-1.9 4.3-5.5 0-1.7-1-3-2.6-3.5" />
+    </svg>
+  );
+}

@@ -2,7 +2,7 @@
 
 import {useState} from 'react';
 import {LogIn, Menu, ShieldCheck, X} from 'lucide-react';
-import {InstagramIcon, FacebookIcon, LineIcon} from './brand-icons';
+import {InstagramIcon, FacebookIcon, LineIcon, ThreadsIcon} from './brand-icons';
 import {useTranslations, useLocale} from 'next-intl';
 import {Link, usePathname} from '@/i18n/navigation';
 import {routing} from '@/i18n/routing';
@@ -31,9 +31,11 @@ export function SiteHeader({session}: {session: Session}) {
       {/* Desktop bar */}
       <div className="hidden md:flex h-[60px] items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2">
-          <span className="grid h-10 w-10 place-items-center rounded-sm border border-white/90 font-en text-[10px] font-bold tracking-[0.1em] text-white">
-            HH
-          </span>
+          <img
+            src="/images/heyhey.jpg"
+            alt="heyheydive"
+            className="h-10 w-10 rounded-sm object-cover"
+          />
         </Link>
 
         <nav className="flex items-center gap-5">
@@ -65,9 +67,11 @@ export function SiteHeader({session}: {session: Session}) {
       {/* Mobile bar */}
       <div className="md:hidden flex h-14 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-sm border border-white/90 font-en text-[10px] font-bold tracking-[0.1em] text-white">
-            HH
-          </span>
+          <img
+            src="/images/heyhey.jpg"
+            alt="heyheydive"
+            className="h-9 w-9 rounded-sm object-cover"
+          />
         </Link>
         <div className="flex items-center gap-3">
           <SessionPill session={session} compact />
@@ -169,7 +173,7 @@ function SocialIcons() {
   return (
     <>
       <a
-        href="https://line.me"
+        href="https://line.me/R/ti/p/@heydive"
         target="_blank"
         rel="noreferrer noopener"
         aria-label="LINE"
@@ -178,7 +182,7 @@ function SocialIcons() {
         <LineIcon className="h-5 w-5" />
       </a>
       <a
-        href="https://www.instagram.com/heyheydive"
+        href="https://www.instagram.com/heyhey_dive/"
         target="_blank"
         rel="noreferrer noopener"
         aria-label="Instagram"
@@ -187,13 +191,22 @@ function SocialIcons() {
         <InstagramIcon className="h-5 w-5" />
       </a>
       <a
-        href="https://www.facebook.com"
+        href="https://www.facebook.com/heyheyDive/"
         target="_blank"
         rel="noreferrer noopener"
         aria-label="Facebook"
         className="transition hover:text-gold"
       >
         <FacebookIcon className="h-5 w-5" />
+      </a>
+      <a
+        href="https://www.threads.com/@heyhey_dive"
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label="Threads"
+        className="transition hover:text-gold"
+      >
+        <ThreadsIcon className="h-5 w-5" />
       </a>
     </>
   );

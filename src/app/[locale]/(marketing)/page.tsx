@@ -5,7 +5,7 @@ import {SeasonalTrips} from '@/components/marketing/sections/seasonal-trips';
 import {DualCourses} from '@/components/marketing/sections/dual-courses';
 import {Newsletter} from '@/components/marketing/sections/newsletter';
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <>
       <HomeHero />

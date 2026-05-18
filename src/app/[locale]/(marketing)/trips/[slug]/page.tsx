@@ -1,12 +1,11 @@
 import {notFound} from 'next/navigation';
+import {getLocale} from 'next-intl/server';
 import {TripDetailPage} from '@/components/marketing/trip-detail-page';
+import {BookingForm} from '@/components/marketing/booking-form';
+import {getTripBySlug} from '@/lib/cms/queries';
+import {pickContent} from '@/lib/cms/content';
 
-const VALID = ['ludao-4d3n', 'liuqiu-2d1n', 'lanyu-5d4n'] as const;
-type Slug = (typeof VALID)[number];
-
-export function generateStaticParams() {
-  return VALID.map((slug) => ({slug}));
-}
+export const dynamic = 'force-dynamic';
 
 export default async function TripDetail({
   params
@@ -14,6 +13,21 @@ export default async function TripDetail({
   params: Promise<{slug: string}>;
 }) {
   const {slug} = await params;
-  if (!VALID.includes(slug as Slug)) notFound();
-  return <TripDetailPage slug={slug as Slug} />;
+  const trip = await getTripBySlug(slug);
+  if (!trip || trip.status === 'draft') notFound();
+  const locale = await getLocale();
+  return (
+    <TripDetailPage
+      slug={slug}
+      content={pickContent(trip, locale)}
+      bookingForm={
+        <BookingForm
+          itemType="trip"
+          itemId={trip.id}
+          itemSlug={trip.slug}
+          itemTitle={trip.title}
+        />
+      }
+    />
+  );
 }

@@ -1,6 +1,6 @@
 import {useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
-import {InstagramIcon, FacebookIcon, LineIcon} from './brand-icons';
+import {InstagramIcon, FacebookIcon, LineIcon, ThreadsIcon} from './brand-icons';
 
 const QUICK_LINKS = [
   {key: 'about', href: '/about'},
@@ -20,9 +20,11 @@ export function SiteFooter() {
       <div className="hidden md:block mx-auto max-w-[1440px] px-16 py-12">
         <div className="flex gap-8 items-start">
           <div className="flex flex-1 flex-col gap-4">
-            <span className="grid h-12 w-12 place-items-center rounded-sm border border-white font-en text-[10px] font-bold tracking-[0.1em]">
-              HH
-            </span>
+            <img
+              src="/images/heyhey.jpg"
+              alt="heyheydive"
+              className="h-12 w-12 rounded-sm object-cover"
+            />
             <p className="font-en text-lg font-semibold">heyheydive</p>
             <p className="text-sm leading-[1.6] text-gray-300">
               {t('description')}
@@ -43,17 +45,20 @@ export function SiteFooter() {
 
           <FooterCol title={t('social')} className="w-[180px]">
             <div className="flex gap-3">
-              <SocialIconLink href="https://line.me" label="LINE">
+              <SocialIconLink href="https://line.me/R/ti/p/@heydive" label="LINE">
                 <LineIcon className="h-5 w-5" />
               </SocialIconLink>
               <SocialIconLink
-                href="https://www.instagram.com/heyheydive"
+                href="https://www.instagram.com/heyhey_dive/"
                 label="Instagram"
               >
                 <InstagramIcon className="h-5 w-5" />
               </SocialIconLink>
-              <SocialIconLink href="https://www.facebook.com" label="Facebook">
+              <SocialIconLink href="https://www.facebook.com/heyheyDive/" label="Facebook">
                 <FacebookIcon className="h-5 w-5" />
+              </SocialIconLink>
+              <SocialIconLink href="https://www.threads.com/@heyhey_dive" label="Threads">
+                <ThreadsIcon className="h-5 w-5" />
               </SocialIconLink>
             </div>
           </FooterCol>
@@ -93,9 +98,11 @@ export function SiteFooter() {
       {/* Mobile */}
       <div className="md:hidden flex flex-col gap-8 px-6 py-8">
         <div className="flex flex-col gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-sm border border-white font-en text-[10px] font-bold tracking-[0.1em]">
-            HH
-          </span>
+          <img
+            src="/images/heyhey.jpg"
+            alt="heyheydive"
+            className="h-10 w-10 rounded-sm object-cover"
+          />
           <p className="font-en text-base font-semibold">heyheydive</p>
           <p className="text-sm leading-[1.6] text-gray-300">
             {t('description')}
@@ -120,14 +127,17 @@ export function SiteFooter() {
 
         <FooterCol title={t('social')}>
           <div className="flex gap-4 text-gray-300">
-            <SocialIconLink href="https://www.instagram.com/heyheydive" label="Instagram">
+            <SocialIconLink href="https://www.instagram.com/heyhey_dive/" label="Instagram">
               <InstagramIcon className="h-[22px] w-[22px]" />
             </SocialIconLink>
-            <SocialIconLink href="https://www.facebook.com" label="Facebook">
+            <SocialIconLink href="https://www.facebook.com/heyheyDive/" label="Facebook">
               <FacebookIcon className="h-[22px] w-[22px]" />
             </SocialIconLink>
-            <SocialIconLink href="https://line.me" label="LINE">
+            <SocialIconLink href="https://line.me/R/ti/p/@heydive" label="LINE">
               <LineIcon className="h-[22px] w-[22px]" />
+            </SocialIconLink>
+            <SocialIconLink href="https://www.threads.com/@heyhey_dive" label="Threads">
+              <ThreadsIcon className="h-[22px] w-[22px]" />
             </SocialIconLink>
           </div>
         </FooterCol>

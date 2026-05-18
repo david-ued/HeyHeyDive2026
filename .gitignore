@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code / agent skills (locally installed, not part of repo)
+/.claude/
+/.agents/
+
+# MCP config (contains access tokens — never commit)
+.mcp.json

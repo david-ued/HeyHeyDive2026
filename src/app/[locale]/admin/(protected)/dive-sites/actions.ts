@@ -4,6 +4,7 @@ import {redirect} from 'next/navigation';
 import {revalidatePath} from 'next/cache';
 import {createClient} from '@/lib/supabase/server';
 import {requireAdminAction} from '@/lib/supabase/auth-actions';
+import {uploadCover} from '@/lib/cms/storage';
 
 const STATUSES = ['open', 'closed', 'draft'] as const;
 
@@ -16,9 +17,23 @@ export async function upsertDiveSiteAction(
   await requireAdminAction();
   const id = String(formData.get('id') ?? '').trim();
   const locale = String(formData.get('locale') ?? 'zh-TW');
+  const slug = String(formData.get('slug') ?? '').trim();
+
+  const file = formData.get('cover_image_file');
+  let coverImageUrl = nullable(formData.get('cover_image'));
+  if (file instanceof File && file.size > 0) {
+    const {url, error} = await uploadCover(file, `dive-sites/${slug || 'site'}`);
+    if (error) return {error: `封面上傳失敗：${error}`};
+    if (url) coverImageUrl = url;
+  }
+
+  const contentZh = parseJson(formData.get('content_zh'));
+  if (contentZh === SENTINEL_INVALID) return {error: '中文深層內容不是合法 JSON'};
+  const contentEn = parseJson(formData.get('content_en'));
+  if (contentEn === SENTINEL_INVALID) return {error: 'English deep content is not valid JSON'};
 
   const payload = {
-    slug: String(formData.get('slug') ?? '').trim(),
+    slug,
     name: String(formData.get('name') ?? '').trim(),
     name_en: nullable(formData.get('name_en')),
     region: nullable(formData.get('region')),
@@ -26,8 +41,10 @@ export async function upsertDiveSiteAction(
     visibility: nullable(formData.get('visibility')),
     intro: nullable(formData.get('intro')),
     intro_en: nullable(formData.get('intro_en')),
-    cover_image: nullable(formData.get('cover_image')),
+    cover_image: coverImageUrl,
     display_order: toInt(formData.get('display_order'), 0),
+    content_zh: contentZh,
+    content_en: contentEn,
     status: requireEnum(formData.get('status'), STATUSES, 'status')
   };
 
@@ -46,6 +63,7 @@ export async function upsertDiveSiteAction(
   }
   revalidatePath(`/${locale}/admin/dive-sites`);
   revalidatePath(`/${locale}/dive-sites`);
+  revalidatePath(`/${locale}/dive-sites/${payload.slug}`);
   redirect(`/${locale}/admin/dive-sites`);
 }
 
@@ -73,4 +91,14 @@ function requireEnum<T extends readonly string[]>(v: FormDataEntryValue | null, 
   const s = String(v ?? '');
   if (!(allowed as readonly string[]).includes(s)) throw new Error(`Invalid ${field}: ${s}`);
   return s as T[number];
+}
+const SENTINEL_INVALID = Symbol('invalid-json');
+function parseJson(v: FormDataEntryValue | null): unknown {
+  const s = typeof v === 'string' ? v.trim() : '';
+  if (!s) return null;
+  try {
+    return JSON.parse(s);
+  } catch {
+    return SENTINEL_INVALID;
+  }
 }

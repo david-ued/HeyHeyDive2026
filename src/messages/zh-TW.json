@@ -434,6 +434,27 @@
       "cta": {"title": "拿到你的第一張水肺證照", "subline": "下一個梯次 7/4 · 小琉球開課"}
     }
   },
+  "Booking": {
+    "kicker": "報名表單",
+    "title": "送出你的報名",
+    "subtitle": "你正在報名 <item></item>。送出後我們會主動與你聯絡確認名額與付款方式。",
+    "openButton": "我要報名",
+    "submit": "送出報名",
+    "submitting": "送出中…",
+    "cancel": "取消",
+    "successTitle": "已收到你的報名！",
+    "successBody": "我們會在 1–2 個工作天內透過 Email / LINE 主動聯絡你確認名額與付款。",
+    "disclaimer": "送出即表示同意我們以此聯絡資料聯繫你關於本次報名的事宜。",
+    "field": {
+      "name": "姓名",
+      "email": "Email",
+      "phone": "手機 / 電話",
+      "line": "LINE ID",
+      "partySize": "報名人數",
+      "notes": "備註",
+      "notesPlaceholder": "想告訴我們的事，例如潛水經驗、特別需求等"
+    }
+  },
   "Stub": {
     "about": {"kicker": "ABOUT US", "title": "關於 HeyHeyDive", "body": "我們是一群在台灣四大潛點生活與工作的潛水人，相信「呼吸是潛水的開始」。完整的品牌故事頁面正在建構中。", "cta": "回首頁"},
     "faq": {"kicker": "FAQ", "title": "常見問題", "body": "課程、行程、裝備、付款的常見疑問彙整中，預計近期上線。如有急問請透過 LINE 聯繫我們。", "cta": "回首頁"},
@@ -462,7 +483,9 @@
       "signOut": "登出",
       "nav": {
         "dashboard": "儀表板",
+        "bookings": "報名管理",
         "trips": "行程管理",
+        "diveSites": "潛點管理",
         "courses": "課程管理",
         "users": "會員管理",
         "settings": "設定"

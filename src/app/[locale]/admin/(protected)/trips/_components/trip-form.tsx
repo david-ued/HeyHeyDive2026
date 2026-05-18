@@ -6,8 +6,11 @@ import Link from 'next/link';
 import {upsertTripAction, deleteTripAction, type TripFormState} from '../actions';
 import type {Trip} from '@/lib/cms/types';
 import {
+  CoverPreview,
   FieldLabel,
+  FileInput,
   FormError,
+  JsonField,
   Select,
   Textarea,
   TextInput
@@ -26,7 +29,7 @@ export function TripForm({
   const isEdit = !!trip;
 
   return (
-    <form action={formAction} className="flex flex-col gap-6">
+    <form action={formAction} className="flex flex-col gap-6" encType="multipart/form-data">
       <input type="hidden" name="locale" value={locale} />
       {isEdit ? <input type="hidden" name="id" value={trip!.id} /> : null}
 
@@ -116,9 +119,31 @@ export function TripForm({
         <Textarea name="description_en" rows={4} defaultValue={trip?.description_en ?? ''} />
       </FieldLabel>
 
-      <FieldLabel label="封面圖片 URL" hint="先填 URL，未來支援上傳">
-        <TextInput name="cover_image" type="url" defaultValue={trip?.cover_image ?? ''} placeholder="https://..." />
-      </FieldLabel>
+      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <p className="text-sm font-medium text-navy-900">封面圖片</p>
+        <FieldLabel label="上傳檔案" hint="JPG / PNG，最大 5MB。上傳後會覆蓋下方 URL">
+          <FileInput name="cover_image_file" accept="image/*" />
+        </FieldLabel>
+        <FieldLabel label="或貼上圖片 URL">
+          <TextInput name="cover_image" type="url" defaultValue={trip?.cover_image ?? ''} placeholder="https://..." />
+        </FieldLabel>
+        <CoverPreview src={trip?.cover_image} />
+      </section>
+
+      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
+        <div>
+          <p className="text-sm font-medium text-navy-900">深層內容（JSON）</p>
+          <p className="mt-1 text-xs text-gray-500">
+            選填。可放 itinerary、included、instructor 等結構化欄位。詳情頁有讀到對應 key 時，會以這裡為準；沒填則 fallback 到既有的訊息檔內容。
+          </p>
+        </div>
+        <FieldLabel label="content_zh">
+          <JsonField name="content_zh" defaultValue={trip?.content_zh} rows={10} placeholder='{"itinerary": [{"day": "Day 1", "title": "出發", "body": "..."}]}' />
+        </FieldLabel>
+        <FieldLabel label="content_en">
+          <JsonField name="content_en" defaultValue={trip?.content_en} rows={8} placeholder='{"itinerary": [{"day": "Day 1", ...}]}' />
+        </FieldLabel>
+      </section>
 
       <FormError error={state.error} />
 

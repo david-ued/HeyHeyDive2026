@@ -22,9 +22,11 @@ function LoginScreen({locale}: {locale: string}) {
     <section className="grid min-h-[calc(100vh-3.5rem)] place-items-center bg-navy-900 px-6 py-16">
       <div className="flex w-full max-w-md flex-col items-center gap-8">
         <div className="flex flex-col items-center gap-3 text-center">
-          <span className="grid h-12 w-12 place-items-center rounded-sm border border-white/80 font-en text-xs font-bold tracking-wider text-white">
-            HH
-          </span>
+          <img
+            src="/images/heyhey.jpg"
+            alt="heyheydive"
+            className="h-12 w-12 rounded-sm object-cover"
+          />
           <p className="font-en text-[11px] font-bold tracking-[0.3em] text-gold">
             ADMIN CONSOLE
           </p>

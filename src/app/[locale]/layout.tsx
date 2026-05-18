@@ -5,6 +5,7 @@ import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {Geist_Mono, Inter, Noto_Sans_TC} from 'next/font/google';
 import {routing} from '@/i18n/routing';
+import {getSiteSettings} from '@/lib/cms/site-settings';
 import '../globals.css';
 
 const inter = Inter({
@@ -34,9 +35,30 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const {locale} = await params;
   const t = await getTranslations({locale, namespace: 'Meta'});
+  const settings = await getSiteSettings();
+
+  const isEn = locale === 'en';
+  const title = (isEn ? settings.meta_title_en : settings.meta_title) ?? t('title');
+  const description =
+    (isEn ? settings.meta_description_en : settings.meta_description) ?? t('description');
+  const favicon = settings.favicon_url;
+  const ogImage = settings.og_image_url;
+
   return {
-    title: t('title'),
-    description: t('description')
+    title,
+    description,
+    icons: favicon ? {icon: favicon, shortcut: favicon, apple: favicon} : undefined,
+    openGraph: {
+      title,
+      description,
+      images: ogImage ? [{url: ogImage}] : undefined
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImage ? [ogImage] : undefined
+    }
   };
 }
 

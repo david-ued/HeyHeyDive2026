@@ -1,12 +1,11 @@
 import {notFound} from 'next/navigation';
+import {getLocale} from 'next-intl/server';
 import {CourseDetailPage} from '@/components/marketing/course-detail-page';
+import {BookingForm} from '@/components/marketing/booking-form';
+import {getCourseBySlug} from '@/lib/cms/queries';
+import {pickContent} from '@/lib/cms/content';
 
-const VALID = ['aida', 'padi'] as const;
-type Level = (typeof VALID)[number];
-
-export function generateStaticParams() {
-  return VALID.map((level) => ({level}));
-}
+export const dynamic = 'force-dynamic';
 
 export default async function CourseDetail({
   params
@@ -14,6 +13,21 @@ export default async function CourseDetail({
   params: Promise<{level: string}>;
 }) {
   const {level} = await params;
-  if (!VALID.includes(level as Level)) notFound();
-  return <CourseDetailPage system={level as Level} />;
+  const course = await getCourseBySlug(level);
+  if (!course || course.status === 'draft') notFound();
+  const locale = await getLocale();
+  return (
+    <CourseDetailPage
+      system={level}
+      content={pickContent(course, locale)}
+      bookingForm={
+        <BookingForm
+          itemType="course"
+          itemId={course.id}
+          itemSlug={course.slug}
+          itemTitle={course.title}
+        />
+      }
+    />
+  );
 }

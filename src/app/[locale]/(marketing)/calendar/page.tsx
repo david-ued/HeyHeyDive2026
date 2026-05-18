@@ -217,7 +217,7 @@ export default async function CalendarPage({
               {t('cta.consult')}
             </Link>
             <a
-              href="https://line.me"
+              href="https://line.me/R/ti/p/@heydive"
               target="_blank"
               rel="noreferrer noopener"
               className="inline-flex items-center gap-2 rounded-full border border-white px-6 py-3 font-en text-sm font-semibold tracking-wider text-white hover:bg-white/10"

@@ -7,7 +7,9 @@ import {signOutAction} from './actions';
 
 const NAV = [
   {key: 'dashboard', href: '/admin'},
+  {key: 'bookings', href: '/admin/bookings'},
   {key: 'trips', href: '/admin/trips'},
+  {key: 'diveSites', href: '/admin/dive-sites'},
   {key: 'courses', href: '/admin/courses'},
   {key: 'users', href: '/admin/users'},
   {key: 'settings', href: '/admin/settings'}
@@ -44,9 +46,11 @@ function Shell({
       {/* Sidebar */}
       <aside className="flex w-full shrink-0 flex-col gap-4 bg-navy-900 px-6 py-6 md:w-64 md:py-8">
         <div className="flex items-center gap-3">
-          <span className="grid h-9 w-9 place-items-center rounded-sm border border-white/80 font-en text-[10px] font-bold tracking-wider text-white">
-            HH
-          </span>
+          <img
+            src="/images/heyhey.jpg"
+            alt="heyheydive"
+            className="h-9 w-9 rounded-sm object-cover"
+          />
           <div className="flex flex-col leading-tight">
             <p className="font-en text-[10px] font-bold tracking-[0.2em] text-gold">
               ADMIN
