@@ -80,7 +80,7 @@ export function DiveSitePage({
       ))}
 
       {/* Sea life */}
-      <section className="bg-navy-900">
+      <section className="reveal bg-navy-900">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-10 px-6 py-20 md:px-20">
           <h2 className="font-heading text-2xl font-bold text-white md:text-[28px]">
             {t('seaTitle')}
@@ -104,7 +104,7 @@ export function DiveSitePage({
       </section>
 
       {/* Trips at this site */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-8 px-6 py-20 md:px-20">
           <div className="flex flex-col gap-2">
             <h2 className="font-heading text-2xl font-bold md:text-[28px]">
@@ -149,7 +149,7 @@ export function DiveSitePage({
       </section>
 
       {/* Course CTA */}
-      <section className="bg-navy-800">
+      <section className="reveal bg-navy-800">
         <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-6 py-16 text-center md:px-20">
           <p className="font-en text-[12px] font-semibold tracking-[0.2em] text-gold">
             {tShared('coursesKicker')}

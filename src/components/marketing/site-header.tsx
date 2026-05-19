@@ -30,11 +30,11 @@ export function SiteHeader({session}: {session: Session}) {
     <header className="sticky top-0 z-50 bg-ink/95 backdrop-blur supports-[backdrop-filter]:bg-ink/80">
       {/* Desktop bar */}
       <div className="hidden md:flex h-[60px] items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="group flex items-center gap-2">
           <img
             src="/images/heyhey.jpg"
             alt="heyheydive"
-            className="h-10 w-10 rounded-sm object-cover"
+            className="h-10 w-10 rounded-sm object-cover transition duration-300 group-hover:scale-105"
           />
         </Link>
 
@@ -66,11 +66,11 @@ export function SiteHeader({session}: {session: Session}) {
 
       {/* Mobile bar */}
       <div className="md:hidden flex h-14 items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="group flex items-center gap-2">
           <img
             src="/images/heyhey.jpg"
             alt="heyheydive"
-            className="h-9 w-9 rounded-sm object-cover"
+            className="h-9 w-9 rounded-sm object-cover transition duration-300 group-hover:scale-105"
           />
         </Link>
         <div className="flex items-center gap-3">

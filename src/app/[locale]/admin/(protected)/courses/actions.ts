@@ -5,6 +5,7 @@ import {revalidatePath} from 'next/cache';
 import {createClient} from '@/lib/supabase/server';
 import {requireAdminAction} from '@/lib/supabase/auth-actions';
 import {uploadCover} from '@/lib/cms/storage';
+import {mergeContentFromFormData} from '@/lib/cms/content';
 
 const SYSTEMS = ['aida', 'padi', 'other'] as const;
 const STATUSES = ['open', 'closed', 'draft'] as const;
@@ -20,6 +21,11 @@ export async function upsertCourseAction(
   const locale = String(formData.get('locale') ?? 'zh-TW');
   const slug = String(formData.get('slug') ?? '').trim();
 
+  const supabase = await createClient();
+  const existing = id
+    ? (await supabase.from('courses').select('content_zh, content_en').eq('id', id).maybeSingle()).data
+    : null;
+
   const file = formData.get('cover_image_file');
   let coverImageUrl = nullable(formData.get('cover_image'));
   if (file instanceof File && file.size > 0) {
@@ -28,10 +34,8 @@ export async function upsertCourseAction(
     if (url) coverImageUrl = url;
   }
 
-  const contentZh = parseJson(formData.get('content_zh'));
-  if (contentZh === SENTINEL_INVALID) return {error: '中文深層內容不是合法 JSON'};
-  const contentEn = parseJson(formData.get('content_en'));
-  if (contentEn === SENTINEL_INVALID) return {error: 'English deep content is not valid JSON'};
+  const contentZh = mergeContentFromFormData(formData, 'cz', existing?.content_zh ?? null);
+  const contentEn = mergeContentFromFormData(formData, 'ce', existing?.content_en ?? null);
 
   const payload = {
     slug,
@@ -55,7 +59,6 @@ export async function upsertCourseAction(
     return {error: 'Slug、Level、標題為必填'};
   }
 
-  const supabase = await createClient();
   const op = id
     ? supabase.from('courses').update(payload).eq('id', id)
     : supabase.from('courses').insert(payload);
@@ -94,14 +97,4 @@ function requireEnum<T extends readonly string[]>(v: FormDataEntryValue | null, 
   const s = String(v ?? '');
   if (!(allowed as readonly string[]).includes(s)) throw new Error(`Invalid ${field}: ${s}`);
   return s as T[number];
-}
-const SENTINEL_INVALID = Symbol('invalid-json');
-function parseJson(v: FormDataEntryValue | null): unknown {
-  const s = typeof v === 'string' ? v.trim() : '';
-  if (!s) return null;
-  try {
-    return JSON.parse(s);
-  } catch {
-    return SENTINEL_INVALID;
-  }
 }

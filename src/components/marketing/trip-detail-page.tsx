@@ -87,7 +87,7 @@ export function TripDetailPage({
       </section>
 
       {/* Overview stats */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('overview')}</h2>
           <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -100,7 +100,7 @@ export function TripDetailPage({
       </section>
 
       {/* Date Selector */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 pb-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('chooseBatch')}</h2>
           <div className="mt-6 flex flex-col gap-4">
@@ -137,7 +137,7 @@ export function TripDetailPage({
       </section>
 
       {/* Day-by-day */}
-      <section className="bg-navy-900 text-white">
+      <section className="reveal bg-navy-900 text-white">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('itinerary')}</h2>
           <div className="mt-6 flex flex-col gap-3">
@@ -177,7 +177,7 @@ export function TripDetailPage({
       </section>
 
       {/* Included / Not included */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('includes')}</h2>
           <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -206,7 +206,7 @@ export function TripDetailPage({
       </section>
 
       {/* Add-ons */}
-      <section className="bg-navy-900 text-white">
+      <section className="reveal bg-navy-900 text-white">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('addons')}</h2>
           <p className="mt-2 text-base text-navy-500">{tShared('addonsDesc')}</p>
@@ -223,7 +223,7 @@ export function TripDetailPage({
       </section>
 
       {/* Who it's for */}
-      <section className="bg-navy-900 text-white">
+      <section className="reveal bg-navy-900 text-white">
         <div className="mx-auto max-w-[1440px] px-6 pb-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('whoFor')}</h2>
           <div className="mt-6 grid gap-8 md:grid-cols-[1fr_340px]">
@@ -244,7 +244,7 @@ export function TripDetailPage({
       </section>
 
       {/* Instructor */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('instructor')}</h2>
           <div className="mt-6 flex flex-col items-start gap-6 rounded-lg border border-gray-200 bg-white p-7 md:flex-row md:items-center">
@@ -263,7 +263,7 @@ export function TripDetailPage({
       </section>
 
       {/* Cancellation policy */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 pb-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('cancel')}</h2>
           <div className="mt-6 overflow-hidden rounded-md border border-gray-200">
@@ -297,7 +297,7 @@ export function TripDetailPage({
       {bookingForm}
 
       {/* Final CTA */}
-      <section id="cta" className="bg-navy-800 text-white">
+      <section id="cta" className="reveal bg-navy-800 text-white">
         <div className="mx-auto flex max-w-[900px] flex-col items-center gap-5 px-6 py-16 text-center md:py-20">
           <h2 className="font-heading text-3xl font-bold md:text-[40px]">
             {t('cta.title')}

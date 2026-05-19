@@ -6,6 +6,7 @@ import {notFound} from 'next/navigation';
 import {Geist_Mono, Inter, Noto_Sans_TC} from 'next/font/google';
 import {routing} from '@/i18n/routing';
 import {getSiteSettings} from '@/lib/cms/site-settings';
+import {RevealObserver} from '@/components/marketing/reveal-observer';
 import '../globals.css';
 
 const inter = Inter({
@@ -88,6 +89,7 @@ export default async function LocaleLayout({
       </head>
       <body className="min-h-full flex flex-col bg-navy-900 text-white">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <RevealObserver />
       </body>
     </html>
   );

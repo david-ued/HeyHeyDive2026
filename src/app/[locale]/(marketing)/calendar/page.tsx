@@ -73,7 +73,7 @@ export default async function CalendarPage({
   return (
     <>
       {/* Header */}
-      <section className="bg-off-white text-ink">
+      <section className="animate-fade-up bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 pt-12 pb-2 md:px-20 md:pt-16">
           <nav className="flex items-center gap-2 font-en text-[13px] text-gray-400">
             <Link href="/" className="hover:text-coral">
@@ -114,7 +114,7 @@ export default async function CalendarPage({
       <CalendarSection events={events} month={month} />
 
       {/* Upcoming Trips */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-20 md:py-16">
           <div className="flex items-end justify-between">
             <div>
@@ -147,7 +147,7 @@ export default async function CalendarPage({
                 return (
                   <article
                     key={tr.id}
-                    className="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white md:flex-row"
+                    className="hover-lift flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white md:flex-row"
                   >
                     <div
                       className={`${fallback?.accent ?? 'bg-navy-800'} h-44 w-full shrink-0 md:h-auto md:w-[280px]`}
@@ -191,7 +191,7 @@ export default async function CalendarPage({
       </section>
 
       {/* Quick stats */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 py-8 md:px-20">
           <div className="grid grid-cols-2 divide-y divide-x divide-gray-200 rounded-lg border border-gray-200 bg-white md:grid-cols-4 md:divide-y-0">
             <Stat number={String(upcomingRows.length)} label={t('stats.month')} />
@@ -203,7 +203,7 @@ export default async function CalendarPage({
       </section>
 
       {/* CTA */}
-      <section className="bg-navy-900 text-white">
+      <section className="reveal bg-navy-900 text-white">
         <div className="mx-auto flex max-w-[900px] flex-col items-center gap-4 px-6 py-16 text-center">
           <h2 className="font-heading text-2xl font-bold md:text-[28px]">
             {t('cta.title')}

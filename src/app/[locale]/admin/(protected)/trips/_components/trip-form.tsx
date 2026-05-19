@@ -6,17 +6,32 @@ import Link from 'next/link';
 import {upsertTripAction, deleteTripAction, type TripFormState} from '../actions';
 import type {Trip} from '@/lib/cms/types';
 import {
-  CoverPreview,
   FieldLabel,
-  FileInput,
   FormError,
-  JsonField,
   Select,
   Textarea,
   TextInput
 } from '@/components/admin/form-fields';
+import {CoverImageField} from '@/components/admin/cover-image-field';
+import {BilingualField, ContentSection} from '@/components/admin/content-editor';
 
 const initial: TripFormState = {error: null};
+
+const DAYS = ['day1', 'day2', 'day3', 'day4'] as const;
+const INCLUDED = [
+  {key: 'lodging', label: '住宿'},
+  {key: 'tanks', label: '氣瓶'},
+  {key: 'meals', label: '餐食'},
+  {key: 'guide', label: '教練 / 嚮導'},
+  {key: 'insurance', label: '保險'},
+  {key: 'scooter', label: '交通'}
+] as const;
+const NOT_INCLUDED = [
+  {key: 'gear', label: '個人裝備'},
+  {key: 'tips', label: '小費'},
+  {key: 'travel', label: '旅平險'},
+  {key: 'photo', label: '攝影'}
+] as const;
 
 export function TripForm({
   trip,
@@ -27,6 +42,8 @@ export function TripForm({
 }) {
   const [state, formAction] = useActionState(upsertTripAction, initial);
   const isEdit = !!trip;
+  const zh = trip?.content_zh ?? null;
+  const en = trip?.content_en ?? null;
 
   return (
     <form action={formAction} className="flex flex-col gap-6" encType="multipart/form-data">
@@ -119,31 +136,43 @@ export function TripForm({
         <Textarea name="description_en" rows={4} defaultValue={trip?.description_en ?? ''} />
       </FieldLabel>
 
-      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <p className="text-sm font-medium text-navy-900">封面圖片</p>
-        <FieldLabel label="上傳檔案" hint="JPG / PNG，最大 5MB。上傳後會覆蓋下方 URL">
-          <FileInput name="cover_image_file" accept="image/*" />
-        </FieldLabel>
-        <FieldLabel label="或貼上圖片 URL">
-          <TextInput name="cover_image" type="url" defaultValue={trip?.cover_image ?? ''} placeholder="https://..." />
-        </FieldLabel>
-        <CoverPreview src={trip?.cover_image} />
-      </section>
+      <CoverImageField defaultUrl={trip?.cover_image} />
 
-      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <div>
-          <p className="text-sm font-medium text-navy-900">深層內容（JSON）</p>
-          <p className="mt-1 text-xs text-gray-500">
-            選填。可放 itinerary、included、instructor 等結構化欄位。詳情頁有讀到對應 key 時，會以這裡為準；沒填則 fallback 到既有的訊息檔內容。
-          </p>
+      <ContentSection title="行程逐日" hint="最多 4 天。沒填的天數會 fallback 到既有翻譯文案。">
+        {DAYS.map((d, i) => (
+          <div key={d} className="flex flex-col gap-3 rounded-md border border-gray-200 bg-white p-4">
+            <p className="font-en text-xs font-semibold tracking-[0.15em] text-coral">{`DAY ${i + 1}`}</p>
+            <BilingualField path={`itinerary.${d}.title`} label="標題" zh={zh} en={en} placeholderZh="Day 1 — 抵達綠島" placeholderEn="Day 1 — Arrive at Ludao" />
+            <BilingualField path={`itinerary.${d}.body`} label="行程內容" textarea rows={4} zh={zh} en={en} />
+          </div>
+        ))}
+      </ContentSection>
+
+      <ContentSection title="費用包含" hint="6 項固定欄位">
+        <div className="grid gap-3 md:grid-cols-2">
+          {INCLUDED.map((it) => (
+            <div key={it.key} className="rounded-md border border-gray-200 bg-white p-3">
+              <BilingualField path={`included.${it.key}`} label={it.label} zh={zh} en={en} placeholderZh="3 晚民宿住宿" placeholderEn="3 nights lodging" />
+            </div>
+          ))}
         </div>
-        <FieldLabel label="content_zh">
-          <JsonField name="content_zh" defaultValue={trip?.content_zh} rows={10} placeholder='{"itinerary": [{"day": "Day 1", "title": "出發", "body": "..."}]}' />
-        </FieldLabel>
-        <FieldLabel label="content_en">
-          <JsonField name="content_en" defaultValue={trip?.content_en} rows={8} placeholder='{"itinerary": [{"day": "Day 1", ...}]}' />
-        </FieldLabel>
-      </section>
+      </ContentSection>
+
+      <ContentSection title="費用不含" hint="4 項固定欄位">
+        <div className="grid gap-3 md:grid-cols-2">
+          {NOT_INCLUDED.map((it) => (
+            <div key={it.key} className="rounded-md border border-gray-200 bg-white p-3">
+              <BilingualField path={`notIncluded.${it.key}`} label={it.label} zh={zh} en={en} placeholderZh="個人裝備租借" placeholderEn="Personal gear rental" />
+            </div>
+          ))}
+        </div>
+      </ContentSection>
+
+      <ContentSection title="教練介紹">
+        <BilingualField path="instructor.name" label="姓名" zh={zh} en={en} placeholderZh="Karina · 卡琳娜" placeholderEn="Karina" />
+        <BilingualField path="instructor.creds" label="資歷" zh={zh} en={en} placeholderZh="PADI Instructor · 10 年+" placeholderEn="PADI Instructor · 10+ yrs" />
+        <BilingualField path="instructor.bio" label="簡介" textarea rows={3} zh={zh} en={en} />
+      </ContentSection>
 
       <FormError error={state.error} />
 

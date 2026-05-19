@@ -51,3 +51,70 @@ export function pickContent(
   if (!row) return null;
   return locale === 'en' ? row.content_en ?? row.content_zh : row.content_zh ?? row.content_en;
 }
+
+/**
+ * Walk `obj` and apply `path`-keyed string `value`. Numeric segments index arrays.
+ * Empty string deletes the leaf instead of writing. Mutates and returns obj.
+ */
+function setDeep(
+  obj: Record<string, unknown>,
+  path: string,
+  value: string
+): void {
+  const parts = path.split('.');
+  let cur: Record<string, unknown> = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const k = parts[i];
+    const next = cur[k];
+    if (!next || typeof next !== 'object') {
+      cur[k] = {};
+    }
+    cur = cur[k] as Record<string, unknown>;
+  }
+  const leaf = parts[parts.length - 1];
+  if (value === '') {
+    delete cur[leaf];
+  } else {
+    cur[leaf] = value;
+  }
+}
+
+/**
+ * Read every FormData entry whose key starts with `prefix.` and apply it to the
+ * given existing JSONB content (mutated). Returns the merged content, or `null`
+ * if the merged result is an empty object.
+ */
+export function mergeContentFromFormData(
+  formData: FormData,
+  prefix: 'cz' | 'ce',
+  existing: DeepContent
+): DeepContent {
+  const merged: Record<string, unknown> = existing
+    ? JSON.parse(JSON.stringify(existing))
+    : {};
+  const dot = `${prefix}.`;
+  let touched = false;
+  for (const [key, value] of formData.entries()) {
+    if (!key.startsWith(dot)) continue;
+    touched = true;
+    const subPath = key.slice(dot.length);
+    if (!subPath) continue;
+    setDeep(merged, subPath, typeof value === 'string' ? value.trim() : '');
+  }
+  if (!touched) return existing;
+  // Strip empty objects after deletions
+  pruneEmpty(merged);
+  return Object.keys(merged).length === 0 ? null : merged;
+}
+
+function pruneEmpty(obj: Record<string, unknown>): void {
+  for (const k of Object.keys(obj)) {
+    const v = obj[k];
+    if (v && typeof v === 'object' && !Array.isArray(v)) {
+      pruneEmpty(v as Record<string, unknown>);
+      if (Object.keys(v as object).length === 0) {
+        delete obj[k];
+      }
+    }
+  }
+}

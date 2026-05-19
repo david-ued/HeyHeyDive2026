@@ -6,21 +6,26 @@ import Link from 'next/link';
 import {upsertDiveSiteAction, deleteDiveSiteAction, type DiveSiteFormState} from '../actions';
 import type {DiveSite} from '@/lib/cms/types';
 import {
-  CoverPreview,
   FieldLabel,
-  FileInput,
   FormError,
-  JsonField,
   Select,
   Textarea,
   TextInput
 } from '@/components/admin/form-fields';
+import {CoverImageField} from '@/components/admin/cover-image-field';
+import {BilingualField, ContentSection} from '@/components/admin/content-editor';
 
 const initial: DiveSiteFormState = {error: null};
+
+const NARRATIVES = ['narr1', 'narr2', 'narr3'] as const;
+const SEA = ['s1', 's2', 's3', 's4'] as const;
 
 export function DiveSiteForm({site, locale}: {site?: DiveSite | null; locale: string}) {
   const [state, formAction] = useActionState(upsertDiveSiteAction, initial);
   const isEdit = !!site;
+  const zh = site?.content_zh ?? null;
+  const en = site?.content_en ?? null;
+
   return (
     <form action={formAction} className="flex flex-col gap-6" encType="multipart/form-data">
       <input type="hidden" name="locale" value={locale} />
@@ -70,31 +75,37 @@ export function DiveSiteForm({site, locale}: {site?: DiveSite | null; locale: st
       <FieldLabel label="Intro (English)">
         <Textarea name="intro_en" rows={4} defaultValue={site?.intro_en ?? ''} />
       </FieldLabel>
-      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <p className="text-sm font-medium text-navy-900">封面圖片</p>
-        <FieldLabel label="上傳檔案" hint="JPG / PNG，最大 5MB">
-          <FileInput name="cover_image_file" accept="image/*" />
-        </FieldLabel>
-        <FieldLabel label="或貼上圖片 URL">
-          <TextInput name="cover_image" type="url" defaultValue={site?.cover_image ?? ''} />
-        </FieldLabel>
-        <CoverPreview src={site?.cover_image} />
-      </section>
 
-      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <div>
-          <p className="text-sm font-medium text-navy-900">深層內容（JSON）</p>
-          <p className="mt-1 text-xs text-gray-500">
-            選填。可放 narratives、sea_life、相關行程等。詳情頁有讀到對應 key 時，會以這裡為準。
-          </p>
+      <CoverImageField defaultUrl={site?.cover_image} />
+
+      <ContentSection
+        title="故事段落"
+        hint="景點詳情頁三個交錯段落。留白會 fallback 到既有翻譯文案。"
+      >
+        {NARRATIVES.map((k, i) => (
+          <div key={k} className="flex flex-col gap-3 rounded-md border border-gray-200 bg-white p-4">
+            <p className="font-en text-xs font-semibold tracking-[0.15em] text-coral">
+              {`STORY ${i + 1}`}
+            </p>
+            <BilingualField path={`${k}.kicker`} label="小標 Kicker" zh={zh} en={en} placeholderZh="01 / GEOTHERMAL" placeholderEn="01 / GEOTHERMAL" />
+            <BilingualField path={`${k}.title`} label="標題" zh={zh} en={en} placeholderZh="全世界僅三處的海底溫泉" placeholderEn="An undersea hot spring..." />
+            <BilingualField path={`${k}.body`} label="內文" textarea rows={3} zh={zh} en={en} placeholderZh="朝日溫泉海域..." placeholderEn="Sulphurous water..." />
+          </div>
+        ))}
+      </ContentSection>
+
+      <ContentSection title="海洋生物" hint="共 4 格，每格包含主名稱與副名稱。">
+        <BilingualField path="seaTitle" label="區塊標題" zh={zh} en={en} placeholderZh="綠島常見海洋生物" placeholderEn="Marine life at Ludao" />
+        <div className="grid gap-3 md:grid-cols-2">
+          {SEA.map((k, i) => (
+            <div key={k} className="flex flex-col gap-2 rounded-md border border-gray-200 bg-white p-3">
+              <p className="font-en text-[10px] font-semibold tracking-[0.15em] text-gray-500">{`SEA ${i + 1}`}</p>
+              <BilingualField path={`sea.${k}.name`} label="主名稱" zh={zh} en={en} placeholderZh="綠蠵龜" placeholderEn="Green sea turtle" />
+              <BilingualField path={`sea.${k}.en`} label="副標 / 別名" zh={zh} en={en} placeholderZh="Green Sea Turtle" placeholderEn="綠蠵龜" />
+            </div>
+          ))}
         </div>
-        <FieldLabel label="content_zh">
-          <JsonField name="content_zh" defaultValue={site?.content_zh} rows={10} placeholder='{"narratives": [{"kicker": "01", "title": "...", "body": "..."}]}' />
-        </FieldLabel>
-        <FieldLabel label="content_en">
-          <JsonField name="content_en" defaultValue={site?.content_en} rows={8} />
-        </FieldLabel>
-      </section>
+      </ContentSection>
 
       <FormError error={state.error} />
 

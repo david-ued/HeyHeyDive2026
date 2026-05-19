@@ -25,7 +25,7 @@ export async function DualCourses() {
   if (courses.length === 0) return null;
 
   return (
-    <section className="bg-off-white text-ink">
+    <section className="reveal bg-off-white text-ink">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-10 px-6 py-20 md:px-20">
         <header className="flex flex-col items-center gap-2 text-center">
           <h2 className="font-heading text-2xl font-bold md:text-[28px]">
@@ -42,7 +42,7 @@ export async function DualCourses() {
             return (
             <article
               key={course.id}
-              className={`flex flex-col overflow-hidden rounded-lg bg-navy-800 text-white ${derived === 'closed' ? 'opacity-70' : ''}`}
+              className={`hover-lift flex flex-col overflow-hidden rounded-lg bg-navy-800 text-white ${derived === 'closed' ? 'opacity-70' : ''}`}
             >
               <div
                 className={`relative h-60 w-full bg-gradient-to-br ${ACCENT[course.system] ?? ACCENT.other}`}

@@ -48,7 +48,7 @@ export async function SeasonalTrips() {
   if (trips.length === 0) return null;
 
   return (
-    <section className="bg-navy-900">
+    <section className="reveal bg-navy-900">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-10 px-6 py-20 md:px-20">
         <header className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-end">
           <div>
@@ -79,7 +79,7 @@ export async function SeasonalTrips() {
             return (
               <article
                 key={trip.id}
-                className={`flex flex-col overflow-hidden rounded-lg bg-navy-700 ${dimmed ? 'opacity-70' : ''}`}
+                className={`hover-lift flex flex-col overflow-hidden rounded-lg bg-navy-700 ${dimmed ? 'opacity-70' : ''}`}
               >
                 <div
                   className={`relative h-40 w-full bg-gradient-to-br ${GRADIENTS[dest] ?? GRADIENTS.other}`}

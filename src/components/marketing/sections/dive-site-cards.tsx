@@ -19,7 +19,7 @@ export async function DiveSiteCards() {
   if (sites.length === 0) return null;
 
   return (
-    <section className="bg-off-white pb-24 text-ink">
+    <section className="reveal bg-off-white pb-24 text-ink">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-12 px-6 md:px-20">
         <header className="flex flex-col items-center gap-2 text-center">
           <h2 className="font-heading text-2xl font-bold md:text-[32px]">

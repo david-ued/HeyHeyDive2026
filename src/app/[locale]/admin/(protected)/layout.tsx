@@ -89,7 +89,7 @@ function Shell({
       </aside>
 
       {/* Main */}
-      <main className="flex-1 px-6 py-8 md:px-10">{children}</main>
+      <main className="animate-fade-up flex-1 px-6 py-8 md:px-10">{children}</main>
     </div>
   );
 }

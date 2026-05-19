@@ -3,7 +3,7 @@ import {useTranslations} from 'next-intl';
 export function Newsletter() {
   const t = useTranslations('Home.newsletter');
   return (
-    <section className="bg-navy-800">
+    <section className="reveal bg-navy-800">
       <div className="mx-auto flex max-w-[720px] flex-col items-center gap-6 px-6 py-20 text-center md:py-24">
         <h2 className="font-heading text-2xl font-bold text-white md:text-[28px]">
           {t('title')}

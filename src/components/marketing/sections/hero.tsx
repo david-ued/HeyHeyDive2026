@@ -15,21 +15,30 @@ export function HomeHero() {
       />
 
       <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-6 pt-24 pb-28 md:px-20 md:pt-32 md:pb-32 lg:min-h-[680px] lg:justify-center">
-        <p className="font-en text-[13px] font-medium tracking-[0.18em] text-gold">
+        <p
+          className="animate-fade-up font-en text-[13px] font-medium tracking-[0.18em] text-gold"
+          style={{animationDelay: '60ms'}}
+        >
           {t('seasonLabel')}
         </p>
-        <h1 className="font-heading text-4xl font-bold leading-[1.1] tracking-wider text-white md:text-6xl lg:text-[56px]">
+        <h1
+          className="animate-fade-up font-heading text-4xl font-bold leading-[1.1] tracking-wider text-white md:text-6xl lg:text-[56px]"
+          style={{animationDelay: '160ms'}}
+        >
           {t('headline')}
         </h1>
-        <p className="font-en text-base tracking-wide text-gray-300 md:text-lg">
+        <p
+          className="animate-fade-up font-en text-base tracking-wide text-gray-300 md:text-lg"
+          style={{animationDelay: '260ms'}}
+        >
           {t('subtitle')}
         </p>
-        <div className="mt-2">
+        <div className="animate-fade-up mt-2" style={{animationDelay: '360ms'}}>
           <Link
             href="/dive-sites"
-            className="inline-flex items-center gap-2 rounded-full bg-coral px-6 py-3 font-en text-sm font-semibold tracking-wider text-white transition hover:brightness-110"
+            className="inline-flex items-center gap-2 rounded-full bg-coral px-6 py-3 font-en text-sm font-semibold tracking-wider text-white transition hover:brightness-110 hover:scale-[1.02]"
           >
-            {t('cta')} <ArrowRight className="h-4 w-4" />
+            {t('cta')} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
           </Link>
         </div>
       </div>

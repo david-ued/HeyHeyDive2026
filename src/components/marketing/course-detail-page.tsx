@@ -76,7 +76,7 @@ export function CourseDetailPage({
       </section>
 
       {/* Curriculum & Pricing */}
-      <section id="curriculum" className="bg-off-white text-ink">
+      <section id="curriculum" className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-16">
           <h2 className="font-heading text-2xl font-bold md:text-[32px]">
             {t('curriculum.title')}
@@ -133,7 +133,7 @@ export function CourseDetailPage({
       </section>
 
       {/* Equipment & Booking flow */}
-      <section className="bg-navy-900 text-white">
+      <section className="reveal bg-navy-900 text-white">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-16">
           <h2 className="font-heading text-2xl font-bold md:text-[32px]">
             {tShared('equipTitle')}
@@ -177,7 +177,7 @@ export function CourseDetailPage({
       </section>
 
       {/* Schedule + FAQ + CTA */}
-      <section className="bg-off-white text-ink">
+      <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 py-16 md:px-16">
           <h2 className="font-heading text-2xl font-bold md:text-[32px]">
             {tShared('scheduleTitle')}
@@ -227,7 +227,7 @@ export function CourseDetailPage({
 
       {bookingForm}
 
-      <section className="bg-navy-800 text-white">
+      <section className="reveal bg-navy-800 text-white">
         <div className="mx-auto flex max-w-[900px] flex-col items-center gap-5 px-6 py-16 text-center">
           <h2 className="font-heading text-2xl font-bold md:text-[32px]">
             {t('cta.title')}

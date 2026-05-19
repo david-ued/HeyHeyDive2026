@@ -6,21 +6,34 @@ import Link from 'next/link';
 import {upsertCourseAction, deleteCourseAction, type CourseFormState} from '../actions';
 import type {Course} from '@/lib/cms/types';
 import {
-  CoverPreview,
   FieldLabel,
-  FileInput,
   FormError,
-  JsonField,
   Select,
   Textarea,
   TextInput
 } from '@/components/admin/form-fields';
+import {CoverImageField} from '@/components/admin/cover-image-field';
+import {BilingualField, ContentSection} from '@/components/admin/content-editor';
 
 const initial: CourseFormState = {error: null};
+
+const STEPS = [
+  {key: 'theory', label: '理論課'},
+  {key: 'pool', label: '泳池訓練'},
+  {key: 'open', label: '開放水域'},
+  {key: 'cert', label: '證照頒發'}
+] as const;
+
+const INCLUDES = ['l1', 'l2', 'l3', 'l4'] as const;
+const EQUIPMENT = ['e1', 'e2', 'e3', 'e4'] as const;
+const FAQ = ['q1', 'q2', 'q3', 'q4'] as const;
 
 export function CourseForm({course, locale}: {course?: Course | null; locale: string}) {
   const [state, formAction] = useActionState(upsertCourseAction, initial);
   const isEdit = !!course;
+  const zh = course?.content_zh ?? null;
+  const en = course?.content_en ?? null;
+
   return (
     <form action={formAction} className="flex flex-col gap-6" encType="multipart/form-data">
       <input type="hidden" name="locale" value={locale} />
@@ -85,31 +98,42 @@ export function CourseForm({course, locale}: {course?: Course | null; locale: st
       <FieldLabel label="Description (English)">
         <Textarea name="description_en" rows={4} defaultValue={course?.description_en ?? ''} />
       </FieldLabel>
-      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <p className="text-sm font-medium text-navy-900">封面圖片</p>
-        <FieldLabel label="上傳檔案" hint="JPG / PNG，最大 5MB">
-          <FileInput name="cover_image_file" accept="image/*" />
-        </FieldLabel>
-        <FieldLabel label="或貼上圖片 URL">
-          <TextInput name="cover_image" type="url" defaultValue={course?.cover_image ?? ''} />
-        </FieldLabel>
-        <CoverPreview src={course?.cover_image} />
-      </section>
 
-      <section className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <div>
-          <p className="text-sm font-medium text-navy-900">深層內容（JSON）</p>
-          <p className="mt-1 text-xs text-gray-500">
-            選填。可放 curriculum、includes、equipment、faq 等。詳情頁有讀到對應 key 時，會以這裡為準。
-          </p>
-        </div>
-        <FieldLabel label="content_zh">
-          <JsonField name="content_zh" defaultValue={course?.content_zh} rows={10} placeholder='{"curriculum": {"steps": {"theory": {"title": "Day 1 — 理論", "body": "..."}}}}' />
-        </FieldLabel>
-        <FieldLabel label="content_en">
-          <JsonField name="content_en" defaultValue={course?.content_en} rows={8} />
-        </FieldLabel>
-      </section>
+      <CoverImageField defaultUrl={course?.cover_image} />
+
+      <ContentSection title="課程大綱" hint="四個固定階段：理論 / 泳池 / 開放水域 / 證照。">
+        {STEPS.map((s) => (
+          <div key={s.key} className="flex flex-col gap-3 rounded-md border border-gray-200 bg-white p-4">
+            <p className="font-en text-xs font-semibold tracking-[0.15em] text-coral">{s.label}</p>
+            <BilingualField path={`curriculum.steps.${s.key}.title`} label="小節標題" zh={zh} en={en} placeholderZh="Day 1 — 理論課程" placeholderEn="Day 1 — Theory" />
+            <BilingualField path={`curriculum.steps.${s.key}.body`} label="內容說明" textarea rows={3} zh={zh} en={en} />
+          </div>
+        ))}
+      </ContentSection>
+
+      <ContentSection title="費用包含" hint="價格區塊「包含項目」的 4 個條列。">
+        {INCLUDES.map((k, i) => (
+          <BilingualField key={k} path={`price.includes.${k}`} label={`項目 ${i + 1}`} zh={zh} en={en} placeholderZh="教材費" placeholderEn="Course materials" />
+        ))}
+      </ContentSection>
+
+      <ContentSection title="裝備" hint="4 個固定欄位，每個包含名稱與備註。">
+        {EQUIPMENT.map((k, i) => (
+          <div key={k} className="grid gap-3 md:grid-cols-[1fr_1fr] md:gap-3 rounded-md border border-gray-200 bg-white p-3">
+            <BilingualField path={`equipment.${k}.name`} label={`裝備 ${i + 1} 名稱`} zh={zh} en={en} placeholderZh="蛙鏡" placeholderEn="Mask" />
+            <BilingualField path={`equipment.${k}.note`} label="備註" zh={zh} en={en} placeholderZh="課程提供" placeholderEn="Provided" />
+          </div>
+        ))}
+      </ContentSection>
+
+      <ContentSection title="常見問題 FAQ" hint="4 組固定問答。">
+        {FAQ.map((k, i) => (
+          <div key={k} className="flex flex-col gap-2 rounded-md border border-gray-200 bg-white p-3">
+            <BilingualField path={`faq.${k}.q`} label={`問題 ${i + 1}`} zh={zh} en={en} placeholderZh="課程包含什麼？" placeholderEn="What is included?" />
+            <BilingualField path={`faq.${k}.a`} label="回答" textarea rows={2} zh={zh} en={en} />
+          </div>
+        ))}
+      </ContentSection>
 
       <FormError error={state.error} />
 
