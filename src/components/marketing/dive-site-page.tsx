@@ -11,10 +11,12 @@ const HERO_GRADIENT: Record<string, string> = {
 
 export function DiveSitePage({
   slug,
-  content
+  content,
+  coverImage
 }: {
   slug: string;
   content?: DeepContent;
+  coverImage?: string | null;
 }) {
   const tFallback = useTranslations(`DiveSite.${slug}`);
   const t = buildContentT(content, tFallback);
@@ -25,11 +27,22 @@ export function DiveSitePage({
       {/* Hero */}
       <section
         className={`relative overflow-hidden bg-gradient-to-br ${HERO_GRADIENT[slug] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}
+        style={
+          coverImage
+            ? {
+                backgroundImage: `linear-gradient(rgba(11,20,40,0.55), rgba(11,20,40,0.65)), url(${coverImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }
+            : undefined
+        }
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.1] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]"
-        />
+        {!coverImage ? (
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-[0.1] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]"
+          />
+        ) : null}
         <div className="relative mx-auto flex max-w-[1440px] flex-col gap-4 px-6 py-24 text-center md:px-20 md:py-32">
           <p className="font-en text-[13px] font-semibold tracking-[0.2em] text-gold">
             {t('kicker')}

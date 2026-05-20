@@ -7,7 +7,7 @@
     "about": "ABOUT US",
     "courses": "COURSES",
     "sites": "DIVE SITES",
-    "calendar": "CALENDAR",
+    "calendar": "TRIP SIGN-UP",
     "merch": "MERCH",
     "faq": "FAQ",
     "signIn": "Sign in",
@@ -105,14 +105,29 @@
     }
   },
   "Calendar": {
-    "breadcrumb": {"home": "Home", "calendar": "Trip Calendar"},
-    "title": "Trip Calendar",
+    "breadcrumb": {"home": "Home", "calendar": "Trip Sign-up"},
+    "title": "Trip Sign-up",
     "description": "Pick a destination and a date. Book your next underwater chapter.",
+    "view": {"list": "List", "calendar": "Calendar"},
+    "list": {
+      "empty": "No trips are open for sign-up right now. Stay tuned or contact us for a custom itinerary.",
+      "duration": "{days}D{nights}N",
+      "seats": "Seats {available}/{capacity}",
+      "soldOut": "Sold out",
+      "draft": "Draft",
+      "closed": "Closed",
+      "open": "Open",
+      "book": "Book now",
+      "waitlist": "Join waitlist",
+      "ariaRow": "View trip"
+    },
     "dest": {"all": "All", "liuqiu": "Liuqiu", "ludao": "Ludao", "lanyu": "Lanyu"},
     "typeAll": "All types",
     "seasonAll": "All seasons",
     "course": {"all": "All courses", "aida": "Freediving · AIDA", "padi": "Scuba · PADI", "experience": "Try-dive"},
     "today": "Today",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
     "month": "July",
     "monthEn": "JULY 2026",
     "legend": {"padi": "PADI · Scuba", "aida": "AIDA · Freediving", "experience": "Try-dive", "todayHint": "Click a date to open its trip page", "fullHint": "Grey = sold out"},
@@ -405,19 +420,89 @@
     "cancel": "Cancel",
     "successTitle": "Booking received!",
     "successBody": "We'll contact you within 1–2 business days via email or LINE to confirm your spot and payment.",
-    "disclaimer": "By submitting, you agree we may contact you about this booking using the details above.",
+    "disclaimer": "By submitting, you agree we may use the personal information above to contact you about this booking and to arrange insurance. Personal data is used solely for dive-trip operations and is not shared with third parties.",
+    "sections": {
+      "contact": "Primary contact",
+      "emergency": "Emergency contact (required for insurance)",
+      "dive": "Dive experience",
+      "companions": "Companion names"
+    },
     "field": {
       "name": "Name",
       "email": "Email",
       "phone": "Phone",
       "line": "LINE ID",
       "partySize": "Party size",
+      "nationalId": "National ID / passport no.",
+      "nationalIdHint": "Used for insurance; visible only to admins and masked by default",
+      "emergencyName": "Emergency contact name",
+      "emergencyPhone": "Emergency contact phone",
+      "certLevel": "Certification level",
+      "certLevelHint": "e.g. OW / AOW / Free Diver L1; leave blank if uncertified",
+      "certNumber": "Certification number",
+      "companionsHint": "List companion names (used for insurance and the boarding manifest)",
+      "companionN": "Companion #{n} name",
       "notes": "Notes",
       "notesPlaceholder": "Anything we should know — dive experience, special requirements, etc."
     }
   },
+  "FAQ": {
+    "kicker": "FAQ",
+    "title": "Frequently asked",
+    "subtitle": "Courses, trips, gear, payment — the questions we hear the most. Can't find what you need? Hit us up on LINE.",
+    "categories": {
+      "courses": {
+        "kicker": "COURSES",
+        "title": "Courses",
+        "items": {
+          "q1": {"q": "Can I take a course with zero diving experience?", "a": "Yes. AIDA 2 (freediving) and PADI OWD (scuba) are both entry-level. They start with theory and confined water, then progress to the ocean step by step."},
+          "q2": {"q": "Do I need to swim? How far?", "a": "You'll need to swim 200 m continuously (freestyle or breaststroke, any pace) and tread water in the deep end for 10 minutes. If you're not there yet, spend a few weeks in the pool first."},
+          "q3": {"q": "AIDA vs PADI — which should I pick?", "a": "AIDA is freediving — no tank, you hold your breath. It's about relaxation and body awareness.\nPADI is scuba — you breathe from a tank, stay down longer, cover more ground.\nWant 'the quiet of one breath' → AIDA. Want to 'wander reefs watching fish' → PADI."},
+          "q4": {"q": "Can I dive with prescription glasses?", "a": "Yes. We lend prescription masks (100–700 degrees / -1 to -7 diopters) — note your prescription on the form. For long-term diving, get a custom prescription mask for better fit."},
+          "q5": {"q": "After getting certified, how deep can I dive?", "a": "AIDA 2 certifies to 16 m; most students hit 15–20 m by graduation.\nPADI OWD lets you dive open water to 18 m.\nDeeper requires advanced courses."}
+        }
+      },
+      "trips": {
+        "kicker": "TRIPS",
+        "title": "Trips",
+        "items": {
+          "q1": {"q": "Can I join a fun-dive trip without a certification?", "a": "Fun dives require the matching cert (AIDA 2+ for freediving, OWD+ for scuba). No cert? Book a Discover Diving session or get certified first."},
+          "q2": {"q": "What's included in trip pricing?", "a": "Usually included: boat/shore dives, tanks/weights, instructor/DM guiding, lodging, breakfast & lunch, marine insurance, site briefing.\nNot included: personal gear rental, flights/ferries, dinner, drinks, tips.\nCheck each trip's 'included / not included' for specifics."},
+          "q3": {"q": "Can you arrange transport?", "a": "We work with ferry operators to Ludao, Lanyu, and Liuqiu — we'll help you book tickets (at cost). Pickup from Taitung / Pingtung is available as an add-on."},
+          "q4": {"q": "What if the weather's bad? Refunds?", "a": "Safety first. If weather/sea conditions prevent diving:\n· Partial cancellation: substitute activity or refund the dive fee\n· Full cancellation: refund minus committed costs, or roll over to the next batch"},
+          "q5": {"q": "Can I sign up solo?", "a": "Absolutely. Our trips run small-group (4–8 people) and solo sign-ups get paired with the group — many regulars first met this way."}
+        }
+      },
+      "gear": {
+        "kicker": "GEAR & SAFETY",
+        "title": "Gear & safety",
+        "items": {
+          "q1": {"q": "Do I need to buy my own gear?", "a": "Courses and most fun dives include the basics (BCD, regulator, tank, weights, 3 mm wetsuit).\nWe recommend bringing your own: mask, snorkel, fins, dive socks (hygiene + fit).\nMore experienced divers gradually build out a personal kit."},
+          "q2": {"q": "Any health restrictions?", "a": "You'll fill in a health declaration at booking. Consult a dive physician before diving if you have:\n· Cardiovascular disease, severe asthma\n· Recurring ear/sinus infections\n· Pregnancy\n· Recent surgery / major illness\nIf you're sick or have allergies acting up — don't push it."},
+          "q3": {"q": "What about dive insurance?", "a": "All our trips include onboard accident insurance. We recommend students add DAN dive-specific insurance (covers chamber treatment). We'll walk you through it after certification."},
+          "q4": {"q": "Can I fly right after diving?", "a": "No. To avoid decompression sickness:\n· After a single dive: wait 12 hours minimum\n· After multiple dives / multi-day diving: wait 18 hours minimum\nFactor this into your travel schedule."}
+        }
+      },
+      "booking": {
+        "kicker": "BOOKING & PAYMENT",
+        "title": "Booking & payment",
+        "items": {
+          "q1": {"q": "How do I book?", "a": "Submit the booking form on any trip or course page. We'll confirm via LINE or email within 24 hours and walk you through payment."},
+          "q2": {"q": "What payment methods are accepted?", "a": "TWD bank transfer, LINE Pay, credit card (small processing fee via third-party gateway). International students can use Wise or PayPal."},
+          "q3": {"q": "Deposit and balance — how does it work?", "a": "Courses: NT$ 3,000–5,000 deposit at booking, balance due 7 days before start.\nTrips: pay in full or 50% deposit at booking, balance due 14 days before departure."},
+          "q4": {"q": "Cancellation policy?", "a": "Before departure/start date:\n· 15+ days out: full refund (less processing fee)\n· 7–14 days: 70% refund\n· 3–6 days: 50% refund\n· Within 3 days / same day: no refund\nWeather / force-majeure handled separately — see 'Trips' above."}
+        }
+      }
+    },
+    "cta": {
+      "title": "Still got questions?",
+      "subline": "Someone's on LINE pretty much all day. Or skip ahead — pick a trip and come meet the ocean.",
+      "contact": "Contact us",
+      "calendar": "View schedule"
+    }
+  },
   "Stub": {
-    "about": {"kicker": "ABOUT US", "title": "About HeyHeyDive", "body": "We're a small crew of divers who live and work at Taiwan's four major dive sites. We believe the breath is where diving begins. Full brand story page in the works.", "cta": "Back to home"},
+    "about": {"kicker": "ABOUT US", "title": "About HeyHeyDive", "body": "Founded in 2018, HeyHeyDive specializes in freediving and scuba diving instruction, with bases in Taipei, Taichung, and Xiaoliuqiu. We help every student discover the world beneath the surface in a relaxed, joyful way. Beyond courses, we curate dive trips around the globe — once your skills are sharp, come join HeyHeyDive on an unforgettable underwater adventure.", "cta": "Back to home"},
     "faq": {"kicker": "FAQ", "title": "Frequently asked", "body": "Course, trip, gear, and payment questions — currently being compiled. For anything urgent, reach us on LINE.", "cta": "Back to home"},
     "merch": {"kicker": "MERCH", "title": "Limited merch", "body": "Beyond the water — bring a piece of the sea home. HeyHeyDive limited merch (dry bags, towels, tees) in production.", "cta": "Back to home"},
     "privacy": {"kicker": "PRIVACY POLICY", "title": "Privacy policy", "body": "We take your data seriously. Full privacy policy coming soon.", "cta": "Back to home"},

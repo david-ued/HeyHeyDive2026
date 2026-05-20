@@ -15,5 +15,11 @@ export default async function DiveSiteDetail({
   const site = await getDiveSiteBySlug(slug);
   if (!site || site.status === 'draft') notFound();
   const locale = await getLocale();
-  return <DiveSitePage slug={slug} content={pickContent(site, locale)} />;
+  return (
+    <DiveSitePage
+      slug={slug}
+      content={pickContent(site, locale)}
+      coverImage={site.cover_image}
+    />
+  );
 }

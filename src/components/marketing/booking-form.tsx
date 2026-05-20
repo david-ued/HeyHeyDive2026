@@ -1,6 +1,6 @@
 'use client';
 
-import {useActionState, useState} from 'react';
+import {useActionState, useMemo, useState} from 'react';
 import {useFormStatus} from 'react-dom';
 import {Check, Send} from 'lucide-react';
 import {useTranslations} from 'next-intl';
@@ -8,6 +8,8 @@ import {createBookingAction, type BookingFormState} from '@/lib/cms/bookings';
 import type {BookingItemType} from '@/lib/cms/types';
 
 const initial: BookingFormState = {ok: false, error: null};
+
+const MAX_PARTY = 12;
 
 export function BookingForm({
   itemType,
@@ -22,7 +24,12 @@ export function BookingForm({
 }) {
   const t = useTranslations('Booking');
   const [state, formAction] = useActionState(createBookingAction, initial);
-  const [open, setOpen] = useState(false);
+  const [partySize, setPartySize] = useState(1);
+
+  const companionSlots = useMemo(
+    () => Array.from({length: Math.max(0, partySize - 1)}, (_, i) => i + 2),
+    [partySize]
+  );
 
   if (state.ok) {
     return (
@@ -57,74 +64,154 @@ export function BookingForm({
           </p>
         </header>
 
-        {!open ? (
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="mx-auto inline-flex items-center gap-2 rounded-full bg-coral px-6 py-3 font-en text-sm font-semibold text-white shadow-md transition hover:brightness-110"
-          >
-            <Send className="h-4 w-4" />
-            {t('openButton')}
-          </button>
-        ) : (
-          <form action={formAction} className="flex flex-col gap-4 rounded-lg bg-white p-6 shadow-sm">
+        <form
+          action={formAction}
+          id="booking-form"
+          className="flex flex-col gap-6 rounded-lg bg-white p-6 shadow-sm"
+        >
             <input type="hidden" name="item_type" value={itemType} />
             <input type="hidden" name="item_id" value={itemId} />
             <input type="hidden" name="item_slug" value={itemSlug} />
             <input type="hidden" name="item_title" value={itemTitle} />
 
-            <Field label={t('field.name')} required>
-              <input
-                type="text"
-                name="contact_name"
-                required
-                maxLength={80}
-                className={INPUT}
-                autoComplete="name"
-              />
-            </Field>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label={t('field.email')} required>
-                <input
-                  type="email"
-                  name="contact_email"
-                  required
-                  maxLength={120}
-                  className={INPUT}
-                  autoComplete="email"
-                />
-              </Field>
-              <Field label={t('field.phone')}>
-                <input
-                  type="tel"
-                  name="contact_phone"
-                  maxLength={40}
-                  className={INPUT}
-                  autoComplete="tel"
-                />
-              </Field>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label={t('field.line')}>
+            <Fieldset legend={t('sections.contact')}>
+              <Field label={t('field.name')} required>
                 <input
                   type="text"
-                  name="contact_line"
-                  maxLength={60}
+                  name="contact_name"
+                  required
+                  maxLength={80}
                   className={INPUT}
-                  placeholder="@..."
+                  autoComplete="name"
                 />
               </Field>
-              <Field label={t('field.partySize')}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label={t('field.email')} required>
+                  <input
+                    type="email"
+                    name="contact_email"
+                    required
+                    maxLength={120}
+                    className={INPUT}
+                    autoComplete="email"
+                  />
+                </Field>
+                <Field label={t('field.phone')}>
+                  <input
+                    type="tel"
+                    name="contact_phone"
+                    maxLength={40}
+                    className={INPUT}
+                    autoComplete="tel"
+                  />
+                </Field>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label={t('field.line')}>
+                  <input
+                    type="text"
+                    name="contact_line"
+                    maxLength={60}
+                    className={INPUT}
+                    placeholder="@..."
+                  />
+                </Field>
+                <Field label={t('field.partySize')}>
+                  <input
+                    type="number"
+                    name="party_size"
+                    min={1}
+                    max={MAX_PARTY}
+                    value={partySize}
+                    onChange={(e) => {
+                      const n = Number(e.target.value) || 1;
+                      setPartySize(Math.max(1, Math.min(MAX_PARTY, n)));
+                    }}
+                    className={INPUT}
+                  />
+                </Field>
+              </div>
+              <Field
+                label={t('field.nationalId')}
+                hint={t('field.nationalIdHint')}
+              >
                 <input
-                  type="number"
-                  name="party_size"
-                  min={1}
-                  max={20}
-                  defaultValue={1}
+                  type="text"
+                  name="national_id"
+                  maxLength={40}
                   className={INPUT}
+                  autoComplete="off"
+                  inputMode="text"
                 />
               </Field>
-            </div>
+            </Fieldset>
+
+            <Fieldset legend={t('sections.emergency')}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label={t('field.emergencyName')}>
+                  <input
+                    type="text"
+                    name="emergency_contact_name"
+                    maxLength={80}
+                    className={INPUT}
+                  />
+                </Field>
+                <Field label={t('field.emergencyPhone')}>
+                  <input
+                    type="tel"
+                    name="emergency_contact_phone"
+                    maxLength={40}
+                    className={INPUT}
+                  />
+                </Field>
+              </div>
+            </Fieldset>
+
+            <Fieldset legend={t('sections.dive')}>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field
+                  label={t('field.certLevel')}
+                  hint={t('field.certLevelHint')}
+                >
+                  <input
+                    type="text"
+                    name="dive_cert_level"
+                    maxLength={60}
+                    className={INPUT}
+                    placeholder="OW / AOW / Free Diver L1 ..."
+                  />
+                </Field>
+                <Field label={t('field.certNumber')}>
+                  <input
+                    type="text"
+                    name="dive_cert_number"
+                    maxLength={60}
+                    className={INPUT}
+                  />
+                </Field>
+              </div>
+            </Fieldset>
+
+            {companionSlots.length > 0 ? (
+              <Fieldset
+                legend={t('sections.companions')}
+                hint={t('field.companionsHint')}
+              >
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {companionSlots.map((n) => (
+                    <Field key={n} label={t('field.companionN', {n})}>
+                      <input
+                        type="text"
+                        name="companions"
+                        maxLength={80}
+                        className={INPUT}
+                      />
+                    </Field>
+                  ))}
+                </div>
+              </Fieldset>
+            ) : null}
+
             <Field label={t('field.notes')}>
               <textarea
                 name="notes"
@@ -141,20 +228,14 @@ export function BookingForm({
               </p>
             ) : null}
 
-            <p className="text-xs text-gray-500">{t('disclaimer')}</p>
+            <p className="text-xs leading-relaxed text-gray-500">
+              {t('disclaimer')}
+            </p>
 
-            <div className="flex items-center justify-between gap-3">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="text-sm text-gray-500 hover:text-gray-700"
-              >
-                {t('cancel')}
-              </button>
-              <SubmitButton label={t('submit')} pendingLabel={t('submitting')} />
-            </div>
-          </form>
-        )}
+          <div className="flex items-center justify-end gap-3">
+            <SubmitButton label={t('submit')} pendingLabel={t('submitting')} />
+          </div>
+        </form>
       </div>
     </section>
   );
@@ -163,7 +244,37 @@ export function BookingForm({
 const INPUT =
   'w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-coral focus:outline-none focus:ring-1 focus:ring-coral';
 
-function Field({label, required, children}: {label: string; required?: boolean; children: React.ReactNode}) {
+function Fieldset({
+  legend,
+  hint,
+  children
+}: {
+  legend: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <fieldset className="flex flex-col gap-3 border-t border-gray-100 pt-4 first:border-t-0 first:pt-0">
+      <legend className="font-heading text-sm font-semibold text-navy-900">
+        {legend}
+      </legend>
+      {hint ? <p className="text-xs text-gray-500">{hint}</p> : null}
+      {children}
+    </fieldset>
+  );
+}
+
+function Field({
+  label,
+  required,
+  hint,
+  children
+}: {
+  label: string;
+  required?: boolean;
+  hint?: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="flex flex-col gap-1.5">
       <span className="text-sm font-medium text-navy-900">
@@ -171,6 +282,7 @@ function Field({label, required, children}: {label: string; required?: boolean; 
         {required ? <span className="ml-0.5 text-red-500">*</span> : null}
       </span>
       {children}
+      {hint ? <span className="text-xs text-gray-500">{hint}</span> : null}
     </label>
   );
 }

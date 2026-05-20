@@ -41,11 +41,22 @@ export async function DiveSiteCards() {
             >
               <div
                 className={`relative aspect-[16/11] w-full bg-gradient-to-br ${GRADIENTS[site.slug] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}
+                style={
+                  site.cover_image
+                    ? {
+                        backgroundImage: `url(${site.cover_image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }
+                    : undefined
+                }
               >
-                <div
-                  aria-hidden
-                  className="absolute inset-0 opacity-25 [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:18px_18px]"
-                />
+                {!site.cover_image ? (
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-25 [background-image:radial-gradient(rgba(255,255,255,0.6)_1px,transparent_1px)] [background-size:18px_18px]"
+                  />
+                ) : null}
                 <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 font-en text-[11px] font-semibold tracking-wide text-ink">
                   {site.slug.toUpperCase()}
                 </span>

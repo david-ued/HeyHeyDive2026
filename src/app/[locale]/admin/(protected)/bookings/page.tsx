@@ -3,6 +3,7 @@ import {Inbox, Mail, MessageCircle, Phone} from 'lucide-react';
 import {listBookings, countBookingsByStatus} from '@/lib/cms/queries';
 import {MissingTableNotice} from '@/components/admin/form-fields';
 import type {BookingStatus} from '@/lib/cms/types';
+import {BookingsTabs} from './_components/bookings-tabs';
 
 export const dynamic = 'force-dynamic';
 
@@ -49,6 +50,8 @@ export default async function AdminBookingsPage({
           使用者透過行程或課程頁送出的報名都會出現在這裡，依狀態追蹤聯絡進度。
         </p>
       </header>
+
+      <BookingsTabs active="all" locale={locale} />
 
       <nav className="flex flex-wrap items-center gap-2 text-sm">
         <FilterPill href={`/${locale}/admin/bookings`} active={!filter} count={total} label="全部" />

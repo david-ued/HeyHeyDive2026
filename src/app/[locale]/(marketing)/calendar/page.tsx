@@ -1,48 +1,54 @@
 import {getTranslations} from 'next-intl/server';
-import {ArrowRight, MapPin} from 'lucide-react';
 import {Link} from '@/i18n/navigation';
 import {
   CalendarSection,
   type CalendarEvent,
   type CalendarMonth
 } from '@/components/marketing/sections/calendar-section';
+import {
+  CalendarViewToggle,
+  type CalendarView
+} from '@/components/marketing/sections/calendar-view-toggle';
+import {TripListView} from '@/components/marketing/sections/trip-list-view';
 import {LineIcon} from '@/components/marketing/brand-icons';
-import {listTripsInRange} from '@/lib/cms/queries';
+import {listPublicTrips, listTripsInRange} from '@/lib/cms/queries';
 import type {Trip} from '@/lib/cms/types';
 
 export const dynamic = 'force-dynamic';
 
-const HARDCODED_TRIPS: Array<{site: string; slug: string; accent: string}> = [
-  {slug: 'ludao-4d3n', site: 'ludao', accent: 'bg-navy-800'},
-  {slug: 'liuqiu-2d1n', site: 'liuqiu', accent: 'bg-navy-700'},
-  {slug: 'lanyu-5d4n', site: 'lanyu', accent: 'bg-navy-900'}
-];
-
 const ZH_MONTH = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
 const EN_MONTH = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 
-function monthInfo(locale: string, date: Date): CalendarMonth {
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth() + 1; // 1-12
-  const firstDay = new Date(Date.UTC(year, month - 1, 1));
-  const lastDay = new Date(Date.UTC(year, month, 0));
+function monthInfo(locale: string, year: number, month1to12: number): CalendarMonth {
+  const firstDay = new Date(Date.UTC(year, month1to12 - 1, 1));
+  const lastDay = new Date(Date.UTC(year, month1to12, 0));
   const leadingBlanks = firstDay.getUTCDay();
   const daysInMonth = lastDay.getUTCDate();
-  const monthLabel = locale === 'zh-TW' ? `${ZH_MONTH[month - 1]}月` : EN_MONTH[month - 1];
-  const monthLabelEn = `${EN_MONTH[month - 1]} ${year}`;
-  return {month, year, leadingBlanks, daysInMonth, monthLabel, monthLabelEn};
+  const monthLabel =
+    locale === 'zh-TW' ? `${ZH_MONTH[month1to12 - 1]}月` : EN_MONTH[month1to12 - 1];
+  const monthLabelEn = `${EN_MONTH[month1to12 - 1]} ${year}`;
+  return {month: month1to12, year, leadingBlanks, daysInMonth, monthLabel, monthLabelEn};
 }
 
-function mapTripToEvent(t: Trip, year: number, month: number): CalendarEvent {
+function diffDays(startISO: string, endISO: string): number {
+  const a = new Date(startISO + 'T00:00:00Z').getTime();
+  const b = new Date(endISO + 'T00:00:00Z').getTime();
+  return Math.max(1, Math.round((b - a) / (1000 * 60 * 60 * 24)) + 1);
+}
+
+function mapTripToEvent(t: Trip, year: number, month1to12: number): CalendarEvent {
   const start = new Date(t.start_date + 'T00:00:00Z');
   const end = new Date(t.end_date + 'T00:00:00Z');
-  const monthStart = new Date(Date.UTC(year, month - 1, 1));
-  const monthEnd = new Date(Date.UTC(year, month, 0));
+  const monthStart = new Date(Date.UTC(year, month1to12 - 1, 1));
+  const monthEnd = new Date(Date.UTC(year, month1to12, 0));
   const clippedStart = start < monthStart ? monthStart : start;
   const clippedEnd = end > monthEnd ? monthEnd : end;
+  const days = diffDays(t.start_date, t.end_date);
   return {
     id: t.id,
     range: [clippedStart.getUTCDate(), clippedEnd.getUTCDate()],
+    days,
+    nights: Math.max(0, days - 1),
     kind: t.kind,
     destination: t.destination,
     label: t.title,
@@ -50,25 +56,81 @@ function mapTripToEvent(t: Trip, year: number, month: number): CalendarEvent {
   };
 }
 
+function parseYm(ym: string | undefined): {year: number; month: number} | null {
+  if (!ym) return null;
+  const m = /^(\d{4})-(\d{1,2})$/.exec(ym);
+  if (!m) return null;
+  const year = Number(m[1]);
+  const month = Number(m[2]);
+  if (month < 1 || month > 12) return null;
+  return {year, month};
+}
+
+function shiftYm(year: number, month: number, delta: number): string {
+  const d = new Date(Date.UTC(year, month - 1 + delta, 1));
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+
 export default async function CalendarPage({
-  params
+  params,
+  searchParams
 }: {
   params: Promise<{locale: string}>;
+  searchParams: Promise<{view?: string; ym?: string}>;
 }) {
   const {locale} = await params;
+  const {view: viewParam, ym: ymParam} = await searchParams;
   const t = await getTranslations('Calendar');
-  const now = new Date();
-  const month = monthInfo(locale, now);
-  const monthStartISO = `${month.year}-${String(month.month).padStart(2, '0')}-01`;
-  const monthEndISO = `${month.year}-${String(month.month).padStart(2, '0')}-${String(month.daysInMonth).padStart(2, '0')}`;
 
-  const result = await listTripsInRange(monthStartISO, monthEndISO);
+  const view: CalendarView = viewParam === 'list' ? 'list' : 'calendar';
+  const now = new Date();
+  const parsed = parseYm(ymParam);
+  const year = parsed?.year ?? now.getUTCFullYear();
+  const month = parsed?.month ?? now.getUTCMonth() + 1;
+  const monthMeta = monthInfo(locale, year, month);
+  const monthStartISO = `${year}-${String(month).padStart(2, '0')}-01`;
+  const monthEndISO = `${year}-${String(month).padStart(2, '0')}-${String(monthMeta.daysInMonth).padStart(2, '0')}`;
+
+  // For the calendar view: trips overlapping the visible month.
+  // For the list view: every upcoming public trip across all months.
+  const calendarResult = view === 'calendar' ? await listTripsInRange(monthStartISO, monthEndISO) : null;
+  const listTrips = view === 'list' ? await listPublicTrips() : [];
+
+  const todayIso = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
+    .toISOString()
+    .slice(0, 10);
+  const upcoming = listTrips
+    .filter((tr) => tr.end_date >= todayIso)
+    .sort((a, b) => a.start_date.localeCompare(b.start_date));
+
   const events: CalendarEvent[] =
-    result.status === 'ok'
-      ? result.rows.map((tr) => mapTripToEvent(tr, month.year, month.month))
+    calendarResult?.status === 'ok'
+      ? calendarResult.rows.map((tr) => mapTripToEvent(tr, year, month))
       : [];
 
-  const upcomingRows = result.status === 'ok' ? result.rows.slice(0, 6) : [];
+  const missingTable = calendarResult?.status === 'missing-table';
+
+  const prevYm = shiftYm(year, month, -1);
+  const nextYm = shiftYm(year, month, 1);
+  const todayYm = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}`;
+  const ymForToggle = parsed
+    ? `${year}-${String(month).padStart(2, '0')}`
+    : null;
+  const todayDay =
+    now.getUTCFullYear() === year && now.getUTCMonth() + 1 === month
+      ? now.getUTCDate()
+      : null;
+
+  // Stats — currently visible month for calendar view, upcoming list for list view.
+  const statRows =
+    view === 'calendar'
+      ? calendarResult?.status === 'ok'
+        ? calendarResult.rows
+        : []
+      : upcoming;
+  const destinations = new Set(statRows.map((r) => r.destination)).size;
+  const openCount = statRows.filter((r) => r.status === 'open').length;
+  const soldCount = statRows.filter((r) => r.status === 'sold_out').length;
 
   return (
     <>
@@ -83,7 +145,7 @@ export default async function CalendarPage({
             <span className="text-navy-900">{t('breadcrumb.calendar')}</span>
           </nav>
           <p className="mt-6 font-en text-xs font-bold tracking-[0.3em] text-gray-400">
-            TRIP CALENDAR
+            TRIP SIGN-UP
           </p>
           <h1 className="mt-2 font-heading text-4xl font-bold text-navy-900 md:text-[40px]">
             {t('title')}
@@ -92,7 +154,7 @@ export default async function CalendarPage({
         </div>
       </section>
 
-      {result.status === 'missing-table' ? (
+      {missingTable ? (
         <section className="bg-off-white pb-12">
           <div className="mx-auto max-w-[900px] px-6 md:px-20">
             <div className="rounded-lg border border-amber-300 bg-amber-50 p-5 text-sm text-amber-800">
@@ -111,93 +173,32 @@ export default async function CalendarPage({
         </section>
       ) : null}
 
-      <CalendarSection events={events} month={month} />
-
-      {/* Upcoming Trips */}
-      <section className="reveal bg-off-white text-ink">
-        <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-20 md:py-16">
-          <div className="flex items-end justify-between">
-            <div>
-              <h2 className="font-heading text-2xl font-bold text-navy-900 md:text-[28px]">
-                {month.monthLabel}行程總覽
-              </h2>
-              <p className="mt-1 font-en text-xs font-semibold tracking-[0.2em] text-gray-400">
-                {month.monthLabelEn} TRIPS
-              </p>
-            </div>
-            <Link
-              href="/calendar"
-              className="font-en text-sm font-semibold text-coral hover:underline"
-            >
-              {t('upcoming.viewAll')} →
-            </Link>
-          </div>
-
-          <div className="mt-6 flex flex-col gap-4">
-            {upcomingRows.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-gray-300 bg-white p-10 text-center text-sm text-gray-500">
-                這個月還沒有行程。
-                <Link href="/admin/trips" className="ml-2 font-medium text-coral hover:underline">
-                  到後台新增 →
-                </Link>
-              </div>
-            ) : (
-              upcomingRows.map((tr) => {
-                const fallback = HARDCODED_TRIPS.find((h) => h.site === tr.destination);
-                return (
-                  <article
-                    key={tr.id}
-                    className="hover-lift flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white md:flex-row"
-                  >
-                    <div
-                      className={`${fallback?.accent ?? 'bg-navy-800'} h-44 w-full shrink-0 md:h-auto md:w-[280px]`}
-                      style={tr.cover_image ? {backgroundImage: `url(${tr.cover_image})`, backgroundSize: 'cover', backgroundPosition: 'center'} : undefined}
-                    />
-                    <div className="flex flex-1 items-center justify-between gap-6 p-6">
-                      <div className="flex flex-col gap-2">
-                        <p className="font-en text-[11px] font-bold tracking-[0.2em] text-coral uppercase">
-                          {tr.destination}
-                        </p>
-                        <h3 className="font-heading text-xl font-bold text-navy-900">
-                          {tr.title}
-                        </h3>
-                        <p className="font-en text-sm text-gray-500">
-                          {tr.start_date} → {tr.end_date}
-                        </p>
-                        {tr.short_description ? (
-                          <p className="inline-flex items-center gap-1.5 text-sm text-gray-500">
-                            <MapPin className="h-3.5 w-3.5" /> {tr.short_description}
-                          </p>
-                        ) : null}
-                      </div>
-                      <div className="hidden flex-col items-end gap-2 md:flex">
-                        <p className="font-en text-2xl font-bold text-navy-900">
-                          NT$ {tr.price_twd.toLocaleString()}
-                        </p>
-                        <Link
-                          href={`/trips/${tr.slug}`}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-coral px-4 py-2 font-en text-sm font-semibold text-white hover:brightness-110"
-                        >
-                          {t('upcoming.book')} <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })
-            )}
-          </div>
-        </div>
+      {/* Centred view toggle */}
+      <section className="bg-off-white pt-2 pb-6">
+        <CalendarViewToggle view={view} ym={ymForToggle} />
       </section>
+
+      {view === 'calendar' ? (
+        <CalendarSection
+          events={events}
+          month={monthMeta}
+          prevYm={prevYm}
+          nextYm={nextYm}
+          todayYm={todayYm}
+          todayDay={todayDay}
+        />
+      ) : (
+        <TripListView trips={upcoming} />
+      )}
 
       {/* Quick stats */}
       <section className="reveal bg-off-white text-ink">
         <div className="mx-auto max-w-[1440px] px-6 py-8 md:px-20">
           <div className="grid grid-cols-2 divide-y divide-x divide-gray-200 rounded-lg border border-gray-200 bg-white md:grid-cols-4 md:divide-y-0">
-            <Stat number={String(upcomingRows.length)} label={t('stats.month')} />
-            <Stat number={String(new Set(upcomingRows.map((r) => r.destination)).size)} label={t('stats.destinations')} />
-            <Stat number={String(upcomingRows.filter((r) => r.status === 'open').length)} highlight label={t('stats.available')} />
-            <Stat number={String(upcomingRows.filter((r) => r.status === 'sold_out').length)} muted label={t('stats.soldOut')} />
+            <Stat number={String(statRows.length)} label={t('stats.month')} />
+            <Stat number={String(destinations)} label={t('stats.destinations')} />
+            <Stat number={String(openCount)} highlight label={t('stats.available')} />
+            <Stat number={String(soldCount)} muted label={t('stats.soldOut')} />
           </div>
         </div>
       </section>

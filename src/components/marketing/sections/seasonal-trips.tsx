@@ -83,6 +83,15 @@ export async function SeasonalTrips() {
               >
                 <div
                   className={`relative h-40 w-full bg-gradient-to-br ${GRADIENTS[dest] ?? GRADIENTS.other}`}
+                  style={
+                    trip.cover_image
+                      ? {
+                          backgroundImage: `url(${trip.cover_image})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center'
+                        }
+                      : undefined
+                  }
                 >
                   <span className="absolute right-3 top-3 rounded-full bg-black/40 px-2 py-1 font-en text-[10px] font-semibold tracking-wider text-white backdrop-blur">
                     {dest.toUpperCase()}

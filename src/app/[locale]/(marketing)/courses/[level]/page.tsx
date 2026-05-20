@@ -20,6 +20,7 @@ export default async function CourseDetail({
     <CourseDetailPage
       system={level}
       content={pickContent(course, locale)}
+      coverImage={course.cover_image}
       bookingForm={
         <BookingForm
           itemType="course"

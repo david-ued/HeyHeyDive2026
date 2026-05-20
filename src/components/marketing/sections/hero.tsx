@@ -1,18 +1,38 @@
+import {existsSync} from 'node:fs';
+import {join} from 'node:path';
 import {useTranslations} from 'next-intl';
 import {ArrowRight} from 'lucide-react';
 import {Link} from '@/i18n/navigation';
 
+const HERO_IMAGE_PATH = '/images/hero.jpg';
+
 export function HomeHero() {
   const t = useTranslations('Home.hero');
+  // Re-check each render so dropping in the file picks up without a server restart.
+  const hasHeroImage = existsSync(join(process.cwd(), 'public', 'images', 'hero.jpg'));
 
   return (
     <section className="relative isolate overflow-hidden bg-navy-900">
-      {/* Decorative ocean gradient + dot pattern stand-in for hero image */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,theme(colors.navy-700),theme(colors.navy-900)_60%,theme(colors.ink))]" />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 opacity-[0.08] [background-image:radial-gradient(theme(colors.white)_1px,transparent_1px)] [background-size:24px_24px]"
-      />
+      {hasHeroImage ? (
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            backgroundImage: `linear-gradient(rgba(11,20,40,0.45), rgba(11,20,40,0.7)), url(${HERO_IMAGE_PATH})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
+        />
+      ) : (
+        <>
+          {/* Decorative ocean gradient + dot pattern stand-in for hero image */}
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,theme(colors.navy-700),theme(colors.navy-900)_60%,theme(colors.ink))]" />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 opacity-[0.08] [background-image:radial-gradient(theme(colors.white)_1px,transparent_1px)] [background-size:24px_24px]"
+          />
+        </>
+      )}
 
       <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-6 pt-24 pb-28 md:px-20 md:pt-32 md:pb-32 lg:min-h-[680px] lg:justify-center">
         <p

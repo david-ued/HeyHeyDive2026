@@ -1,5 +1,5 @@
-import {StubPage} from '@/components/marketing/stub-page';
+import {FAQPage} from '@/components/marketing/faq-page';
 
-export default function FAQPage() {
-  return <StubPage namespace="Stub.faq" />;
+export default function Page() {
+  return <FAQPage />;
 }

@@ -112,6 +112,12 @@ export type Booking = {
   notes: string | null;
   status: BookingStatus;
   admin_note: string | null;
+  national_id: string | null;
+  emergency_contact_name: string | null;
+  emergency_contact_phone: string | null;
+  dive_cert_level: string | null;
+  dive_cert_number: string | null;
+  companions: string[] | null;
   created_at: string;
   updated_at: string;
 };

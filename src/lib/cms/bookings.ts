@@ -36,6 +36,16 @@ export async function createBookingAction(
   const line = nullable(formData.get('contact_line'));
   const notes = nullable(formData.get('notes'));
   const partySize = Math.max(1, Math.min(99, Number(formData.get('party_size') ?? 1) || 1));
+  const nationalId = nullable(formData.get('national_id'));
+  const emergencyName = nullable(formData.get('emergency_contact_name'));
+  const emergencyPhone = nullable(formData.get('emergency_contact_phone'));
+  const certLevel = nullable(formData.get('dive_cert_level'));
+  const certNumber = nullable(formData.get('dive_cert_number'));
+  const companions = formData
+    .getAll('companions')
+    .map((v) => (typeof v === 'string' ? v.trim() : ''))
+    .filter(Boolean)
+    .slice(0, partySize - 1);
 
   if (!itemId || !itemSlug || !itemTitleSnapshot) {
     return {ok: false, error: '無法識別報名項目，請從詳情頁重新進入'};
@@ -57,7 +67,13 @@ export async function createBookingAction(
     contact_line: line,
     party_size: partySize,
     notes,
-    status: 'pending'
+    status: 'pending',
+    national_id: nationalId,
+    emergency_contact_name: emergencyName,
+    emergency_contact_phone: emergencyPhone,
+    dive_cert_level: certLevel,
+    dive_cert_number: certNumber,
+    companions: companions.length ? companions : null
   });
 
   if (error) {
@@ -70,6 +86,39 @@ export async function createBookingAction(
 }
 
 export type BookingUpdateState = {error: string | null};
+
+/**
+ * Lightweight status update for inline controls (e.g. the per-trip booking list).
+ * Does NOT touch admin_note — use updateBookingStatusAction for the detail page
+ * where the full form is rendered.
+ */
+export async function quickUpdateBookingStatusAction(
+  id: string,
+  status: BookingStatus,
+  locale: string
+): Promise<{error: string | null}> {
+  await requireAdminAction();
+  if (!id) return {error: '缺少 booking id'};
+  if (!(STATUSES as string[]).includes(status)) {
+    return {error: '無效的狀態值'};
+  }
+  const supabase = await createClient();
+  const {error, data: updated} = await supabase
+    .from('bookings')
+    .update({status})
+    .eq('id', id)
+    .select('item_slug')
+    .maybeSingle();
+  if (error) return {error: error.message};
+
+  revalidatePath(`/${locale}/admin/bookings`);
+  revalidatePath(`/${locale}/admin/bookings/${id}`);
+  if (updated?.item_slug) {
+    revalidatePath(`/${locale}/admin/bookings/by-trip/${updated.item_slug}`);
+  }
+  revalidatePath(`/${locale}/admin/bookings/by-trip`);
+  return {error: null};
+}
 
 /**
  * Admin-only status update. Uses the SSR client (cookie-auth) so RLS sees the

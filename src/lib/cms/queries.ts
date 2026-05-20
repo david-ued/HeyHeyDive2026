@@ -1,6 +1,6 @@
 import 'server-only';
 import {createClient} from '@/lib/supabase/server';
-import type {Booking, Course, DiveSite, Trip} from './types';
+import type {Booking, BookingStatus, Course, DiveSite, Trip} from './types';
 
 /**
  * `relation "public.X" does not exist` errors from PostgREST surface as a
@@ -176,4 +176,76 @@ export async function countBookingsByStatus(): Promise<Record<string, number>> {
     counts[s] = (counts[s] ?? 0) + 1;
   }
   return counts;
+}
+
+export type TripBookingSummary = {
+  trip: Trip;
+  total: number;
+  party: number;
+  byStatus: Record<BookingStatus, number>;
+};
+
+export async function listTripsWithBookingSummary(): Promise<
+  TableState<TripBookingSummary>
+> {
+  const supabase = await createClient();
+  const [tripsRes, bookingsRes] = await Promise.all([
+    supabase.from('trips').select('*').order('start_date', {ascending: true}),
+    supabase
+      .from('bookings')
+      .select('item_type,item_slug,status,party_size')
+      .eq('item_type', 'trip')
+  ]);
+  if (tripsRes.error) {
+    if (isMissingTable(tripsRes.error)) return {status: 'missing-table', rows: []};
+    return {status: 'error', rows: [], error: tripsRes.error.message};
+  }
+  const trips = (tripsRes.data ?? []) as Trip[];
+  const bookings = bookingsRes.error
+    ? []
+    : ((bookingsRes.data ?? []) as Array<{
+        item_slug: string;
+        status: BookingStatus;
+        party_size: number;
+      }>);
+
+  const bySlug = new Map<string, {total: number; party: number; byStatus: Record<BookingStatus, number>}>();
+  for (const b of bookings) {
+    const slot = bySlug.get(b.item_slug) ?? {
+      total: 0,
+      party: 0,
+      byStatus: {pending: 0, contacted: 0, confirmed: 0, cancelled: 0}
+    };
+    slot.total += 1;
+    slot.party += b.party_size;
+    slot.byStatus[b.status] += 1;
+    bySlug.set(b.item_slug, slot);
+  }
+
+  const rows: TripBookingSummary[] = trips.map((trip) => {
+    const slot = bySlug.get(trip.slug) ?? {
+      total: 0,
+      party: 0,
+      byStatus: {pending: 0, contacted: 0, confirmed: 0, cancelled: 0} as Record<BookingStatus, number>
+    };
+    return {trip, total: slot.total, party: slot.party, byStatus: slot.byStatus};
+  });
+  return {status: 'ok', rows};
+}
+
+export async function listBookingsForTrip(
+  tripSlug: string
+): Promise<TableState<Booking>> {
+  const supabase = await createClient();
+  const {data, error} = await supabase
+    .from('bookings')
+    .select('*')
+    .eq('item_type', 'trip')
+    .eq('item_slug', tripSlug)
+    .order('created_at', {ascending: false});
+  if (error) {
+    if (isMissingTable(error)) return {status: 'missing-table', rows: []};
+    return {status: 'error', rows: [], error: error.message};
+  }
+  return {status: 'ok', rows: (data ?? []) as Booking[]};
 }

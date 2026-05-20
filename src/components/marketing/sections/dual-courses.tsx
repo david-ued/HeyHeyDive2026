@@ -46,7 +46,19 @@ export async function DualCourses() {
             >
               <div
                 className={`relative h-60 w-full bg-gradient-to-br ${ACCENT[course.system] ?? ACCENT.other}`}
+                style={
+                  course.cover_image
+                    ? {
+                        backgroundImage: `url(${course.cover_image})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }
+                    : undefined
+                }
               >
+                {course.cover_image ? (
+                  <div aria-hidden className="absolute inset-0 bg-black/30" />
+                ) : null}
                 <span className="absolute left-6 top-6 font-en text-[11px] font-semibold tracking-[0.2em] text-gold">
                   {SYSTEM_KICKER[course.system] ?? SYSTEM_KICKER.other}
                 </span>

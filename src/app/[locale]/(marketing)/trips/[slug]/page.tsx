@@ -20,6 +20,7 @@ export default async function TripDetail({
     <TripDetailPage
       slug={slug}
       content={pickContent(trip, locale)}
+      coverImage={trip.cover_image}
       bookingForm={
         <BookingForm
           itemType="trip"

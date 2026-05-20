@@ -21,11 +21,13 @@ const STEPS = ['theory', 'pool', 'open', 'cert'] as const;
 export function CourseDetailPage({
   system,
   content,
-  bookingForm
+  bookingForm,
+  coverImage
 }: {
   system: string;
   content?: DeepContent;
   bookingForm?: React.ReactNode;
+  coverImage?: string | null;
 }) {
   const tFallback = useTranslations(`Course.${system}`);
   const t = buildContentT(content, tFallback);
@@ -34,11 +36,24 @@ export function CourseDetailPage({
   return (
     <>
       {/* Hero & Course Info */}
-      <section className={`relative bg-gradient-to-br ${HERO_GRADIENT[system] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}>
-        <div
-          aria-hidden
-          className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]"
-        />
+      <section
+        className={`relative bg-gradient-to-br ${HERO_GRADIENT[system] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}
+        style={
+          coverImage
+            ? {
+                backgroundImage: `linear-gradient(rgba(11,20,40,0.55), rgba(11,20,40,0.65)), url(${coverImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }
+            : undefined
+        }
+      >
+        {!coverImage ? (
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:22px_22px]"
+          />
+        ) : null}
         <div className="relative mx-auto max-w-[1440px] px-6 py-20 md:px-16 md:py-28">
           <p className="font-en text-[12px] font-semibold tracking-[0.25em] text-gold">
             {t('kicker')}
