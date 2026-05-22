@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <linearGradient id="bg-towel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fef6ec"/>
+      <stop offset="100%" stop-color="#f3d9c2"/>
+    </linearGradient>
+    <linearGradient id="towel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f48266"/>
+      <stop offset="100%" stop-color="#e85b3c"/>
+    </linearGradient>
+    <pattern id="towel-stripes" patternUnits="userSpaceOnUse" width="64" height="64" patternTransform="rotate(35)">
+      <rect width="64" height="64" fill="url(#towel)"/>
+      <rect x="0" y="0" width="64" height="6" fill="#ffd065" opacity="0.95"/>
+      <rect x="0" y="20" width="64" height="2" fill="#fff" opacity="0.7"/>
+      <rect x="0" y="40" width="64" height="3" fill="#fff" opacity="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg-towel)"/>
+  <!-- folded towel -->
+  <g transform="translate(150 220) rotate(-6)">
+    <rect width="500" height="380" rx="18" fill="url(#towel-stripes)" stroke="#0b1f3a" stroke-width="3"/>
+    <rect y="60" width="500" height="22" fill="#ffd065" opacity="0.9"/>
+    <rect y="300" width="500" height="14" fill="#0b1f3a" opacity="0.45"/>
+    <g transform="translate(250 200)">
+      <circle r="56" fill="#0b1f3a"/>
+      <text font-family="Inter, system-ui" font-weight="800" font-size="22" fill="#ffd065" text-anchor="middle" y="-6">HEY</text>
+      <text font-family="Inter, system-ui" font-weight="800" font-size="22" fill="#ffd065" text-anchor="middle" y="22">DIVE</text>
+    </g>
+  </g>
+  <text x="40" y="60" font-family="Inter, system-ui" font-weight="700" font-size="13" letter-spacing="4" fill="#e85b3c">BEACH TOWEL · CORAL</text>
+</svg>

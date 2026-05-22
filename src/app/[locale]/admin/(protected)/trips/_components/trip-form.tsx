@@ -44,6 +44,7 @@ export function TripForm({
   const isEdit = !!trip;
   const zh = trip?.content_zh ?? null;
   const en = trip?.content_en ?? null;
+  const ja = trip?.content_ja ?? null;
 
   return (
     <form action={formAction} className="flex flex-col gap-6" encType="multipart/form-data">
@@ -78,6 +79,9 @@ export function TripForm({
         </FieldLabel>
         <FieldLabel label="Title (English)" hint="可不填">
           <TextInput name="title_en" defaultValue={trip?.title_en ?? ''} placeholder="Ludao 4D3N — Hot-spring dive" />
+        </FieldLabel>
+        <FieldLabel label="タイトル (日本語)" hint="可不填">
+          <TextInput name="title_ja" defaultValue={trip?.title_ja ?? ''} placeholder="緑島 4日3泊 — 海底温泉ダイブ" />
         </FieldLabel>
 
         <FieldLabel label="目的地" required>
@@ -136,14 +140,18 @@ export function TripForm({
         <Textarea name="description_en" rows={4} defaultValue={trip?.description_en ?? ''} />
       </FieldLabel>
 
+      <FieldLabel label="詳細紹介 (日本語)">
+        <Textarea name="description_ja" rows={4} defaultValue={trip?.description_ja ?? ''} />
+      </FieldLabel>
+
       <CoverImageField defaultUrl={trip?.cover_image} />
 
       <ContentSection title="行程逐日" hint="最多 4 天。沒填的天數會 fallback 到既有翻譯文案。">
         {DAYS.map((d, i) => (
           <div key={d} className="flex flex-col gap-3 rounded-md border border-gray-200 bg-white p-4">
             <p className="font-en text-xs font-semibold tracking-[0.15em] text-coral">{`DAY ${i + 1}`}</p>
-            <BilingualField path={`itinerary.${d}.title`} label="標題" zh={zh} en={en} placeholderZh="Day 1 — 抵達綠島" placeholderEn="Day 1 — Arrive at Ludao" />
-            <BilingualField path={`itinerary.${d}.body`} label="行程內容" textarea rows={4} zh={zh} en={en} />
+            <BilingualField path={`itinerary.${d}.title`} label="標題" zh={zh} en={en} ja={ja} placeholderZh="Day 1 — 抵達綠島" placeholderEn="Day 1 — Arrive at Ludao" />
+            <BilingualField path={`itinerary.${d}.body`} label="行程內容" textarea rows={4} zh={zh} en={en} ja={ja} />
           </div>
         ))}
       </ContentSection>
@@ -152,7 +160,7 @@ export function TripForm({
         <div className="grid gap-3 md:grid-cols-2">
           {INCLUDED.map((it) => (
             <div key={it.key} className="rounded-md border border-gray-200 bg-white p-3">
-              <BilingualField path={`included.${it.key}`} label={it.label} zh={zh} en={en} placeholderZh="3 晚民宿住宿" placeholderEn="3 nights lodging" />
+              <BilingualField path={`included.${it.key}`} label={it.label} zh={zh} en={en} ja={ja} placeholderZh="3 晚民宿住宿" placeholderEn="3 nights lodging" />
             </div>
           ))}
         </div>
@@ -162,16 +170,16 @@ export function TripForm({
         <div className="grid gap-3 md:grid-cols-2">
           {NOT_INCLUDED.map((it) => (
             <div key={it.key} className="rounded-md border border-gray-200 bg-white p-3">
-              <BilingualField path={`notIncluded.${it.key}`} label={it.label} zh={zh} en={en} placeholderZh="個人裝備租借" placeholderEn="Personal gear rental" />
+              <BilingualField path={`notIncluded.${it.key}`} label={it.label} zh={zh} en={en} ja={ja} placeholderZh="個人裝備租借" placeholderEn="Personal gear rental" />
             </div>
           ))}
         </div>
       </ContentSection>
 
       <ContentSection title="教練介紹">
-        <BilingualField path="instructor.name" label="姓名" zh={zh} en={en} placeholderZh="Karina · 卡琳娜" placeholderEn="Karina" />
-        <BilingualField path="instructor.creds" label="資歷" zh={zh} en={en} placeholderZh="PADI Instructor · 10 年+" placeholderEn="PADI Instructor · 10+ yrs" />
-        <BilingualField path="instructor.bio" label="簡介" textarea rows={3} zh={zh} en={en} />
+        <BilingualField path="instructor.name" label="姓名" zh={zh} en={en} ja={ja} placeholderZh="Karina · 卡琳娜" placeholderEn="Karina" />
+        <BilingualField path="instructor.creds" label="資歷" zh={zh} en={en} ja={ja} placeholderZh="PADI Instructor · 10 年+" placeholderEn="PADI Instructor · 10+ yrs" />
+        <BilingualField path="instructor.bio" label="簡介" textarea rows={3} zh={zh} en={en} ja={ja} />
       </ContentSection>
 
       <FormError error={state.error} />

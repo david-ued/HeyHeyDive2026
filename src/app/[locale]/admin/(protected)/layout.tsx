@@ -11,6 +11,8 @@ const NAV = [
   {key: 'trips', href: '/admin/trips'},
   {key: 'diveSites', href: '/admin/dive-sites'},
   {key: 'courses', href: '/admin/courses'},
+  {key: 'merch', href: '/admin/merch'},
+  {key: 'faqs', href: '/admin/faqs'},
   {key: 'users', href: '/admin/users'},
   {key: 'settings', href: '/admin/settings'}
 ] as const;
@@ -44,7 +46,7 @@ function Shell({
   return (
     <div className="flex min-h-[calc(100vh-3.5rem)] flex-col bg-off-white text-ink md:flex-row">
       {/* Sidebar */}
-      <aside className="flex w-full shrink-0 flex-col gap-4 bg-navy-900 px-6 py-6 md:w-64 md:py-8">
+      <aside className="matte flex w-full shrink-0 flex-col gap-4 bg-navy-900 px-6 py-6 md:w-64 md:py-8">
         <div className="flex items-center gap-3">
           <img
             src="/images/heyhey.jpg"

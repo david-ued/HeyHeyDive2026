@@ -204,4 +204,46 @@
       transition: none !important;
     }
   }
+
+  /* ────────────────────────────────────────────────────────────
+     Matte surface — for deep navy / dark hero panels.
+     Layers a fine SVG noise (via fractalNoise) on top of the
+     element's existing background, blended at low opacity so
+     text and gradients underneath stay intact. Pair with a soft
+     radial highlight (`.matte-soft`) for a "studio lighting"
+     finish on hero blocks.
+     ──────────────────────────────────────────────────────────── */
+  .matte {
+    position: relative;
+    isolation: isolate;
+  }
+  .matte::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    opacity: 0.10;
+    mix-blend-mode: overlay;
+    border-radius: inherit;
+  }
+  /* Stronger grain for full-bleed dark heroes */
+  .matte-strong::after {
+    opacity: 0.16;
+  }
+  /* Adds a soft top-left highlight so the surface feels lit, not flat.
+     Uses mix-blend-mode so the highlight reads through any in-flow text
+     that paints below it — no need to force child positioning. */
+  .matte-soft::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(120% 80% at 18% 12%, rgba(255, 255, 255, 0.14), transparent 55%),
+      radial-gradient(80% 60% at 95% 100%, rgba(0, 0, 0, 0.22), transparent 60%);
+    mix-blend-mode: soft-light;
+    border-radius: inherit;
+  }
 }

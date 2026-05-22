@@ -3,6 +3,7 @@
 import {useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {
+  ArrowLeft,
   ArrowRight,
   Award,
   Calendar,
@@ -55,14 +56,22 @@ export function TripDetailPage({
   return (
     <>
       {/* Sticky bar */}
-      <div className="sticky top-14 z-30 border-b border-navy-700 bg-navy-800/95 px-6 py-3 backdrop-blur md:top-15 md:px-16">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4">
-          <p className="truncate font-heading text-base font-bold text-white md:text-lg">
+      <div className="matte sticky top-14 z-30 border-b border-navy-700 bg-navy-800/95 px-6 py-3 backdrop-blur md:top-15 md:px-16">
+        <div className="mx-auto flex max-w-[1440px] items-center gap-3">
+          <Link
+            href="/calendar"
+            aria-label={tShared('backToSchedule')}
+            className="group inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/20 px-3 py-1.5 font-en text-xs text-gray-200 transition hover:border-white/60 hover:bg-white/10 hover:text-white"
+          >
+            <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
+            <span className="hidden sm:inline">{tShared('backToSchedule')}</span>
+          </Link>
+          <p className="flex-1 truncate font-heading text-base font-bold text-white md:text-lg">
             {t('title')}
           </p>
           <Link
             href="#cta"
-            className="shrink-0 rounded-full bg-coral px-5 py-2 font-en text-sm font-semibold text-white hover:brightness-110"
+            className="shrink-0 rounded-full bg-coral px-5 py-2 font-en text-sm font-semibold text-white transition hover:brightness-110 hover:shadow-md"
           >
             {tShared('book')}
           </Link>
@@ -71,7 +80,7 @@ export function TripDetailPage({
 
       {/* Cover */}
       <section
-        className={`relative bg-gradient-to-br ${COVER_GRADIENT[slug] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}
+        className={`matte matte-soft matte-strong relative bg-gradient-to-br ${COVER_GRADIENT[slug] ?? 'from-navy-500 via-navy-700 to-navy-900'}`}
         style={
           coverImage
             ? {
@@ -152,7 +161,7 @@ export function TripDetailPage({
       </section>
 
       {/* Day-by-day */}
-      <section className="reveal bg-navy-900 text-white">
+      <section className="matte reveal bg-navy-900 text-white">
         <div className="mx-auto max-w-[1440px] px-6 py-12 md:px-16">
           <h2 className="font-heading text-2xl font-bold">{tShared('itinerary')}</h2>
           <div className="mt-6 flex flex-col gap-3">

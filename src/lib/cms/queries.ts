@@ -1,6 +1,18 @@
 import 'server-only';
 import {createClient} from '@/lib/supabase/server';
-import type {Booking, BookingStatus, Course, DiveSite, Trip} from './types';
+import type {
+  Booking,
+  BookingStatus,
+  Course,
+  DiveSite,
+  FaqCategory,
+  FaqCategoryWithItems,
+  FaqItem,
+  MerchProduct,
+  MerchProductWithVariants,
+  MerchVariant,
+  Trip
+} from './types';
 
 /**
  * `relation "public.X" does not exist` errors from PostgREST surface as a
@@ -138,6 +150,163 @@ export async function getCourseBySlug(slug: string): Promise<Course | null> {
   const supabase = await createClient();
   const {data} = await supabase.from('courses').select('*').eq('slug', slug).maybeSingle();
   return (data ?? null) as Course | null;
+}
+
+export async function listMerchProducts(): Promise<TableState<MerchProduct>> {
+  const supabase = await createClient();
+  const {data, error} = await supabase
+    .from('merch_products')
+    .select('*')
+    .order('display_order', {ascending: true})
+    .order('created_at', {ascending: false});
+  if (error) {
+    if (isMissingTable(error)) return {status: 'missing-table', rows: []};
+    return {status: 'error', rows: [], error: error.message};
+  }
+  return {status: 'ok', rows: (data ?? []) as MerchProduct[]};
+}
+
+export async function listPublicMerchProducts(): Promise<MerchProduct[]> {
+  const supabase = await createClient();
+  const {data, error} = await supabase
+    .from('merch_products')
+    .select('*')
+    .in('status', ['active', 'sold_out'])
+    .order('display_order', {ascending: true})
+    .order('created_at', {ascending: false});
+  if (error) return [];
+  return (data ?? []) as MerchProduct[];
+}
+
+export async function getMerchProduct(id: string): Promise<MerchProduct | null> {
+  const supabase = await createClient();
+  const {data} = await supabase
+    .from('merch_products')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle();
+  return (data ?? null) as MerchProduct | null;
+}
+
+export async function getMerchProductBySlug(
+  slug: string
+): Promise<MerchProduct | null> {
+  const supabase = await createClient();
+  const {data} = await supabase
+    .from('merch_products')
+    .select('*')
+    .eq('slug', slug)
+    .maybeSingle();
+  return (data ?? null) as MerchProduct | null;
+}
+
+export async function listMerchVariants(productId: string): Promise<MerchVariant[]> {
+  const supabase = await createClient();
+  const {data, error} = await supabase
+    .from('merch_variants')
+    .select('*')
+    .eq('product_id', productId)
+    .order('display_order', {ascending: true})
+    .order('created_at', {ascending: true});
+  if (error || !data) return [];
+  return data as MerchVariant[];
+}
+
+export async function getMerchProductWithVariantsBySlug(
+  slug: string
+): Promise<MerchProductWithVariants | null> {
+  const product = await getMerchProductBySlug(slug);
+  if (!product) return null;
+  const variants = await listMerchVariants(product.id);
+  return {...product, variants};
+}
+
+export async function getMerchProductWithVariants(
+  id: string
+): Promise<MerchProductWithVariants | null> {
+  const product = await getMerchProduct(id);
+  if (!product) return null;
+  const variants = await listMerchVariants(product.id);
+  return {...product, variants};
+}
+
+export async function listFaqCategories(): Promise<TableState<FaqCategory>> {
+  const supabase = await createClient();
+  const {data, error} = await supabase
+    .from('faq_categories')
+    .select('*')
+    .order('display_order', {ascending: true})
+    .order('created_at', {ascending: true});
+  if (error) {
+    if (isMissingTable(error)) return {status: 'missing-table', rows: []};
+    return {status: 'error', rows: [], error: error.message};
+  }
+  return {status: 'ok', rows: (data ?? []) as FaqCategory[]};
+}
+
+export async function getFaqCategory(id: string): Promise<FaqCategory | null> {
+  const supabase = await createClient();
+  const {data} = await supabase.from('faq_categories').select('*').eq('id', id).maybeSingle();
+  return (data ?? null) as FaqCategory | null;
+}
+
+export async function listFaqItems(categoryId?: string): Promise<TableState<FaqItem>> {
+  const supabase = await createClient();
+  let query = supabase
+    .from('faq_items')
+    .select('*')
+    .order('display_order', {ascending: true})
+    .order('created_at', {ascending: true});
+  if (categoryId) query = query.eq('category_id', categoryId);
+  const {data, error} = await query;
+  if (error) {
+    if (isMissingTable(error)) return {status: 'missing-table', rows: []};
+    return {status: 'error', rows: [], error: error.message};
+  }
+  return {status: 'ok', rows: (data ?? []) as FaqItem[]};
+}
+
+export async function getFaqItem(id: string): Promise<FaqItem | null> {
+  const supabase = await createClient();
+  const {data} = await supabase.from('faq_items').select('*').eq('id', id).maybeSingle();
+  return (data ?? null) as FaqItem | null;
+}
+
+export async function listFaqWithItems(opts?: {
+  publicOnly?: boolean;
+}): Promise<TableState<FaqCategoryWithItems>> {
+  const supabase = await createClient();
+  let catQ = supabase
+    .from('faq_categories')
+    .select('*')
+    .order('display_order', {ascending: true})
+    .order('created_at', {ascending: true});
+  let itemQ = supabase
+    .from('faq_items')
+    .select('*')
+    .order('display_order', {ascending: true})
+    .order('created_at', {ascending: true});
+  if (opts?.publicOnly) {
+    catQ = catQ.neq('status', 'draft');
+    itemQ = itemQ.neq('status', 'draft');
+  }
+  const [catsRes, itemsRes] = await Promise.all([catQ, itemQ]);
+  if (catsRes.error) {
+    if (isMissingTable(catsRes.error)) return {status: 'missing-table', rows: []};
+    return {status: 'error', rows: [], error: catsRes.error.message};
+  }
+  const cats = (catsRes.data ?? []) as FaqCategory[];
+  const items = itemsRes.error ? [] : ((itemsRes.data ?? []) as FaqItem[]);
+  const byCat = new Map<string, FaqItem[]>();
+  for (const it of items) {
+    const arr = byCat.get(it.category_id) ?? [];
+    arr.push(it);
+    byCat.set(it.category_id, arr);
+  }
+  return {
+    status: 'ok',
+    rows: cats.map((c) => ({...c, items: byCat.get(c.id) ?? []}))
+  };
 }
 
 export async function listBookings(filter?: {

@@ -23,7 +23,7 @@ export async function upsertCourseAction(
 
   const supabase = await createClient();
   const existing = id
-    ? (await supabase.from('courses').select('content_zh, content_en').eq('id', id).maybeSingle()).data
+    ? (await supabase.from('courses').select('content_zh, content_en, content_ja').eq('id', id).maybeSingle()).data
     : null;
 
   const file = formData.get('cover_image_file');
@@ -36,6 +36,7 @@ export async function upsertCourseAction(
 
   const contentZh = mergeContentFromFormData(formData, 'cz', existing?.content_zh ?? null);
   const contentEn = mergeContentFromFormData(formData, 'ce', existing?.content_en ?? null);
+  const contentJa = mergeContentFromFormData(formData, 'cj', existing?.content_ja ?? null);
 
   const payload = {
     slug,
@@ -43,15 +44,18 @@ export async function upsertCourseAction(
     level: String(formData.get('level') ?? '').trim(),
     title: String(formData.get('title') ?? '').trim(),
     title_en: nullable(formData.get('title_en')),
+    title_ja: nullable(formData.get('title_ja')),
     duration: nullable(formData.get('duration')),
     group_size: nullable(formData.get('group_size')),
     prerequisite: nullable(formData.get('prerequisite')),
     price_twd: toInt(formData.get('price_twd'), 0),
     description: nullable(formData.get('description')),
     description_en: nullable(formData.get('description_en')),
+    description_ja: nullable(formData.get('description_ja')),
     cover_image: coverImageUrl,
     content_zh: contentZh,
     content_en: contentEn,
+    content_ja: contentJa,
     status: requireEnum(formData.get('status'), STATUSES, 'status')
   };
 

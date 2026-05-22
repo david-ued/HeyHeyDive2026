@@ -25,7 +25,7 @@ export async function upsertTripAction(
 
   const supabase = await createClient();
   const existing = id
-    ? (await supabase.from('trips').select('content_zh, content_en').eq('id', id).maybeSingle()).data
+    ? (await supabase.from('trips').select('content_zh, content_en, content_ja').eq('id', id).maybeSingle()).data
     : null;
 
   const file = formData.get('cover_image_file');
@@ -38,11 +38,13 @@ export async function upsertTripAction(
 
   const contentZh = mergeContentFromFormData(formData, 'cz', existing?.content_zh ?? null);
   const contentEn = mergeContentFromFormData(formData, 'ce', existing?.content_en ?? null);
+  const contentJa = mergeContentFromFormData(formData, 'cj', existing?.content_ja ?? null);
 
   const payload = {
     slug,
     title: String(formData.get('title') ?? '').trim(),
     title_en: nullable(formData.get('title_en')),
+    title_ja: nullable(formData.get('title_ja')),
     destination: requireEnum(formData.get('destination'), DESTINATIONS, 'destination'),
     kind: requireEnum(formData.get('kind'), KINDS, 'kind'),
     start_date: String(formData.get('start_date') ?? ''),
@@ -53,9 +55,11 @@ export async function upsertTripAction(
     short_description: nullable(formData.get('short_description')),
     description: nullable(formData.get('description')),
     description_en: nullable(formData.get('description_en')),
+    description_ja: nullable(formData.get('description_ja')),
     cover_image: coverImageUrl,
     content_zh: contentZh,
     content_en: contentEn,
+    content_ja: contentJa,
     status: requireEnum(formData.get('status'), STATUSES, 'status')
   };
 

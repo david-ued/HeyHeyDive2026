@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {createAdminClient} from '@/lib/supabase/admin-client';
 import {getCurrentUser} from '@/lib/supabase/auth';
 import {toggleAdminRoleAction} from './actions';
@@ -37,7 +38,12 @@ async function listUsers(): Promise<
   }
 }
 
-export default async function AdminUsersPage() {
+export default async function AdminUsersPage({
+  params
+}: {
+  params: Promise<{locale: string}>;
+}) {
+  const {locale} = await params;
   const [result, me] = await Promise.all([listUsers(), getCurrentUser()]);
   return (
     <div className="flex flex-col gap-6">
@@ -101,6 +107,12 @@ export default async function AdminUsersPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-2">
+                        <Link
+                          href={`/${locale}/admin/users/${u.id}`}
+                          className="rounded-md border border-coral/40 px-3 py-1.5 text-xs font-medium text-coral hover:bg-coral/10"
+                        >
+                          詳細 / 證照
+                        </Link>
                         {isMe ? null : (
                           <form action={toggleAdminRoleAction}>
                             <input type="hidden" name="user_id" value={u.id} />

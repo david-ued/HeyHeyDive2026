@@ -38,10 +38,18 @@ export async function generateMetadata({
   const t = await getTranslations({locale, namespace: 'Meta'});
   const settings = await getSiteSettings();
 
-  const isEn = locale === 'en';
-  const title = (isEn ? settings.meta_title_en : settings.meta_title) ?? t('title');
+  const title =
+    (locale === 'en'
+      ? settings.meta_title_en
+      : locale === 'ja'
+        ? settings.meta_title_ja
+        : settings.meta_title) ?? t('title');
   const description =
-    (isEn ? settings.meta_description_en : settings.meta_description) ?? t('description');
+    (locale === 'en'
+      ? settings.meta_description_en
+      : locale === 'ja'
+        ? settings.meta_description_ja
+        : settings.meta_description) ?? t('description');
   const favicon = settings.favicon_url;
   const ogImage = settings.og_image_url;
 

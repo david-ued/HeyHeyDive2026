@@ -23,6 +23,7 @@ export function QuickStatusSelect({
   const [current, setCurrent] = useState<BookingStatus>(value);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [credential, setCredential] = useState<{email: string; password: string} | null>(null);
   const active = OPTIONS.find((o) => o.value === current) ?? OPTIONS[0];
 
   return (
@@ -36,11 +37,14 @@ export function QuickStatusSelect({
             const prev = current;
             setCurrent(next);
             setError(null);
+            setCredential(null);
             startTransition(async () => {
               const r = await quickUpdateBookingStatusAction(id, next, locale);
               if (r.error) {
                 setError(r.error);
                 setCurrent(prev);
+              } else if (r.credential) {
+                setCredential(r.credential);
               }
             });
           }}
@@ -55,6 +59,13 @@ export function QuickStatusSelect({
         <span className="pointer-events-none absolute right-1.5">▾</span>
       </label>
       {error ? <span className="text-[10px] text-red-600">{error}</span> : null}
+      {credential ? (
+        <div className="rounded-md border border-emerald-300 bg-emerald-50 px-2 py-1 text-[11px] text-emerald-900">
+          <p className="font-medium">新會員帳號：</p>
+          <p className="font-en">{credential.email}</p>
+          <p className="font-en">密碼：{credential.password}</p>
+        </div>
+      ) : null}
     </div>
   );
 }

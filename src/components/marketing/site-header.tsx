@@ -17,17 +17,23 @@ const NAV_ITEMS = [
   {key: 'faq', href: '/faq'}
 ] as const;
 
+const LOCALE_LABEL: Record<string, {short: string; long: string}> = {
+  'zh-TW': {short: '🇹🇼 ZH', long: '🇹🇼 ZH-TW'},
+  en: {short: '🇬🇧 EN', long: '🇬🇧 EN'},
+  ja: {short: '🇯🇵 JA', long: '🇯🇵 日本語'}
+};
+
 type Session = {email: string; isAdmin: boolean} | null;
 
 export function SiteHeader({session}: {session: Session}) {
   const t = useTranslations('Nav');
   const pathname = usePathname();
   const locale = useLocale();
-  const otherLocale = routing.locales.find((l) => l !== locale) ?? 'en';
+  const otherLocales = routing.locales.filter((l) => l !== locale);
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-ink/95 backdrop-blur supports-[backdrop-filter]:bg-ink/80">
+    <header className="matte sticky top-0 z-50 bg-ink/95 backdrop-blur supports-[backdrop-filter]:bg-ink/80">
       {/* Desktop bar */}
       <div className="hidden md:flex h-[60px] items-center justify-between px-6">
         <Link href="/" className="group flex items-center gap-2">
@@ -52,14 +58,19 @@ export function SiteHeader({session}: {session: Session}) {
 
         <div className="flex items-center gap-4 text-white">
           <SocialIcons />
-          <Link
-            href={pathname}
-            locale={otherLocale}
-            className="font-en text-[11px] font-medium tracking-wide text-white/90 transition hover:text-gold"
-          >
-            {locale === 'zh-TW' ? '🇹🇼 ZH' : '🇬🇧 EN'} /{' '}
-            {otherLocale === 'en' ? 'EN' : 'ZH'}
-          </Link>
+          <div className="flex items-center gap-1.5 font-en text-[11px] font-medium tracking-wide text-white/90">
+            <span>{LOCALE_LABEL[locale]?.short ?? locale}</span>
+            {otherLocales.map((l) => (
+              <Link
+                key={l}
+                href={pathname}
+                locale={l}
+                className="transition hover:text-gold"
+              >
+                / {LOCALE_LABEL[l]?.short ?? l}
+              </Link>
+            ))}
+          </div>
           <SessionPill session={session} />
         </div>
       </div>
@@ -109,16 +120,19 @@ export function SiteHeader({session}: {session: Session}) {
         <div className="flex items-center justify-center gap-4 py-5 text-white">
           <SocialIcons />
         </div>
-        <div className="flex justify-center pb-5">
-          <Link
-            href={pathname}
-            locale={otherLocale}
-            onClick={() => setOpen(false)}
-            className="font-en text-xs font-medium tracking-wide text-gray-300"
-          >
-            {locale === 'zh-TW' ? '🇹🇼 ZH-TW' : '🇬🇧 EN'} →{' '}
-            {otherLocale === 'en' ? 'EN' : 'ZH-TW'}
-          </Link>
+        <div className="flex flex-wrap items-center justify-center gap-2 pb-5 font-en text-xs font-medium tracking-wide text-gray-300">
+          <span>{LOCALE_LABEL[locale]?.long ?? locale}</span>
+          {otherLocales.map((l) => (
+            <Link
+              key={l}
+              href={pathname}
+              locale={l}
+              onClick={() => setOpen(false)}
+              className="transition hover:text-gold"
+            >
+              → {LOCALE_LABEL[l]?.long ?? l}
+            </Link>
+          ))}
         </div>
       </div>
     </header>
@@ -137,7 +151,7 @@ function SessionPill({
   if (!session) {
     return (
       <Link
-        href="/admin/login"
+        href="/member/login"
         className={cn(
           'inline-flex items-center gap-1.5 rounded-full bg-coral font-en font-semibold text-white transition hover:brightness-110',
           compact ? 'px-3 py-1.5 text-[11px]' : 'px-3.5 py-1.5 text-xs'
@@ -149,10 +163,10 @@ function SessionPill({
     );
   }
 
-  // Signed in. Admin gets a quick link into the console.
+  // Signed in. Admin gets a quick link into the console; member to the portal.
   return (
     <Link
-      href={session.isAdmin ? '/admin' : '/'}
+      href={session.isAdmin ? '/admin' : '/member'}
       className={cn(
         'inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/5 font-en text-white transition hover:bg-white/15',
         compact ? 'px-3 py-1.5 text-[11px]' : 'px-3.5 py-1.5 text-xs'

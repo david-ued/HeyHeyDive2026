@@ -42,14 +42,19 @@ export function buildContentT(
 }
 
 /**
- * Pick the locale-appropriate content blob from a row with content_zh / content_en.
+ * Pick the locale-appropriate content blob from a row with content_zh / content_en / content_ja.
  */
 export function pickContent(
-  row: {content_zh: DeepContent; content_en: DeepContent} | null | undefined,
+  row:
+    | {content_zh: DeepContent; content_en: DeepContent; content_ja?: DeepContent}
+    | null
+    | undefined,
   locale: string
 ): DeepContent {
   if (!row) return null;
-  return locale === 'en' ? row.content_en ?? row.content_zh : row.content_zh ?? row.content_en;
+  if (locale === 'en') return row.content_en ?? row.content_zh ?? row.content_ja ?? null;
+  if (locale === 'ja') return row.content_ja ?? row.content_zh ?? row.content_en ?? null;
+  return row.content_zh ?? row.content_en ?? row.content_ja ?? null;
 }
 
 /**
@@ -86,7 +91,7 @@ function setDeep(
  */
 export function mergeContentFromFormData(
   formData: FormData,
-  prefix: 'cz' | 'ce',
+  prefix: 'cz' | 'ce' | 'cj',
   existing: DeepContent
 ): DeepContent {
   const merged: Record<string, unknown> = existing

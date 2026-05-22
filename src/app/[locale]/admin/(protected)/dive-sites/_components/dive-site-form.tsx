@@ -25,6 +25,7 @@ export function DiveSiteForm({site, locale}: {site?: DiveSite | null; locale: st
   const isEdit = !!site;
   const zh = site?.content_zh ?? null;
   const en = site?.content_en ?? null;
+  const ja = site?.content_ja ?? null;
 
   return (
     <form action={formAction} className="flex flex-col gap-6" encType="multipart/form-data">
@@ -53,6 +54,9 @@ export function DiveSiteForm({site, locale}: {site?: DiveSite | null; locale: st
         <FieldLabel label="Name (English)">
           <TextInput name="name_en" defaultValue={site?.name_en ?? ''} placeholder="Ludao Island" />
         </FieldLabel>
+        <FieldLabel label="名前 (日本語)">
+          <TextInput name="name_ja" defaultValue={site?.name_ja ?? ''} placeholder="緑島" />
+        </FieldLabel>
 
         <FieldLabel label="所在地區">
           <TextInput name="region" defaultValue={site?.region ?? ''} placeholder="台東·綠島" />
@@ -75,6 +79,9 @@ export function DiveSiteForm({site, locale}: {site?: DiveSite | null; locale: st
       <FieldLabel label="Intro (English)">
         <Textarea name="intro_en" rows={4} defaultValue={site?.intro_en ?? ''} />
       </FieldLabel>
+      <FieldLabel label="紹介 (日本語)">
+        <Textarea name="intro_ja" rows={4} defaultValue={site?.intro_ja ?? ''} />
+      </FieldLabel>
 
       <CoverImageField defaultUrl={site?.cover_image} />
 
@@ -87,21 +94,21 @@ export function DiveSiteForm({site, locale}: {site?: DiveSite | null; locale: st
             <p className="font-en text-xs font-semibold tracking-[0.15em] text-coral">
               {`STORY ${i + 1}`}
             </p>
-            <BilingualField path={`${k}.kicker`} label="小標 Kicker" zh={zh} en={en} placeholderZh="01 / GEOTHERMAL" placeholderEn="01 / GEOTHERMAL" />
-            <BilingualField path={`${k}.title`} label="標題" zh={zh} en={en} placeholderZh="全世界僅三處的海底溫泉" placeholderEn="An undersea hot spring..." />
-            <BilingualField path={`${k}.body`} label="內文" textarea rows={3} zh={zh} en={en} placeholderZh="朝日溫泉海域..." placeholderEn="Sulphurous water..." />
+            <BilingualField path={`${k}.kicker`} label="小標 Kicker" zh={zh} en={en} ja={ja} placeholderZh="01 / GEOTHERMAL" placeholderEn="01 / GEOTHERMAL" />
+            <BilingualField path={`${k}.title`} label="標題" zh={zh} en={en} ja={ja} placeholderZh="全世界僅三處的海底溫泉" placeholderEn="An undersea hot spring..." />
+            <BilingualField path={`${k}.body`} label="內文" textarea rows={3} zh={zh} en={en} ja={ja} placeholderZh="朝日溫泉海域..." placeholderEn="Sulphurous water..." />
           </div>
         ))}
       </ContentSection>
 
       <ContentSection title="海洋生物" hint="共 4 格，每格包含主名稱與副名稱。">
-        <BilingualField path="seaTitle" label="區塊標題" zh={zh} en={en} placeholderZh="綠島常見海洋生物" placeholderEn="Marine life at Ludao" />
+        <BilingualField path="seaTitle" label="區塊標題" zh={zh} en={en} ja={ja} placeholderZh="綠島常見海洋生物" placeholderEn="Marine life at Ludao" />
         <div className="grid gap-3 md:grid-cols-2">
           {SEA.map((k, i) => (
             <div key={k} className="flex flex-col gap-2 rounded-md border border-gray-200 bg-white p-3">
               <p className="font-en text-[10px] font-semibold tracking-[0.15em] text-gray-500">{`SEA ${i + 1}`}</p>
-              <BilingualField path={`sea.${k}.name`} label="主名稱" zh={zh} en={en} placeholderZh="綠蠵龜" placeholderEn="Green sea turtle" />
-              <BilingualField path={`sea.${k}.en`} label="副標 / 別名" zh={zh} en={en} placeholderZh="Green Sea Turtle" placeholderEn="綠蠵龜" />
+              <BilingualField path={`sea.${k}.name`} label="主名稱" zh={zh} en={en} ja={ja} placeholderZh="綠蠵龜" placeholderEn="Green sea turtle" />
+              <BilingualField path={`sea.${k}.en`} label="副標 / 別名" zh={zh} en={en} ja={ja} placeholderZh="Green Sea Turtle" placeholderEn="綠蠵龜" />
             </div>
           ))}
         </div>

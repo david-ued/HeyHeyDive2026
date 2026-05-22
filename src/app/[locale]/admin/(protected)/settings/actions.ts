@@ -16,8 +16,10 @@ export async function saveSiteSettingsAction(
     id: 'default' as const,
     meta_title: nullable(formData.get('meta_title')),
     meta_title_en: nullable(formData.get('meta_title_en')),
+    meta_title_ja: nullable(formData.get('meta_title_ja')),
     meta_description: nullable(formData.get('meta_description')),
     meta_description_en: nullable(formData.get('meta_description_en')),
+    meta_description_ja: nullable(formData.get('meta_description_ja')),
     favicon_url: nullable(formData.get('favicon_url')),
     og_image_url: nullable(formData.get('og_image_url'))
   };

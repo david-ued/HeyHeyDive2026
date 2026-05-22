@@ -6,8 +6,10 @@ const EMPTY: SiteSettings = {
   id: 'default',
   meta_title: null,
   meta_title_en: null,
+  meta_title_ja: null,
   meta_description: null,
   meta_description_en: null,
+  meta_description_ja: null,
   favicon_url: null,
   og_image_url: null,
   updated_at: ''

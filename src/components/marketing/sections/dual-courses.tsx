@@ -42,7 +42,7 @@ export async function DualCourses() {
             return (
             <article
               key={course.id}
-              className={`hover-lift flex flex-col overflow-hidden rounded-lg bg-navy-800 text-white ${derived === 'closed' ? 'opacity-70' : ''}`}
+              className={`matte hover-lift flex flex-col overflow-hidden rounded-lg bg-navy-800 text-white ${derived === 'closed' ? 'opacity-70' : ''}`}
             >
               <div
                 className={`relative h-60 w-full bg-gradient-to-br ${ACCENT[course.system] ?? ACCENT.other}`}
@@ -73,10 +73,10 @@ export async function DualCourses() {
               </div>
               <div className="flex flex-col gap-4 p-7">
                 <h3 className="font-heading text-xl font-bold">
-                  {pickText(course.title, course.title_en, locale)}
+                  {pickText(course.title, course.title_en, course.title_ja, locale)}
                 </h3>
                 <p className="text-sm leading-relaxed text-gray-300">
-                  {pickText(course.description, course.description_en, locale)}
+                  {pickText(course.description, course.description_en, course.description_ja, locale)}
                 </p>
                 <Link
                   href={`/courses/${course.slug}`}

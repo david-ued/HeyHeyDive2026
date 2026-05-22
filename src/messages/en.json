@@ -162,6 +162,7 @@
   "Trip": {
     "shared": {
       "book": "Book", "bookNow": "Book now",
+      "backToSchedule": "Back to schedule",
       "overview": "Trip overview", "statDays": "Days", "statSites": "Dive sites", "statTanks": "Tanks", "statCert": "Min. cert",
       "chooseBatch": "Choose a batch", "itinerary": "Day-by-day itinerary",
       "includes": "What's included", "included": "Included", "notIncluded": "Not included",
@@ -450,6 +451,8 @@
     "kicker": "FAQ",
     "title": "Frequently asked",
     "subtitle": "Courses, trips, gear, payment — the questions we hear the most. Can't find what you need? Hit us up on LINE.",
+    "tabsAriaLabel": "FAQ categories",
+    "empty": "We're still compiling this — ping us on LINE in the meantime.",
     "categories": {
       "courses": {
         "kicker": "COURSES",
@@ -533,6 +536,8 @@
         "trips": "Trips",
         "diveSites": "Dive sites",
         "courses": "Courses",
+        "merch": "Merch",
+        "faqs": "FAQ",
         "users": "Users",
         "settings": "Settings"
       }

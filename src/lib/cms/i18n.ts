@@ -1,15 +1,17 @@
-// Locale-aware accessors for bilingual CMS fields.
-// zh-TW is the canonical text; *_en is optional and falls back to the zh value.
+// Locale-aware accessors for trilingual CMS fields.
+// zh-TW is the canonical text; *_en and *_ja are optional and fall back to zh.
 
-export type Locale = 'zh-TW' | 'en';
+export type Locale = 'zh-TW' | 'en' | 'ja';
 
 export function pickText(
   zh: string | null | undefined,
   en: string | null | undefined,
+  ja: string | null | undefined,
   locale: string
 ): string {
-  if (locale === 'en') return (en || zh || '').trim();
-  return (zh || en || '').trim();
+  if (locale === 'en') return (en || zh || ja || '').trim();
+  if (locale === 'ja') return (ja || zh || en || '').trim();
+  return (zh || en || ja || '').trim();
 }
 
 export function formatTripDates(
@@ -27,6 +29,16 @@ export function formatTripDates(
     return sameMonth
       ? `${m} ${d1} – ${d2}`
       : `${m} ${d1} – ${end.toLocaleString('en-US', {month: 'short'})} ${d2}`;
+  }
+  if (locale === 'ja') {
+    const m1 = start.getUTCMonth() + 1;
+    const m2 = end.getUTCMonth() + 1;
+    const d1 = start.getUTCDate();
+    const d2 = end.getUTCDate();
+    const sameMonth = m1 === m2;
+    return sameMonth
+      ? `${m1}月${d1}日 – ${d2}日`
+      : `${m1}月${d1}日 – ${m2}月${d2}日`;
   }
   const mm1 = String(start.getUTCMonth() + 1).padStart(2, '0');
   const dd1 = String(start.getUTCDate()).padStart(2, '0');

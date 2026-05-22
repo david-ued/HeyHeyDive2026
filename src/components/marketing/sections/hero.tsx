@@ -12,7 +12,7 @@ export function HomeHero() {
   const hasHeroImage = existsSync(join(process.cwd(), 'public', 'images', 'hero.jpg'));
 
   return (
-    <section className="relative isolate overflow-hidden bg-navy-900">
+    <section className="matte matte-strong relative isolate overflow-hidden bg-navy-900">
       {hasHeroImage ? (
         <div
           aria-hidden

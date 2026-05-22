@@ -25,7 +25,11 @@ function monthInfo(locale: string, year: number, month1to12: number): CalendarMo
   const leadingBlanks = firstDay.getUTCDay();
   const daysInMonth = lastDay.getUTCDate();
   const monthLabel =
-    locale === 'zh-TW' ? `${ZH_MONTH[month1to12 - 1]}月` : EN_MONTH[month1to12 - 1];
+    locale === 'zh-TW'
+      ? `${ZH_MONTH[month1to12 - 1]}月`
+      : locale === 'ja'
+        ? `${month1to12}月`
+        : EN_MONTH[month1to12 - 1];
   const monthLabelEn = `${EN_MONTH[month1to12 - 1]} ${year}`;
   return {month: month1to12, year, leadingBlanks, daysInMonth, monthLabel, monthLabelEn};
 }
@@ -82,7 +86,7 @@ export default async function CalendarPage({
   const {view: viewParam, ym: ymParam} = await searchParams;
   const t = await getTranslations('Calendar');
 
-  const view: CalendarView = viewParam === 'list' ? 'list' : 'calendar';
+  const view: CalendarView = viewParam === 'calendar' ? 'calendar' : 'list';
   const now = new Date();
   const parsed = parseYm(ymParam);
   const year = parsed?.year ?? now.getUTCFullYear();
@@ -204,7 +208,7 @@ export default async function CalendarPage({
       </section>
 
       {/* CTA */}
-      <section className="reveal bg-navy-900 text-white">
+      <section className="matte reveal bg-navy-900 text-white">
         <div className="mx-auto flex max-w-[900px] flex-col items-center gap-4 px-6 py-16 text-center">
           <h2 className="font-heading text-2xl font-bold md:text-[28px]">
             {t('cta.title')}

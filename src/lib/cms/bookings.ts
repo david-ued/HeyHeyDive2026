@@ -4,6 +4,7 @@ import {revalidatePath} from 'next/cache';
 import {createAdminClient} from '@/lib/supabase/admin-client';
 import {createClient} from '@/lib/supabase/server';
 import {requireAdminAction} from '@/lib/supabase/auth-actions';
+import {ensureMemberAccountForBooking} from './members';
 import type {BookingItemType, BookingStatus} from './types';
 
 export type BookingFormState = {
@@ -85,7 +86,10 @@ export async function createBookingAction(
   return {ok: true, error: null};
 }
 
-export type BookingUpdateState = {error: string | null};
+export type BookingUpdateState = {
+  error: string | null;
+  credential?: {email: string; password: string} | null;
+};
 
 /**
  * Lightweight status update for inline controls (e.g. the per-trip booking list).
@@ -96,7 +100,7 @@ export async function quickUpdateBookingStatusAction(
   id: string,
   status: BookingStatus,
   locale: string
-): Promise<{error: string | null}> {
+): Promise<{error: string | null; credential?: {email: string; password: string} | null}> {
   await requireAdminAction();
   if (!id) return {error: '缺少 booking id'};
   if (!(STATUSES as string[]).includes(status)) {
@@ -111,13 +115,21 @@ export async function quickUpdateBookingStatusAction(
     .maybeSingle();
   if (error) return {error: error.message};
 
+  let credential: {email: string; password: string} | null = null;
+  if (status === 'confirmed') {
+    const res = await ensureMemberAccountForBooking(id);
+    if (res.ok && res.created && res.password) {
+      credential = {email: res.email, password: res.password};
+    }
+  }
+
   revalidatePath(`/${locale}/admin/bookings`);
   revalidatePath(`/${locale}/admin/bookings/${id}`);
   if (updated?.item_slug) {
     revalidatePath(`/${locale}/admin/bookings/by-trip/${updated.item_slug}`);
   }
   revalidatePath(`/${locale}/admin/bookings/by-trip`);
-  return {error: null};
+  return {error: null, credential};
 }
 
 /**
@@ -146,9 +158,17 @@ export async function updateBookingStatusAction(
     .eq('id', id);
   if (error) return {error: error.message};
 
+  let credential: {email: string; password: string} | null = null;
+  if (status === 'confirmed') {
+    const res = await ensureMemberAccountForBooking(id);
+    if (res.ok && res.created && res.password) {
+      credential = {email: res.email, password: res.password};
+    }
+  }
+
   revalidatePath(`/${locale}/admin/bookings`);
   revalidatePath(`/${locale}/admin/bookings/${id}`);
-  return {error: null};
+  return {error: null, credential};
 }
 
 function nullable(v: FormDataEntryValue | null): string | null {

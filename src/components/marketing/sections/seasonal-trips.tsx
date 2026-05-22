@@ -30,6 +30,14 @@ const DESTINATION_LABEL_EN: Record<TripDestination, string> = {
   other: 'Other'
 };
 
+const DESTINATION_LABEL_JA: Record<TripDestination, string> = {
+  ludao: '緑島',
+  lanyu: '蘭嶼',
+  liuqiu: '小琉球',
+  kenting: '墾丁',
+  other: 'その他'
+};
+
 export async function SeasonalTrips() {
   const t = await getTranslations('Home.trips');
   const locale = await getLocale();
@@ -48,7 +56,7 @@ export async function SeasonalTrips() {
   if (trips.length === 0) return null;
 
   return (
-    <section className="reveal bg-navy-900">
+    <section className="matte reveal bg-navy-900">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-10 px-6 py-20 md:px-20">
         <header className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-end">
           <div>
@@ -73,7 +81,9 @@ export async function SeasonalTrips() {
             const label =
               locale === 'en'
                 ? DESTINATION_LABEL_EN[dest]
-                : DESTINATION_LABEL_ZH[dest];
+                : locale === 'ja'
+                  ? DESTINATION_LABEL_JA[dest]
+                  : DESTINATION_LABEL_ZH[dest];
             const derived = deriveTripStatus(trip, now);
             const dimmed = derived === 'expired' || derived === 'closed';
             return (
@@ -104,7 +114,7 @@ export async function SeasonalTrips() {
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-5">
                   <h3 className="font-heading text-lg font-bold text-white">
-                    {pickText(trip.title, trip.title_en, locale)}
+                    {pickText(trip.title, trip.title_en, trip.title_ja, locale)}
                   </h3>
                   <div className="flex flex-col gap-1.5 font-en text-xs text-gray-300">
                     <span className="inline-flex items-center gap-1.5">

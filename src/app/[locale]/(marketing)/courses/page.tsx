@@ -5,7 +5,7 @@ export default async function CoursesIndex() {
   const t = await getTranslations('Home.courses');
   return (
     <>
-      <section className="bg-navy-900 pt-24 pb-12 text-center md:pt-32">
+      <section className="matte matte-soft bg-navy-900 pt-24 pb-12 text-center md:pt-32">
         <div className="mx-auto max-w-[1200px] px-6 md:px-20">
           <p
             className="animate-fade-up font-en text-xs font-bold tracking-[0.3em] text-gold"

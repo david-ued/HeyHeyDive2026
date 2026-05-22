@@ -32,7 +32,7 @@ export function CalendarViewToggle({
             'inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-sm font-medium transition',
             view === 'calendar'
               ? 'bg-navy-900 text-white shadow'
-              : 'text-gray-600 hover:text-navy-900'
+              : 'text-gray-600 hover:bg-gray-50 hover:text-navy-900'
           )}
         >
           <CalendarDays className="h-4 w-4" />
@@ -46,7 +46,7 @@ export function CalendarViewToggle({
             'inline-flex items-center gap-1.5 rounded-full px-5 py-2 text-sm font-medium transition',
             view === 'list'
               ? 'bg-navy-900 text-white shadow'
-              : 'text-gray-600 hover:text-navy-900'
+              : 'text-gray-600 hover:bg-gray-50 hover:text-navy-900'
           )}
         >
           <List className="h-4 w-4" />

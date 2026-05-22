@@ -66,6 +66,28 @@ export function SettingsForm({settings}: {settings: SiteSettings}) {
 
       <section className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-6">
         <header>
+          <h2 className="font-heading text-lg font-bold text-navy-900">SEO Meta (日本語)</h2>
+          <p className="mt-1 text-xs text-gray-500">/ja ルートで使用されます。</p>
+        </header>
+        <FieldLabel label="Meta Title (日本語)">
+          <TextInput
+            name="meta_title_ja"
+            defaultValue={settings.meta_title_ja ?? ''}
+            placeholder="HeyHeyDive ヘイヘイダイブ"
+          />
+        </FieldLabel>
+        <FieldLabel label="Meta Description (日本語)">
+          <Textarea
+            name="meta_description_ja"
+            rows={3}
+            defaultValue={settings.meta_description_ja ?? ''}
+            placeholder="台湾の四大ダイブスポット — 小琉球・緑島・蘭嶼・墾丁 — のツアーとAIDA/PADI認定コース。"
+          />
+        </FieldLabel>
+      </section>
+
+      <section className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-6">
+        <header>
           <h2 className="font-heading text-lg font-bold text-navy-900">圖示 / 預覽圖</h2>
           <p className="mt-1 text-xs text-gray-500">
             填入完整 URL（建議放 /public/images/ 後用 <code>/images/xxx.png</code>）。

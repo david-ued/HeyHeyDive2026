@@ -5,7 +5,7 @@ import {useFormStatus} from 'react-dom';
 import {updateBookingStatusAction, type BookingUpdateState} from '@/lib/cms/bookings';
 import type {BookingStatus} from '@/lib/cms/types';
 
-const initial: BookingUpdateState = {error: null};
+const initial: BookingUpdateState = {error: null, credential: null};
 
 const STATUS_OPTIONS: Array<{value: BookingStatus; label: string; hint: string}> = [
   {value: 'pending', label: '尚未聯絡', hint: '剛送出，尚未跟使用者接觸'},
@@ -70,6 +70,18 @@ export function BookingStatusForm({
         <p className="rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700">
           {state.error}
         </p>
+      ) : null}
+
+      {state.credential ? (
+        <div className="rounded-md border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+          <p className="mb-1 font-medium">已建立會員帳號（請複製轉知顧客，此訊息只會出現一次）：</p>
+          <p className="font-en">
+            帳號 <span className="font-semibold">{state.credential.email}</span>
+          </p>
+          <p className="font-en">
+            密碼 <span className="font-semibold">{state.credential.password}</span>
+          </p>
+        </div>
       ) : null}
 
       <SubmitButton />

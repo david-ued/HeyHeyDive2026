@@ -40,8 +40,18 @@ const LABEL_EN: Record<BadgeKey, string> = {
   expired: 'Past'
 };
 
+const LABEL_JA: Record<BadgeKey, string> = {
+  open: '受付中',
+  sold_out: '満員',
+  closed: '終了',
+  draft: '下書き',
+  expired: '過去'
+};
+
 export function statusLabel(status: BadgeKey, locale: string): string {
-  return locale === 'en' ? LABEL_EN[status] : LABEL_ZH[status];
+  if (locale === 'en') return LABEL_EN[status];
+  if (locale === 'ja') return LABEL_JA[status];
+  return LABEL_ZH[status];
 }
 
 // Tailwind classes for the badge pill.

@@ -5,7 +5,7 @@ export default async function DiveSitesIndex() {
   const t = await getTranslations('Home.sites');
   return (
     <>
-      <section className="bg-navy-900 pt-24 pb-12 text-center md:pt-32">
+      <section className="matte matte-soft bg-navy-900 pt-24 pb-12 text-center md:pt-32">
         <div className="mx-auto max-w-[1200px] px-6 md:px-20">
           <h1
             className="animate-fade-up font-heading text-4xl font-bold text-white md:text-5xl"

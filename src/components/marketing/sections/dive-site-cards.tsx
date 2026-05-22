@@ -73,18 +73,20 @@ export async function DiveSiteCards() {
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <h3 className="font-heading text-xl font-bold">
-                      {pickText(site.name, site.name_en, locale)}
+                      {pickText(site.name, site.name_en, site.name_ja, locale)}
                     </h3>
                     <p className="font-en text-xs tracking-wider text-gray-500">
                       {locale === 'en'
                         ? site.name_en ?? site.name
-                        : site.region ?? ''}
+                        : locale === 'ja'
+                          ? site.name_ja ?? site.name
+                          : site.region ?? ''}
                     </p>
                   </div>
                   <ArrowUpRight className="h-5 w-5 text-gray-500 transition group-hover:text-coral" />
                 </div>
                 <p className="text-sm leading-relaxed text-gray-700">
-                  {pickText(site.intro, site.intro_en, locale)}
+                  {pickText(site.intro, site.intro_en, site.intro_ja, locale)}
                 </p>
               </div>
             </Link>

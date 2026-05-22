@@ -189,6 +189,7 @@
   "Trip": {
     "shared": {
       "book": "立即報名", "bookNow": "立即報名",
+      "backToSchedule": "返回報名時程",
       "overview": "行程概覽", "statDays": "天數", "statSites": "潛點數", "statTanks": "氣瓶數", "statCert": "最低證照",
       "chooseBatch": "選擇梯次", "itinerary": "逐日行程",
       "includes": "費用包含 / 不包含", "included": "費用包含", "notIncluded": "費用不包含",
@@ -489,6 +490,8 @@
     "kicker": "FAQ",
     "title": "常見問題",
     "subtitle": "課程、行程、裝備、付款——把你最想問的整理在這裡。找不到答案的話，歡迎透過 LINE 直接問我們。",
+    "tabsAriaLabel": "FAQ 分類",
+    "empty": "內容整理中，先透過 LINE 直接問我們吧。",
     "categories": {
       "courses": {
         "kicker": "COURSES",
@@ -572,6 +575,8 @@
         "trips": "行程管理",
         "diveSites": "潛點管理",
         "courses": "課程管理",
+        "merch": "限量周邊",
+        "faqs": "常見問題",
         "users": "會員管理",
         "settings": "設定"
       }

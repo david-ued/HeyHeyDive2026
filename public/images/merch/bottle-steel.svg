@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <linearGradient id="bg-bottle" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e9f1f7"/>
+      <stop offset="100%" stop-color="#cfdfee"/>
+    </linearGradient>
+    <linearGradient id="bottle" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3aa1d6"/>
+      <stop offset="50%" stop-color="#bfe0f3"/>
+      <stop offset="100%" stop-color="#1b6fa8"/>
+    </linearGradient>
+    <linearGradient id="lid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1f3a"/>
+      <stop offset="100%" stop-color="#3a4a66"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg-bottle)"/>
+  <!-- shadow -->
+  <ellipse cx="400" cy="700" rx="120" ry="18" fill="#000" opacity="0.15"/>
+  <!-- bottle -->
+  <g transform="translate(400 400)">
+    <!-- cap -->
+    <rect x="-60" y="-260" width="120" height="50" rx="6" fill="url(#lid)"/>
+    <rect x="-50" y="-220" width="100" height="14" fill="url(#lid)"/>
+    <!-- neck -->
+    <rect x="-50" y="-210" width="100" height="20" fill="#bfe0f3" stroke="#0b1f3a" stroke-width="2"/>
+    <!-- body -->
+    <path d="M-90 -190 Q-120 -150 -120 -100 L-120 240 Q-120 290 -60 290 L60 290 Q120 290 120 240 L120 -100 Q120 -150 90 -190 Z" fill="url(#bottle)" stroke="#0b1f3a" stroke-width="3"/>
+    <!-- highlight -->
+    <rect x="-80" y="-120" width="14" height="320" rx="6" fill="#fff" opacity="0.35"/>
+    <!-- label -->
+    <rect x="-90" y="-40" width="180" height="180" rx="8" fill="#fef6ec" opacity="0.95" stroke="#0b1f3a" stroke-width="2"/>
+    <text font-family="Inter, system-ui" font-weight="900" font-size="34" fill="#0b1f3a" text-anchor="middle" y="20">heyhey</text>
+    <text font-family="Inter, system-ui" font-weight="700" font-size="12" letter-spacing="8" fill="#e85b3c" text-anchor="middle" y="50">SEA · BOTTLE</text>
+    <path d="M-60 80 Q-30 65 0 80 T60 80" stroke="#e85b3c" stroke-width="3" fill="none"/>
+  </g>
+  <text x="40" y="60" font-family="Inter, system-ui" font-weight="700" font-size="13" letter-spacing="4" fill="#0b1f3a">STAINLESS · 600ML</text>
+</svg>

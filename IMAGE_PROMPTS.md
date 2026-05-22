@@ -131,3 +131,24 @@ Scuba diver in full gear hovering horizontally over a vibrant coral reef, bubble
 - 想統一色調 → 加 `cinematic blue and teal color grading`
 
 如果某張圖怎麼產都不滿意，貼回來我幫你改 prompt。
+
+---
+
+## 🛍 限量周邊（Merch）封面圖
+
+目前 seed migration 預設使用 `public/images/merch/*.svg`（簡約插畫，先放上去先讓商品上架）。
+要換成寫實照片時：
+
+1. 用 ImageFX 用下列 prompts 產出 1:1 圖
+2. 後台 `/admin/merch` → 點商品 → 上傳新封面（會自動覆蓋）
+
+| 商品 | Slug | Prompt（複製貼到 ImageFX） |
+|------|------|-------------------------------|
+| 海洋藍經典 T-shirt | `tee-ocean` | `Studio product photography of an ocean blue heavyweight cotton t-shirt folded neatly on a sandy beach background, soft natural lighting, embroidered yellow "heyhey DIVE" chest logo, minimalist, premium quality, 1:1 square, hyper realistic` |
+| 珊瑚色海灘巾 | `towel-coral` | `Top-down product photo of a coral orange striped beach towel folded with a small yellow logo patch in the center, natural linen background, soft shadow, summer mood, photorealistic, 1:1 square` |
+| 帆布托特包 | `tote-canvas` | `Studio product photo of a natural canvas tote bag with screen-printed navy "heyhey DIVE TAIWAN" text on the front, hanging against a deep ocean blue wall, soft side light, premium quality, 1:1 square` |
+| 深海軍藍棒球帽 | `cap-navy` | `Studio product photography of a deep navy unstructured dad cap with subtle yellow "hh DIVE" embroidered front, on a pastel cream background, soft natural light, no person, 1:1 square, hyper realistic` |
+| 不鏽鋼保溫瓶 | `bottle-steel` | `Studio product photo of a brushed stainless steel insulated water bottle in ocean gradient blue with a small cream label reading "heyhey · SEA BOTTLE", soft studio lighting, light gradient background, 1:1 square, photorealistic` |
+| 潛旅貼紙包 | `stickers-pack` | `Top-down flat lay of 4 vinyl die-cut stickers spread on a warm cream paper background: a yellow turtle circle, a coral orange "heyhey DIVE" rectangle, a yellow Ludao hot-spring badge, and a blue "BREATHE" bubble badge. Soft daylight, 1:1 square, photorealistic` |
+
+> 換圖後，商品詳情頁仍可顯示 SVG 作為 fallback gallery（多角度示意）。

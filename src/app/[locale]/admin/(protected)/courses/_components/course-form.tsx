@@ -33,6 +33,7 @@ export function CourseForm({course, locale}: {course?: Course | null; locale: st
   const isEdit = !!course;
   const zh = course?.content_zh ?? null;
   const en = course?.content_en ?? null;
+  const ja = course?.content_ja ?? null;
 
   return (
     <form action={formAction} className="flex flex-col gap-6" encType="multipart/form-data">
@@ -76,6 +77,9 @@ export function CourseForm({course, locale}: {course?: Course | null; locale: st
         <FieldLabel label="Title (English)">
           <TextInput name="title_en" defaultValue={course?.title_en ?? ''} placeholder="AIDA 2 Freediver" />
         </FieldLabel>
+        <FieldLabel label="タイトル (日本語)">
+          <TextInput name="title_ja" defaultValue={course?.title_ja ?? ''} placeholder="AIDA 2 フリーダイバー" />
+        </FieldLabel>
 
         <FieldLabel label="課程時長">
           <TextInput name="duration" defaultValue={course?.duration ?? ''} placeholder="3 天" />
@@ -98,6 +102,9 @@ export function CourseForm({course, locale}: {course?: Course | null; locale: st
       <FieldLabel label="Description (English)">
         <Textarea name="description_en" rows={4} defaultValue={course?.description_en ?? ''} />
       </FieldLabel>
+      <FieldLabel label="紹介 (日本語)">
+        <Textarea name="description_ja" rows={4} defaultValue={course?.description_ja ?? ''} />
+      </FieldLabel>
 
       <CoverImageField defaultUrl={course?.cover_image} />
 
@@ -105,23 +112,23 @@ export function CourseForm({course, locale}: {course?: Course | null; locale: st
         {STEPS.map((s) => (
           <div key={s.key} className="flex flex-col gap-3 rounded-md border border-gray-200 bg-white p-4">
             <p className="font-en text-xs font-semibold tracking-[0.15em] text-coral">{s.label}</p>
-            <BilingualField path={`curriculum.steps.${s.key}.title`} label="小節標題" zh={zh} en={en} placeholderZh="Day 1 — 理論課程" placeholderEn="Day 1 — Theory" />
-            <BilingualField path={`curriculum.steps.${s.key}.body`} label="內容說明" textarea rows={3} zh={zh} en={en} />
+            <BilingualField path={`curriculum.steps.${s.key}.title`} label="小節標題" zh={zh} en={en} ja={ja} placeholderZh="Day 1 — 理論課程" placeholderEn="Day 1 — Theory" />
+            <BilingualField path={`curriculum.steps.${s.key}.body`} label="內容說明" textarea rows={3} zh={zh} en={en} ja={ja} />
           </div>
         ))}
       </ContentSection>
 
       <ContentSection title="費用包含" hint="價格區塊「包含項目」的 4 個條列。">
         {INCLUDES.map((k, i) => (
-          <BilingualField key={k} path={`price.includes.${k}`} label={`項目 ${i + 1}`} zh={zh} en={en} placeholderZh="教材費" placeholderEn="Course materials" />
+          <BilingualField key={k} path={`price.includes.${k}`} label={`項目 ${i + 1}`} zh={zh} en={en} ja={ja} placeholderZh="教材費" placeholderEn="Course materials" />
         ))}
       </ContentSection>
 
       <ContentSection title="裝備" hint="4 個固定欄位，每個包含名稱與備註。">
         {EQUIPMENT.map((k, i) => (
           <div key={k} className="grid gap-3 md:grid-cols-[1fr_1fr] md:gap-3 rounded-md border border-gray-200 bg-white p-3">
-            <BilingualField path={`equipment.${k}.name`} label={`裝備 ${i + 1} 名稱`} zh={zh} en={en} placeholderZh="蛙鏡" placeholderEn="Mask" />
-            <BilingualField path={`equipment.${k}.note`} label="備註" zh={zh} en={en} placeholderZh="課程提供" placeholderEn="Provided" />
+            <BilingualField path={`equipment.${k}.name`} label={`裝備 ${i + 1} 名稱`} zh={zh} en={en} ja={ja} placeholderZh="蛙鏡" placeholderEn="Mask" />
+            <BilingualField path={`equipment.${k}.note`} label="備註" zh={zh} en={en} ja={ja} placeholderZh="課程提供" placeholderEn="Provided" />
           </div>
         ))}
       </ContentSection>
@@ -129,8 +136,8 @@ export function CourseForm({course, locale}: {course?: Course | null; locale: st
       <ContentSection title="常見問題 FAQ" hint="4 組固定問答。">
         {FAQ.map((k, i) => (
           <div key={k} className="flex flex-col gap-2 rounded-md border border-gray-200 bg-white p-3">
-            <BilingualField path={`faq.${k}.q`} label={`問題 ${i + 1}`} zh={zh} en={en} placeholderZh="課程包含什麼？" placeholderEn="What is included?" />
-            <BilingualField path={`faq.${k}.a`} label="回答" textarea rows={2} zh={zh} en={en} />
+            <BilingualField path={`faq.${k}.q`} label={`問題 ${i + 1}`} zh={zh} en={en} ja={ja} placeholderZh="課程包含什麼？" placeholderEn="What is included?" />
+            <BilingualField path={`faq.${k}.a`} label="回答" textarea rows={2} zh={zh} en={en} ja={ja} />
           </div>
         ))}
       </ContentSection>

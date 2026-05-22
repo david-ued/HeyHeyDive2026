@@ -15,7 +15,7 @@ export function SiteFooter() {
   const tNav = useTranslations('Nav');
 
   return (
-    <footer className="bg-navy-900 text-white">
+    <footer className="matte bg-navy-900 text-white">
       {/* Desktop */}
       <div className="hidden md:block mx-auto max-w-[1440px] px-16 py-12">
         <div className="flex gap-8 items-start">

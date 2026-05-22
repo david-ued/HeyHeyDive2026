@@ -22,7 +22,7 @@ export async function upsertDiveSiteAction(
 
   const supabase = await createClient();
   const existing = id
-    ? (await supabase.from('dive_sites').select('content_zh, content_en').eq('id', id).maybeSingle()).data
+    ? (await supabase.from('dive_sites').select('content_zh, content_en, content_ja').eq('id', id).maybeSingle()).data
     : null;
 
   const file = formData.get('cover_image_file');
@@ -35,20 +35,24 @@ export async function upsertDiveSiteAction(
 
   const contentZh = mergeContentFromFormData(formData, 'cz', existing?.content_zh ?? null);
   const contentEn = mergeContentFromFormData(formData, 'ce', existing?.content_en ?? null);
+  const contentJa = mergeContentFromFormData(formData, 'cj', existing?.content_ja ?? null);
 
   const payload = {
     slug,
     name: String(formData.get('name') ?? '').trim(),
     name_en: nullable(formData.get('name_en')),
+    name_ja: nullable(formData.get('name_ja')),
     region: nullable(formData.get('region')),
     temp: nullable(formData.get('temp')),
     visibility: nullable(formData.get('visibility')),
     intro: nullable(formData.get('intro')),
     intro_en: nullable(formData.get('intro_en')),
+    intro_ja: nullable(formData.get('intro_ja')),
     cover_image: coverImageUrl,
     display_order: toInt(formData.get('display_order'), 0),
     content_zh: contentZh,
     content_en: contentEn,
+    content_ja: contentJa,
     status: requireEnum(formData.get('status'), STATUSES, 'status')
   };
 

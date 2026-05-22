@@ -1,6 +1,6 @@
 'use client';
 
-import {useMemo, useState} from 'react';
+import {useMemo} from 'react';
 import {ChevronLeft, ChevronRight, Calendar as CalIcon} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
 import {Link} from '@/i18n/navigation';
@@ -41,30 +41,16 @@ const KIND_CHIP: Record<TripKind, string> = {
   other: 'bg-gray-100 text-gray-700 border-gray-200'
 };
 
-const DEST_SHORT: Record<Destination, {zh: string; en: string}> = {
-  ludao: {zh: '綠島', en: 'Ludao'},
-  lanyu: {zh: '蘭嶼', en: 'Lanyu'},
-  liuqiu: {zh: '小琉球', en: 'Liuqiu'},
-  kenting: {zh: '墾丁', en: 'Kenting'},
-  other: {zh: '其他', en: 'Other'},
-  mixed: {zh: '多地', en: 'Mixed'}
+const DEST_SHORT: Record<Destination, {zh: string; en: string; ja: string}> = {
+  ludao: {zh: '綠島', en: 'Ludao', ja: '緑島'},
+  lanyu: {zh: '蘭嶼', en: 'Lanyu', ja: '蘭嶼'},
+  liuqiu: {zh: '小琉球', en: 'Liuqiu', ja: '小琉球'},
+  kenting: {zh: '墾丁', en: 'Kenting', ja: '墾丁'},
+  other: {zh: '其他', en: 'Other', ja: 'その他'},
+  mixed: {zh: '多地', en: 'Mixed', ja: '複数'}
 };
 
 const MAX_VISIBLE = 3;
-
-type Filter = {
-  destination: 'all' | 'liuqiu' | 'ludao' | 'lanyu';
-};
-
-function applyFilter(event: CalendarEvent, f: Filter): boolean {
-  if (
-    f.destination !== 'all' &&
-    event.destination !== 'mixed' &&
-    event.destination !== f.destination
-  )
-    return false;
-  return true;
-}
 
 export function CalendarSection({
   events,
@@ -84,8 +70,8 @@ export function CalendarSection({
 }) {
   const t = useTranslations('Calendar');
   const locale = useLocale();
-  const langKey: 'zh' | 'en' = locale === 'zh-TW' ? 'zh' : 'en';
-  const [filter, setFilter] = useState<Filter>({destination: 'all'});
+  const langKey: 'zh' | 'en' | 'ja' =
+    locale === 'zh-TW' ? 'zh' : locale === 'ja' ? 'ja' : 'en';
 
   const cells: ({day: number; events: CalendarEvent[]} | null)[] = useMemo(() => {
     const out: ({day: number; events: CalendarEvent[]} | null)[] = [];
@@ -98,37 +84,16 @@ export function CalendarSection({
     return out;
   }, [events, month]);
 
-  const visibleEvents = events.filter((e) => applyFilter(e, filter));
-  const matchedCount = visibleEvents.length;
-
   return (
     <section className="bg-off-white text-ink">
       <div className="mx-auto max-w-[1440px] px-6 pb-12 md:px-20 md:pb-16">
-        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-          <div className="inline-flex w-fit overflow-hidden rounded-md border border-gray-200 text-sm">
-            {(['all', 'liuqiu', 'ludao', 'lanyu'] as const).map((k, i) => (
-              <button
-                key={k}
-                type="button"
-                onClick={() => setFilter({destination: k})}
-                className={cn(
-                  'px-4 py-2 font-medium transition md:px-5 md:py-2.5',
-                  filter.destination === k
-                    ? 'bg-navy-900 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100',
-                  i > 0 && 'border-l border-gray-200'
-                )}
-              >
-                {t(`dest.${k}`)}
-              </button>
-            ))}
-          </div>
+        <div className="flex items-center justify-end">
           <p className="font-en text-xs text-gray-500">
-            {t('matchCount', {count: matchedCount})}
+            {t('matchCount', {count: events.length})}
           </p>
         </div>
 
-        <div className="mt-6 overflow-hidden rounded-lg border border-gray-200 bg-white">
+        <div className="mt-3 overflow-hidden rounded-lg border border-gray-200 bg-white">
           <div className="flex items-center justify-between border-b border-gray-200 px-6 py-5">
             <div className="flex items-center gap-3">
               <Link
@@ -184,16 +149,18 @@ export function CalendarSection({
                     );
                   }
                   const isToday = todayDay !== null && c.day === todayDay;
-                  const dayEvents = c.events.filter((e) => applyFilter(e, filter));
+                  const dayEvents = c.events;
                   const visible = dayEvents.slice(0, MAX_VISIBLE);
                   const overflow = dayEvents.length - visible.length;
+                  const hasEvents = dayEvents.length > 0;
 
                   return (
                     <div
                       key={c.day}
                       className={cn(
-                        'relative flex min-h-[110px] flex-col gap-1 border-r border-b border-gray-100 p-1.5',
-                        isToday && 'bg-coral/[0.04] ring-2 ring-coral ring-inset'
+                        'group/cell relative flex min-h-[110px] flex-col gap-1 border-r border-b border-gray-100 p-1.5 transition-colors',
+                        isToday && 'bg-coral/[0.04] ring-2 ring-coral ring-inset',
+                        !isToday && hasEvents && 'hover:bg-gray-50/80'
                       )}
                     >
                       <div className="flex items-center justify-between">
@@ -215,16 +182,18 @@ export function CalendarSection({
                           const duration =
                             locale === 'zh-TW'
                               ? `${event.days}天${event.nights}夜`
-                              : `${event.days}D${event.nights}N`;
+                              : locale === 'ja'
+                                ? `${event.days}日${event.nights}泊`
+                                : `${event.days}D${event.nights}N`;
                           return (
                             <Link
                               key={event.id}
                               href={event.href}
                               title={event.label}
                               className={cn(
-                                'flex items-center gap-1 truncate rounded border px-1.5 py-0.5 text-[10px] font-semibold leading-tight transition hover:brightness-95',
+                                'flex items-center gap-1 truncate rounded border px-1.5 py-0.5 text-[10px] font-semibold leading-tight shadow-sm transition hover:-translate-y-0.5 hover:shadow-md hover:brightness-105',
                                 KIND_CHIP[event.kind],
-                                !isFirst && 'opacity-60'
+                                !isFirst && 'opacity-60 hover:opacity-100'
                               )}
                             >
                               <span className="truncate">{destShort}</span>

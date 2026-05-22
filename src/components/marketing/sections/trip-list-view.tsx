@@ -20,19 +20,19 @@ const KIND_BADGE: Record<string, string> = {
   other: 'bg-gray-100 text-gray-700 border border-gray-200'
 };
 
-const KIND_LABEL: Record<string, {zh: string; en: string}> = {
-  padi: {zh: 'PADI 水肺', en: 'PADI'},
-  aida: {zh: 'AIDA 自由潛水', en: 'AIDA'},
-  experience: {zh: '體驗潛水', en: 'Try-dive'},
-  other: {zh: '其他', en: 'Other'}
+const KIND_LABEL: Record<string, {zh: string; en: string; ja: string}> = {
+  padi: {zh: 'PADI 水肺', en: 'PADI', ja: 'PADI スキューバ'},
+  aida: {zh: 'AIDA 自由潛水', en: 'AIDA', ja: 'AIDA フリーダイビング'},
+  experience: {zh: '體驗潛水', en: 'Try-dive', ja: '体験ダイブ'},
+  other: {zh: '其他', en: 'Other', ja: 'その他'}
 };
 
-const DEST_LABEL: Record<string, {zh: string; en: string}> = {
-  ludao: {zh: '綠島', en: 'Ludao'},
-  lanyu: {zh: '蘭嶼', en: 'Lanyu'},
-  liuqiu: {zh: '小琉球', en: 'Liuqiu'},
-  kenting: {zh: '墾丁', en: 'Kenting'},
-  other: {zh: '其他', en: 'Other'}
+const DEST_LABEL: Record<string, {zh: string; en: string; ja: string}> = {
+  ludao: {zh: '綠島', en: 'Ludao', ja: '緑島'},
+  lanyu: {zh: '蘭嶼', en: 'Lanyu', ja: '蘭嶼'},
+  liuqiu: {zh: '小琉球', en: 'Liuqiu', ja: '小琉球'},
+  kenting: {zh: '墾丁', en: 'Kenting', ja: '墾丁'},
+  other: {zh: '其他', en: 'Other', ja: 'その他'}
 };
 
 function diffDays(startISO: string, endISO: string): number {
@@ -45,21 +45,27 @@ function formatRange(startISO: string, endISO: string, locale: string): string {
   const s = new Date(startISO + 'T00:00:00Z');
   const e = new Date(endISO + 'T00:00:00Z');
   const sameYear = s.getUTCFullYear() === e.getUTCFullYear();
-  const fmt = (d: Date, withYear: boolean) =>
-    locale === 'zh-TW'
-      ? `${withYear ? d.getUTCFullYear() + '/' : ''}${d.getUTCMonth() + 1}/${d.getUTCDate()}`
-      : `${
-          ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][
-            d.getUTCMonth()
-          ]
-        } ${d.getUTCDate()}${withYear ? ', ' + d.getUTCFullYear() : ''}`;
+  const fmt = (d: Date, withYear: boolean) => {
+    if (locale === 'zh-TW') {
+      return `${withYear ? d.getUTCFullYear() + '/' : ''}${d.getUTCMonth() + 1}/${d.getUTCDate()}`;
+    }
+    if (locale === 'ja') {
+      return `${withYear ? d.getUTCFullYear() + '年' : ''}${d.getUTCMonth() + 1}月${d.getUTCDate()}日`;
+    }
+    return `${
+      ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][
+        d.getUTCMonth()
+      ]
+    } ${d.getUTCDate()}${withYear ? ', ' + d.getUTCFullYear() : ''}`;
+  };
   return `${fmt(s, true)} – ${fmt(e, !sameYear)}`;
 }
 
 export function TripListView({trips}: {trips: Trip[]}) {
   const t = useTranslations('Calendar.list');
   const locale = useLocale();
-  const langKey: 'zh' | 'en' = locale === 'zh-TW' ? 'zh' : 'en';
+  const langKey: 'zh' | 'en' | 'ja' =
+    locale === 'zh-TW' ? 'zh' : locale === 'ja' ? 'ja' : 'en';
 
   if (trips.length === 0) {
     return (
@@ -91,10 +97,13 @@ export function TripListView({trips}: {trips: Trip[]}) {
                 <Link
                   href={`/trips/${trip.slug}`}
                   aria-label={t('ariaRow')}
-                  className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition hover:border-coral md:flex-row"
+                  className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-coral hover:shadow-lg md:flex-row"
                 >
                   <div
-                    className={cn('h-32 w-full shrink-0 md:h-auto md:w-[180px]', accent)}
+                    className={cn(
+                      'h-32 w-full shrink-0 transition-transform duration-300 group-hover:scale-[1.04] md:h-auto md:w-[180px]',
+                      accent
+                    )}
                     style={
                       trip.cover_image
                         ? {
@@ -154,11 +163,11 @@ export function TripListView({trips}: {trips: Trip[]}) {
                           'inline-flex items-center gap-1.5 rounded-full px-4 py-2 font-en text-sm font-semibold transition',
                           isSoldOut || isClosed
                             ? 'bg-gray-100 text-gray-500'
-                            : 'bg-coral text-white group-hover:brightness-110'
+                            : 'bg-coral text-white group-hover:brightness-110 group-hover:shadow-md'
                         )}
                       >
                         {isSoldOut ? t('waitlist') : isClosed ? t('closed') : t('book')}
-                        <ArrowRight className="h-4 w-4" />
+                        <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                       </span>
                     </div>
                   </div>
