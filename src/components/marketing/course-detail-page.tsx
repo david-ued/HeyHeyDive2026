@@ -248,12 +248,12 @@ export function CourseDetailPage({
             {t('cta.title')}
           </h2>
           <p className="text-base text-gray-300">{t('cta.subline')}</p>
-          <Link
-            href="/calendar"
+          <a
+            href="#booking-form"
             className="mt-2 inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 font-en text-base font-semibold text-white hover:brightness-110"
           >
             {tShared('enroll')} <ArrowRight className="h-5 w-5" />
-          </Link>
+          </a>
         </div>
       </section>
     </>

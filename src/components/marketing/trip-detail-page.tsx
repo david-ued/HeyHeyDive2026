@@ -69,12 +69,12 @@ export function TripDetailPage({
           <p className="flex-1 truncate font-heading text-base font-bold text-white md:text-lg">
             {t('title')}
           </p>
-          <Link
-            href="#cta"
+          <a
+            href="#booking-form"
             className="shrink-0 rounded-full bg-coral px-5 py-2 font-en text-sm font-semibold text-white transition hover:brightness-110 hover:shadow-md"
           >
             {tShared('book')}
-          </Link>
+          </a>
         </div>
       </div>
 
@@ -327,12 +327,12 @@ export function TripDetailPage({
             {t('cta.title')}
           </h2>
           <p className="text-base text-gray-300 md:text-lg">{t('cta.subline')}</p>
-          <Link
-            href="/contact"
+          <a
+            href="#booking-form"
             className="mt-4 inline-flex items-center gap-2 rounded-full bg-coral px-7 py-3.5 font-en text-base font-semibold text-white hover:brightness-110"
           >
             {tShared('bookNow')} <ArrowRight className="h-5 w-5" />
-          </Link>
+          </a>
         </div>
       </section>
     </>

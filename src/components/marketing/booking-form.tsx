@@ -131,40 +131,6 @@ export function BookingForm({
                   />
                 </Field>
               </div>
-              <Field
-                label={t('field.nationalId')}
-                hint={t('field.nationalIdHint')}
-              >
-                <input
-                  type="text"
-                  name="national_id"
-                  maxLength={40}
-                  className={INPUT}
-                  autoComplete="off"
-                  inputMode="text"
-                />
-              </Field>
-            </Fieldset>
-
-            <Fieldset legend={t('sections.emergency')}>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <Field label={t('field.emergencyName')}>
-                  <input
-                    type="text"
-                    name="emergency_contact_name"
-                    maxLength={80}
-                    className={INPUT}
-                  />
-                </Field>
-                <Field label={t('field.emergencyPhone')}>
-                  <input
-                    type="tel"
-                    name="emergency_contact_phone"
-                    maxLength={40}
-                    className={INPUT}
-                  />
-                </Field>
-              </div>
             </Fieldset>
 
             <Fieldset legend={t('sections.dive')}>

@@ -424,7 +424,6 @@
     "disclaimer": "By submitting, you agree we may use the personal information above to contact you about this booking and to arrange insurance. Personal data is used solely for dive-trip operations and is not shared with third parties.",
     "sections": {
       "contact": "Primary contact",
-      "emergency": "Emergency contact (required for insurance)",
       "dive": "Dive experience",
       "companions": "Companion names"
     },
@@ -434,10 +433,6 @@
       "phone": "Phone",
       "line": "LINE ID",
       "partySize": "Party size",
-      "nationalId": "National ID / passport no.",
-      "nationalIdHint": "Used for insurance; visible only to admins and masked by default",
-      "emergencyName": "Emergency contact name",
-      "emergencyPhone": "Emergency contact phone",
       "certLevel": "Certification level",
       "certLevelHint": "e.g. OW / AOW / Free Diver L1; leave blank if uncertified",
       "certNumber": "Certification number",

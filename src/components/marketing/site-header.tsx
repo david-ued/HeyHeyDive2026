@@ -1,7 +1,7 @@
 'use client';
 
-import {useState} from 'react';
-import {LogIn, Menu, ShieldCheck, X} from 'lucide-react';
+import {useEffect, useRef, useState} from 'react';
+import {Check, ChevronDown, LogIn, Menu, ShieldCheck, X} from 'lucide-react';
 import {InstagramIcon, FacebookIcon, LineIcon, ThreadsIcon} from './brand-icons';
 import {useTranslations, useLocale} from 'next-intl';
 import {Link, usePathname} from '@/i18n/navigation';
@@ -29,7 +29,6 @@ export function SiteHeader({session}: {session: Session}) {
   const t = useTranslations('Nav');
   const pathname = usePathname();
   const locale = useLocale();
-  const otherLocales = routing.locales.filter((l) => l !== locale);
   const [open, setOpen] = useState(false);
 
   return (
@@ -58,19 +57,7 @@ export function SiteHeader({session}: {session: Session}) {
 
         <div className="flex items-center gap-4 text-white">
           <SocialIcons />
-          <div className="flex items-center gap-1.5 font-en text-[11px] font-medium tracking-wide text-white/90">
-            <span>{LOCALE_LABEL[locale]?.short ?? locale}</span>
-            {otherLocales.map((l) => (
-              <Link
-                key={l}
-                href={pathname}
-                locale={l}
-                className="transition hover:text-gold"
-              >
-                / {LOCALE_LABEL[l]?.short ?? l}
-              </Link>
-            ))}
-          </div>
+          <LocaleDropdown locale={locale} pathname={pathname} variant="desktop" />
           <SessionPill session={session} />
         </div>
       </div>
@@ -120,19 +107,13 @@ export function SiteHeader({session}: {session: Session}) {
         <div className="flex items-center justify-center gap-4 py-5 text-white">
           <SocialIcons />
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-2 pb-5 font-en text-xs font-medium tracking-wide text-gray-300">
-          <span>{LOCALE_LABEL[locale]?.long ?? locale}</span>
-          {otherLocales.map((l) => (
-            <Link
-              key={l}
-              href={pathname}
-              locale={l}
-              onClick={() => setOpen(false)}
-              className="transition hover:text-gold"
-            >
-              → {LOCALE_LABEL[l]?.long ?? l}
-            </Link>
-          ))}
+        <div className="flex items-center justify-center pb-5 font-en text-xs font-medium tracking-wide text-gray-300">
+          <LocaleDropdown
+            locale={locale}
+            pathname={pathname}
+            variant="mobile"
+            onNavigate={() => setOpen(false)}
+          />
         </div>
       </div>
     </header>
@@ -180,6 +161,89 @@ function SessionPill({
       )}
       {compact ? t('account') : session.isAdmin ? t('adminConsole') : t('account')}
     </Link>
+  );
+}
+
+function LocaleDropdown({
+  locale,
+  pathname,
+  variant,
+  onNavigate
+}: {
+  locale: string;
+  pathname: string;
+  variant: 'desktop' | 'mobile';
+  onNavigate?: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handle(e: MouseEvent) {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handle);
+    return () => document.removeEventListener('mousedown', handle);
+  }, [open]);
+
+  const label = variant === 'desktop'
+    ? LOCALE_LABEL[locale]?.short ?? locale
+    : LOCALE_LABEL[locale]?.long ?? locale;
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className={cn(
+          'inline-flex items-center gap-1 rounded-full border border-white/20 px-3 py-1.5 font-en font-medium tracking-wide text-white/90 transition hover:border-white/60 hover:bg-white/10',
+          variant === 'desktop' ? 'text-[11px]' : 'text-xs'
+        )}
+      >
+        <span>{label}</span>
+        <ChevronDown
+          className={cn(
+            'h-3.5 w-3.5 transition-transform',
+            open ? 'rotate-180' : ''
+          )}
+        />
+      </button>
+      {open ? (
+        <ul
+          role="listbox"
+          className={cn(
+            'absolute z-50 mt-2 min-w-[140px] overflow-hidden rounded-md border border-white/10 bg-navy-900 shadow-lg',
+            variant === 'desktop' ? 'right-0' : 'left-1/2 -translate-x-1/2'
+          )}
+        >
+          {routing.locales.map((l) => {
+            const isActive = l === locale;
+            return (
+              <li key={l}>
+                <Link
+                  href={pathname}
+                  locale={l}
+                  onClick={() => {
+                    setOpen(false);
+                    onNavigate?.();
+                  }}
+                  className={cn(
+                    'flex items-center justify-between gap-3 px-3.5 py-2 font-en text-xs text-white/90 transition hover:bg-white/10',
+                    isActive && 'text-gold'
+                  )}
+                >
+                  <span>{LOCALE_LABEL[l]?.long ?? l}</span>
+                  {isActive ? <Check className="h-3.5 w-3.5" /> : null}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
   );
 }
 

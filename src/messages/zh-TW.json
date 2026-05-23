@@ -463,7 +463,6 @@
     "disclaimer": "送出即表示同意我們以此聯絡資料與保險用途之個資聯繫你關於本次報名的事宜。所有個資僅供潛旅作業使用，不會提供第三方。",
     "sections": {
       "contact": "主聯絡人資料",
-      "emergency": "緊急聯絡人（保險必填）",
       "dive": "潛水資歷",
       "companions": "同行者姓名"
     },
@@ -473,10 +472,6 @@
       "phone": "手機 / 電話",
       "line": "LINE ID",
       "partySize": "報名人數",
-      "nationalId": "身分證 / 護照號碼",
-      "nationalIdHint": "投保用，僅後台可見且預設遮蔽顯示",
-      "emergencyName": "緊急聯絡人姓名",
-      "emergencyPhone": "緊急聯絡人電話",
       "certLevel": "潛水證照等級",
       "certLevelHint": "如 OW / AOW / Free Diver L1 等；未持照可空白",
       "certNumber": "證照編號",

@@ -37,9 +37,6 @@ export async function createBookingAction(
   const line = nullable(formData.get('contact_line'));
   const notes = nullable(formData.get('notes'));
   const partySize = Math.max(1, Math.min(99, Number(formData.get('party_size') ?? 1) || 1));
-  const nationalId = nullable(formData.get('national_id'));
-  const emergencyName = nullable(formData.get('emergency_contact_name'));
-  const emergencyPhone = nullable(formData.get('emergency_contact_phone'));
   const certLevel = nullable(formData.get('dive_cert_level'));
   const certNumber = nullable(formData.get('dive_cert_number'));
   const companions = formData
@@ -69,9 +66,6 @@ export async function createBookingAction(
     party_size: partySize,
     notes,
     status: 'pending',
-    national_id: nationalId,
-    emergency_contact_name: emergencyName,
-    emergency_contact_phone: emergencyPhone,
     dive_cert_level: certLevel,
     dive_cert_number: certNumber,
     companions: companions.length ? companions : null

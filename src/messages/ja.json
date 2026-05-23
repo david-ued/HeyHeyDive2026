@@ -424,7 +424,6 @@
     "disclaimer": "送信することで、上記の個人情報をご予約と保険の連絡のために使用することに同意したとみなされます。個人情報はダイブツアー運営のみに使用し、第三者と共有しません。",
     "sections": {
       "contact": "主連絡先",
-      "emergency": "緊急連絡先(保険のため必須)",
       "dive": "ダイブ経験",
       "companions": "同行者の氏名"
     },
@@ -434,10 +433,6 @@
       "phone": "電話",
       "line": "LINE ID",
       "partySize": "人数",
-      "nationalId": "身分証 / パスポート番号",
-      "nationalIdHint": "保険のため使用; 管理者のみが閲覧可、デフォルトでマスク表示",
-      "emergencyName": "緊急連絡先の氏名",
-      "emergencyPhone": "緊急連絡先の電話",
       "certLevel": "認定レベル",
       "certLevelHint": "例: OW / AOW / Free Diver L1; 未取得の場合は空欄",
       "certNumber": "認定番号",

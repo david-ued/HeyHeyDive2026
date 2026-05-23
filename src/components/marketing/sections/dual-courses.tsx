@@ -40,9 +40,10 @@ export async function DualCourses() {
           {courses.map((course) => {
             const derived = deriveSimpleStatus(course);
             return (
-            <article
+            <Link
               key={course.id}
-              className={`matte hover-lift flex flex-col overflow-hidden rounded-lg bg-navy-800 text-white ${derived === 'closed' ? 'opacity-70' : ''}`}
+              href={`/courses/${course.slug}`}
+              className={`group matte hover-lift flex flex-col overflow-hidden rounded-lg bg-navy-800 text-white transition ${derived === 'closed' ? 'opacity-70' : ''}`}
             >
               <div
                 className={`relative h-60 w-full bg-gradient-to-br ${ACCENT[course.system] ?? ACCENT.other}`}
@@ -72,20 +73,18 @@ export async function DualCourses() {
                 </p>
               </div>
               <div className="flex flex-col gap-4 p-7">
-                <h3 className="font-heading text-xl font-bold">
+                <h3 className="font-heading text-xl font-bold transition group-hover:text-gold">
                   {pickText(course.title, course.title_en, course.title_ja, locale)}
                 </h3>
                 <p className="text-sm leading-relaxed text-gray-300">
                   {pickText(course.description, course.description_en, course.description_ja, locale)}
                 </p>
-                <Link
-                  href={`/courses/${course.slug}`}
-                  className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-coral px-5 py-2.5 font-en text-sm font-semibold text-white transition hover:brightness-110"
-                >
-                  {t('cta')} <ArrowRight className="h-4 w-4" />
-                </Link>
+                <span className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-coral px-5 py-2.5 font-en text-sm font-semibold text-white transition group-hover:brightness-110">
+                  {t('cta')}{' '}
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                </span>
               </div>
-            </article>
+            </Link>
             );
           })}
         </div>

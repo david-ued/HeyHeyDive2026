@@ -87,9 +87,10 @@ export async function SeasonalTrips() {
             const derived = deriveTripStatus(trip, now);
             const dimmed = derived === 'expired' || derived === 'closed';
             return (
-              <article
+              <Link
                 key={trip.id}
-                className={`hover-lift flex flex-col overflow-hidden rounded-lg bg-navy-700 ${dimmed ? 'opacity-70' : ''}`}
+                href={`/trips/${trip.slug}`}
+                className={`group hover-lift flex flex-col overflow-hidden rounded-lg bg-navy-700 transition ${dimmed ? 'opacity-70' : ''}`}
               >
                 <div
                   className={`relative h-40 w-full bg-gradient-to-br ${GRADIENTS[dest] ?? GRADIENTS.other}`}
@@ -113,7 +114,7 @@ export async function SeasonalTrips() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-5">
-                  <h3 className="font-heading text-lg font-bold text-white">
+                  <h3 className="font-heading text-lg font-bold text-white transition group-hover:text-gold">
                     {pickText(trip.title, trip.title_en, trip.title_ja, locale)}
                   </h3>
                   <div className="flex flex-col gap-1.5 font-en text-xs text-gray-300">
@@ -130,15 +131,13 @@ export async function SeasonalTrips() {
                     <p className="font-en text-base font-bold text-gold">
                       {formatPriceTWD(trip.price_twd)}
                     </p>
-                    <Link
-                      href={`/trips/${trip.slug}`}
-                      className="inline-flex items-center gap-1 text-xs text-white hover:text-gold"
-                    >
-                      {t('book')} <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
+                    <span className="inline-flex items-center gap-1 text-xs text-white transition group-hover:text-gold">
+                      {t('book')}{' '}
+                      <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                    </span>
                   </div>
                 </div>
-              </article>
+              </Link>
             );
           })}
         </div>
